@@ -1,0 +1,11 @@
+@startuml
+title CreateTaskActivity
+'https://plantuml.com/sequence-diagram
+autonumber
+
+Manager -> Manager_Backend_Page: Click create new task
+Manager_Backend_Page -> CreateTaskActivity: Send create new task request
+CreateTaskActivity -> TaskDao : Save newly created task
+CreateTaskActivity -> Manager_Backend_Page: Send created task result
+Manager_Backend_Page -> Manager : Sent to newly created task page
+@enduml
