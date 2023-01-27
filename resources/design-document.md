@@ -4,7 +4,7 @@
 
 ### Problem Statement
 
-The objective of this project is to create a web application using Java, that helps streamline collaboration among users working on projects together. The app will allow managers to create projects and assign tasks, while users can track, prioritize and update progress of their assigned tasks, resulting in an efficient tool that increases project transparency for teams while working together.
+The objective of this project is to create a web application using Java, that helps streamline collaboration among team members working on projects together. The app will allow managers to create projects and assign tasks, while team memberss can track, prioritize and update progress of their assigned tasks, resulting in an efficient tool that increases project transparency for teams while working together.
 
 # Project Scope
 
@@ -63,17 +63,14 @@ The objective of this project is to create a web application using Java, that he
     - ***(Everything below here is hopeful to get done)***
     - taskFiles : List<String>
 
-
 - AssignedTasksTable
     - taskId : String (Partition Key)
     - userId : String (Sort Key)
-
 
 - TaskTimersTable
     - taskId : String (Partition Key)
     - userId : String (Sort Key)
     - taskTimer : Number
-
 
 - TaskFilesTable
     - fileId : String (Partition Key)
