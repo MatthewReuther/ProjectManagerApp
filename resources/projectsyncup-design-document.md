@@ -12,37 +12,35 @@ _The objective of this project is to create a web application using Java, that h
 
 U1. As a manager, I want to create a new project with a given name.
 
-U2. As a manager, I want to create a new, empty task with a given task name, description, due date, and list of assigned team members.
+U2. As a manager, I want to create a new a task, within the project, with a given task name, description, due date, and list of assigned team members.
 
-U3. As a manager, I want to add a task, to a project with a given name.
+U3. As a manager, I want to update a task with different information.
 
-U4. As a manager, I want to update a task with different information.
-
-U5. As a manager, I want to delete a task, that has been added to a project.
+U4. As a manager, I want to delete a task, that has been added to a project.
 
 U5. As a manager, I want to view all projects I have created.
 
 U6. As a team member, I want to view all tasks assigned to me.
 
-U8. As a team member, I want to view all tasks assigned to me in ordered by due date.
+U7. As a team member, I want to view all tasks assigned to me in ordered by due date.
 
-U9. As a team member, I want to be able to update the progress of specific task (Not Started, In Progress, Complete).
+U8. As a team member, I want to be able to update the progress of specific task (Not Started, In Progress, Complete).
+
+U9. As a team member, I want to be able to track the amount of time I spend on each task in order to accurately bill for my work or manage my own productivity.
 
 ### 4. Stretch Goals
-U10. As a team member, I want to be able to track the amount of time I spend on each task in order to accurately bill for my work or manage my own productivity.
+U10. As an Admin, I want to set roles for a user to be a team member or manager. 
 
-U11. As an Admin, I want to set roles for a user to be a team member or manager. 
+U11. As a team member, I want to be able to comment on a specific task I am assigned to.
 
-U12. As a team member, I want to be able to comment on a specific task I am assigned to.
-
-U13. As a manager, I want to be able to share and collaborate files and documents with my team.
+U12. As a manager, I want to be able to share and collaborate files and documents with my team.
 
 
 ## 5. Proposed Architecture Overview & APIs
 
 ### 5.1. Public Models
 
-_Define the data models your service will expose in its responses via your *`-Model`* package. These will be equivalent to the *`PlaylistModel`* and *`SongModel`* from the Unit 3 project._
+_Define the data models your service will expose in its responses via your *`-Model`* package._
 
 ```
 // ProjectModel
@@ -82,7 +80,6 @@ String userRole;
     `"projectTeamMembers": ["userId_1", "userId_2"]` <br>
     `}`
 
-
 ### 5.3. _Create Task Endpoint_
 * Accepts `POST` requests to `/tasks`
 * Accepts data to create a new Task with a given task name, description, due date, task status, and list of assigned team members. Returns the new Task, including a unique task ID assigned by the Project Management Service.
@@ -100,7 +97,7 @@ String userRole;
 
 
 ### 5.4. _Update Task Information Endpoint_
-* Accepts `PUT` requests to `/tasks/:id`
+* Accepts `PUT` requests to `/tasks/:taskId`
 * Accepts a task ID and updated task information, Returns the updated the task with the new information.
     * If the given task ID doesn't exist, will throw an ``TaskNotFoundException``
 * Request Body: `{` <br>
@@ -114,25 +111,25 @@ String userRole;
   `}`
 
 ### 5.5. _Delete Task From Project Endpoint_
-* Accepts `DELETE` requests to `/tasks/:id`
+* Accepts `DELETE` requests to `/tasks/:taskId`
 * Accepts a task ID, deletes the task with that ID from project.
     * If the given task ID doesn't exist, will throw an ``TaskNotFoundException``
 
 ### 5.6. _View All Projects Endpoint_
-* Accepts `GET` 
+* Accepts `GET` requests to `/projects/:projectId`
 * Accepts a user ID, returns a list of projects created by that Manager.
     * If the given project ID doesn't exist, will throw an ``ProjectNotFoundException``
     * If the given Manager has not created any projects, an empty list will be returned
 
 ### 5.7. _View All Assigned Tasks Endpoint_
-* Accepts `GET` 
+* Accepts `GET` requests to `/tasks/assigned/`
 * Retrieves a list of all tasks assigned to given user ID.
 * Accepts a user ID, returns a list of all tasks assigned to that user.
     * If the given user ID doesn't exist, will throw an ``UserNotFoundException``
     * If the given user does not have any tasks, an empty list is returned.
 
 ### 5.8. _View Assigned Tasks By Due Date Endpoint_
-* Accepts `GET`
+* Accepts `GET` requests to `/tasks/assigned/prioritized`
 * Retrieves a list of all tasks assigned to given user ID.
   * Returns the task list in default project order (Most Recent)
     * If the optional order parameter is provided, this API will return the task list in ``order``, reverse order, or by Due Date, based on the value of ``order``
@@ -172,6 +169,7 @@ userRole // String
 ```
 ## 7. Design Diagram
 ![](images/projectsyncup-class-diagram.png)
+
 ## 8. Pages
 - Login Page
 - Manager Homepage
