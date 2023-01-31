@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d6dd544e-1705-4baf-ae60-13c117aefbbb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/design.doc2.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/project-manager-class-diagram-2.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ProjectManagerApp.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/design-document.md" beforeDir="false" afterPath="$PROJECT_DIR$/resources/design-document.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/project-manager-class-diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/project-manager-class-diagram.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/images/create-task-activity-SD.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/design-document.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/design.doc2.md" beforeDir="false" afterPath="$PROJECT_DIR$/resources/projectsyncup-design-document.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/project-manager-class-diagram-2.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/project-manager-class-diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/projectsyncup-class-diagram.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/project-manager-sequence-diagram.puml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sequence-diagrams/project-manager-sequence-diagram.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,12 +64,18 @@
     "DefaultPlantUmlFileTemplate": "UML Sequence",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/matthewreuther/JavaWorkSpace/SESchool/Capstone/ProjectManagerApp/resources",
+    "last_opened_file_path": "/Users/matthewreuther/JavaWorkSpace/SESchool/Capstone/ProjectManagerApp/.idea",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.idea" />
+      <recent name="$PROJECT_DIR$/resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/sequence-diagrams" />
+      <recent name="$PROJECT_DIR$/resources/images" />
       <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
