@@ -1,0 +1,124 @@
+@startuml
+'https://plantuml.com/class-diagram
+left to right direction
+
+title ProjectSyncUp Class Diagram
+
+class Project {
+    - projectId : String
+    - projectName : String
+    - projectStatus : String
+    - createdBy : String
+    - projectTasks : List<Task>
+    - projectTeamMembers : List<User>
+}
+
+class Task {
+    - projectId : String
+    - taskId : String
+    - taskName : String
+    - taskDescription : String
+    - taskDueDate : String
+    - taskStatus : String
+    - taskAssignedUsers : List<User>
+    - timeSpent : Integer
+}
+
+class User {
+    - userId : String
+    - userName : String
+    - userRole : String
+}
+
+
+class UserDao {
+    - final dynamoDBMapper : DynamoDBMapper
+    - user : User
+    - getUserTasks() : List<Task>
+    - getUserTasksByPriority() : List<Task>
+}
+
+class ProjectDao {
+    - final dynamoDBMapper : DynamoDBMapper
+    - project : Project
+    - createProject() : void
+    - getProject() : Project
+    - updateProject() : void
+    - deleteProject() : void
+    - getAllProjects() : List<Project>
+}
+
+class TaskDao {
+    - final dynamoDBMapper : DynamoDBMapper
+    - projectId : String
+    - task : Task
+    - createTask() : void
+    - getTask() : TaskModel
+    - updateTask() : void
+    - deleteTask() : void
+    - getTasksByProject() : List<Task>
+    - getTasksByAssignee() : List<Task>
+    - getTasksByAssigneeAndDueDate() : List<Task>
+    - updateTaskStatus() : void
+    - updateTaskTimeSpent() : void
+}
+
+class CreateProjectActivity {
+    - final projectDao : ProjectDao
+    - final userDao : UserDao
+    + handleRequest(CreateTaskRequest request) : CreateTaskResult
+}
+
+class GetAllProjectsActivity {
+    - final userDao : UserDao
+    - final projectDao : ProjectDaoDao
+    - handleRequest(GetAllProjectsRequest request) : GetAllProjectsResult
+}
+
+class CreateTaskActivity {
+    - final projectDao : ProjectDaoDao
+    - final taskDao : TaskDao
+    + handleRequest(CreateTaskRequest request) : CreateTaskResult
+}
+
+class UpdateTaskActivity {
+    - final projectDao : ProjectDaoDao
+    - final taskDao : TaskDao
+    + handleRequest(UpdateTaskRequest request) : UpdateTaskResult
+}
+
+class DeleteTaskActivity {
+    - final projectDao : ProjectDaoDao
+    - final taskDao : TaskDao
+    + handleRequest(DeleteTaskRequest request) : DeleteTaskResult
+}
+
+class GetAllAssignedTasksActivity {
+    - final userDao : UserDao
+    - final taskDao : TaskDao
+    - handleRequest(GetAllAssignedTasksRequest request) : GetAllAssignedTasksResult
+}
+
+class GetAssignedTasksByDueDateActivity {
+    - final userDao : UserDao
+    - final taskDao : TaskDao
+    - handleRequest(GetAssignedTasksByDueDateRequest request) : GetAssignedTasksByDueDateResult
+}
+
+Project --> ProjectDao
+Task --> TaskDao
+User --> UserDao
+
+ProjectDao --> CreateProjectActivity
+ProjectDao --> GetAllProjectsActivity
+
+TaskDao --> CreateTaskActivity
+
+TaskDao --> UpdateTaskActivity
+
+TaskDao --> DeleteTaskActivity
+
+UserDao --> GetAllAssignedTasksActivity
+UserDao --> GetAssignedTasksByDueDateActivity
+
+@enduml
