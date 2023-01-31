@@ -1,22 +1,26 @@
 @startuml
 'https://plantuml.com/class-diagram
+left to right direction
 
-title Project Management Application
+title ProjectSyncUp Class Diagram
 
 class Project {
     - projectId : String
     - projectName : String
+    - projectStatus : String
     - createdBy : String
-    - tasks : List<String>
+    - projectTasks : List<Task>
+    - projectTeamMembers : List<User>
 }
 
 class Task {
+    - projectId : String
     - taskId : String
     - taskName : String
     - taskDescription : String
-    - taskAssignedUsers : List<String>
     - taskDueDate : String
     - taskStatus : String
+    - taskAssignedUsers : List<User>
     - timeSpent : Integer
 }
 
@@ -24,7 +28,6 @@ class User {
     - userId : String
     - userName : String
     - userRole : String
-    - List<String> taskIds;
 }
 
 
@@ -47,6 +50,7 @@ class ProjectDao {
 
 class TaskDao {
     - final dynamoDBMapper : DynamoDBMapper
+    - projectId : String
     - task : Task
     - createTask() : void
     - getTask() : TaskModel
@@ -89,17 +93,6 @@ class DeleteTaskActivity {
     + handleRequest(DeleteTaskRequest request) : DeleteTaskResult
 }
 
-class UpdateTasksProgressActivity {
-    - final projectDao : ProjectDaoDao
-    - final taskDao : TaskDao
-    - handleRequest(UpdateTasksProgressRequest request) : UpdateTasksProgressResult
-}
-
-class UpdateTaskTimerActivity {
-    - final taskDao : TaskDao
-    - handleRequest(UpdateTaskTimerRequest request) : UpdateTaskTimerResult
-}
-
 class GetAllAssignedTasksActivity {
     - final userDao : UserDao
     - final taskDao : TaskDao
@@ -120,9 +113,9 @@ ProjectDao --> CreateProjectActivity
 ProjectDao --> GetAllProjectsActivity
 
 TaskDao --> CreateTaskActivity
-TaskDao --> UpdateTasksProgressActivity
+
 TaskDao --> UpdateTaskActivity
-TaskDao --> UpdateTaskTimerActivity
+
 TaskDao --> DeleteTaskActivity
 
 UserDao --> GetAllAssignedTasksActivity

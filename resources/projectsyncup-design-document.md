@@ -10,7 +10,7 @@ _The objective of this project is to create a web application using Java, that h
 
 ### 3. Use Cases
 
-U1. As a manager, I want to create a new, empty project with a given name.
+U1. As a manager, I want to create a new project with a given name.
 
 U2. As a manager, I want to create a new, empty task with a given task name, description, due date, and list of assigned team members.
 
@@ -20,31 +20,27 @@ U4. As a manager, I want to update a task with different information.
 
 U5. As a manager, I want to delete a task, that has been added to a project.
 
-U6. As a manager, I want to view all projects I have created.
+U5. As a manager, I want to view all projects I have created.
 
-U7. As a team member, I want to view all tasks assigned to me.
+U6. As a team member, I want to view all tasks assigned to me.
 
-U8. As a team member, I want to view all tasks assigned to me in a prioritized order (due date).
+U8. As a team member, I want to view all tasks assigned to me in ordered by due date.
 
 U9. As a team member, I want to be able to update the progress of specific task (Not Started, In Progress, Complete).
 
 ### 4. Stretch Goals
 U10. As a team member, I want to be able to track the amount of time I spend on each task in order to accurately bill for my work or manage my own productivity.
 
-U11. Admin can set roles for a user to be a team member or manager. (Multiple roles)
+U11. As an Admin, I want to set roles for a user to be a team member or manager. 
 
 U12. As a team member, I want to be able to comment on a specific task I am assigned to.
 
 U13. As a manager, I want to be able to share and collaborate files and documents with my team.
 
 
-## 5. Proposed Architecture Overview
+## 5. Proposed Architecture Overview & APIs
 
-_Describe broadly how you are proposing to solve for the requirements you described in Section 2. This may include class diagram(s) showing what components you are planning to build. You should argue why this architecture (organization of components) is reasonable. That is, why it represents a good data flow and a good separation of concerns. Where applicable, argue why this architecture satisfies the stated requirements._
-
-## 6. API
-
-### 6.1. Public Models
+### 5.1. Public Models
 
 _Define the data models your service will expose in its responses via your *`-Model`* package. These will be equivalent to the *`PlaylistModel`* and *`SongModel`* from the Unit 3 project._
 
@@ -59,6 +55,7 @@ List<UserModel> projectTeamMembers;
 
 ```
 // TaskModel
+String projectId;
 String taskId;
 String taskName;
 String taskDescription;
@@ -76,81 +73,66 @@ String userRole;
 ```
 
 
-### 6.3. _Create Project Endpoint_
+### 5.2. _Create Project Endpoint_
 * Accepts `POST` requests to `/projects`
 * Accepts data to create a new Project with a given name, project status, and an optional list of tasks. Returns the new project, including a unique project ID assigned by the Project Management Service.
-* Request Body: <br>
-    ```"projectName": "Project Name", ```<br>
-    ```"projectStatus": "Not Started", ```<br>
-    ```"projectStatus": "Not Started", ```<br>
-    ```"projectTeamMembers": ["userId_1", "userId_2"] ```<br>
+* Request Body: `{` <br>
+    `"projectName": "Project Name",` <br>
+    `"projectStatus": Not Started,` <br>
+    `"projectTeamMembers": ["userId_1", "userId_2"]` <br>
+    `}`
 
-### 6.4. _Create Task Endpoint_
+
+### 5.3. _Create Task Endpoint_
 * Accepts `POST` requests to `/tasks`
 * Accepts data to create a new Task with a given task name, description, due date, task status, and list of assigned team members. Returns the new Task, including a unique task ID assigned by the Project Management Service.
-* Request Body: <br>
-    ```{"taskName": "Task Title",``` <br>
-    ```"taskDescription": "Task Description", ```<br>
-    ```"taskStatus": "Not Started", ```<br>
-    ```"taskAssignedUsers": ["userId_1", "userId_2"], ```<br>
-    ```"taskStatus": "open", ```<br>
-    ```"taskDueDate": "yyyy-mm-dd", ```<br>
-    ```"taskTimer": 60```<br>
+* Request Body: `{` <br>
+  `"projectId": "01",` <br>
+  `"taskName": "Task Title",` <br>
+  `"taskDescription": "Task Description",` <br>
+  `"taskAssignedUsers": ["userId_1", "userId_2"],` <br>
+  `"taskStatus": "Not Started",` <br>
+  `"taskDueDate": "yyyy-mm-dd",` <br>
+  `"taskTimer": 50` <br>
+  `}`
 
 ![](images/create-task-activity-SD.png)
 
-### 6.5. _Add Task To Project Endpoint_
-* Accepts `PUT` requests to `/projects/:id/task`
-* Accepts a project ID and task ID and adds the task to the specified project. 
-  * If the project is not found, will throw a ProjectNotFoundException 
-  * If the given task ID doesn't exist, will throw an ``TaskNotFoundException``
 
-### 6.6. _Update Task Information Endpoint_
+### 5.4. _Update Task Information Endpoint_
 * Accepts `PUT` requests to `/tasks/:id`
 * Accepts a task ID and updated task information, Returns the updated the task with the new information.
     * If the given task ID doesn't exist, will throw an ``TaskNotFoundException``
-* Request Body: <br>
-  ```{"taskName": "Task Title: New Title",``` <br>
-  ```"taskDescription": " Updated Task Description", ```<br>
-  ```"taskAssignedUsers": ["userId_1", "userId_2"], ```<br>
-  ```"taskStatus": "Not Started", ```<br>
-  ```"taskDueDate": "yyyy-mm-dd", ```<br>
-  ```"taskTimer": 60```<br>
+* Request Body: `{` <br>
+  `"projectId": "01",` <br>
+  `"taskName": "New Title",` <br>
+  `"taskDescription": "Updated Task Description",` <br>
+  `"taskAssignedUsers": ["userId_1", "userId_2"],` <br>
+  `"taskStatus": "Not Started",` <br>
+  `"taskDueDate": "yyyy-mm-dd",` <br>
+  `"taskTimer": 50` <br>
+  `}`
 
-### 6.7. _Update Task Progress Endpoint_
-* Accepts `PUT` requests to `/tasks/:id/progress`
-* Accepts a task ID and a new progress status (Not Started, In Progress, Complete), updates the ``taskStatus`` of the task with that ID.
-  * If the given task ID doesn't exist, will throw an ``TaskNotFoundException``
-* Request Body: <br>
-    `{ "status": "Complete" }`
-
-### 6.8. _Track Time Spent on Task Endpoint_
-* Accepts `PUT` requests to `/tasks/:id/time`
-* Accepts a task ID and a new time spent on task, updates the ``taskTimer`` of the task with that ID.
-  * If the given task ID doesn't exist, will throw an ``TaskNotFoundException``
-* Request Body: <br>
-    `{ "taskTimer": 61 }` 
-
-### 6.9. _Delete Task From Project Endpoint_
+### 5.5. _Delete Task From Project Endpoint_
 * Accepts `DELETE` requests to `/tasks/:id`
 * Accepts a task ID, deletes the task with that ID from project.
     * If the given task ID doesn't exist, will throw an ``TaskNotFoundException``
 
-### 6.10. _View All Projects Endpoint_
-* Accepts `GET` requests to `/projects/:id`
-* Accepts a project ID, returns a list of projects created by that Manager.
+### 5.6. _View All Projects Endpoint_
+* Accepts `GET` 
+* Accepts a user ID, returns a list of projects created by that Manager.
     * If the given project ID doesn't exist, will throw an ``ProjectNotFoundException``
     * If the given Manager has not created any projects, an empty list will be returned
 
-### 6.11. _View All Assigned Tasks Endpoint_
-* Accepts `GET` requests to ` /tasks/assigned/:id`
+### 5.7. _View All Assigned Tasks Endpoint_
+* Accepts `GET` 
 * Retrieves a list of all tasks assigned to given user ID.
 * Accepts a user ID, returns a list of all tasks assigned to that user.
     * If the given user ID doesn't exist, will throw an ``UserNotFoundException``
     * If the given user does not have any tasks, an empty list is returned.
 
-### 6.12. _View Assigned Tasks By Due Date Endpoint_
-* Accepts `GET` requests to ` /tasks/assigned/prioritized`
+### 5.8. _View Assigned Tasks By Due Date Endpoint_
+* Accepts `GET`
 * Retrieves a list of all tasks assigned to given user ID.
   * Returns the task list in default project order (Most Recent)
     * If the optional order parameter is provided, this API will return the task list in ``order``, reverse order, or by Due Date, based on the value of ``order``
@@ -160,9 +142,8 @@ String userRole;
   * If the given project ID is found, but contains no tasks, the tasks list will be empty
   * If the given project ID doesn't exist, will throw an `ProjectNotFoundException`
 
-    
-## 7. Tables
-### 7.1. `projects`
+## 6. Tables
+### 6.1. `projects`
 ```
 projectId // Partition Key, String
 projectName // String
@@ -171,7 +152,7 @@ projectStatus // String
 projectTeamMembers // List<String>
 ```
 
-### 7.2. `tasks`
+### 6.2. `tasks`
 ```
 projectId // Sort Key, String
 taskId // Partition Key, String
@@ -183,17 +164,16 @@ status // String
 timeSpent // Number
 ```
 
-### 7.2. `users`
+### 6.2. `users`
 ```
 userId // Partition Key, String
 userName // String
 userRole // String
 ```
-## 8. Design Diagram
-* [Class Diagram](projectsyncup-class-diagram.puml)
-
-## 9. Pages
+## 7. Design Diagram
+![](images/projectsyncup-class-diagram.png)
+## 8. Pages
 - Login Page
 - Manager Homepage
 - Team Member Homepage
-- [Wire Frame](https://www.figma.com/file/7vq0CO2AfrBKIRMwxEdqRr/Project-Management-App?node-id=0%3A1&t=NWXwFL70VY3kkXQx-1)
+- [Wire Frame](https://www.figma.com/file/6vq0CO2AfrBKIRMwxEdqRr/Project-Management-App?node-id=0%3A1&t=NWXwFL60VY3kkXQx-1)
