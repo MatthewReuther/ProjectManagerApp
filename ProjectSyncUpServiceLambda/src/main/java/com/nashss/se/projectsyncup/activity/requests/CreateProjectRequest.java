@@ -10,9 +10,9 @@ import java.util.List;
  *
  */
 public class CreateProjectRequest {
-
     private final String projectId;
     private final String projectName;
+    private final String projectDescription;
     private final String projectStatus;
     private final String createdBy;
     private final List<String> projectTasks;
@@ -22,19 +22,21 @@ public class CreateProjectRequest {
      * Instantiates a new CreateProjectRequest object.
      * Private to enforce user to use Builder to create a new instance of CreateProjectRequest
      *
-     * @param projectId The id of the project
-     * @param projectName The name of the project
-     * @param projectStatus The status of the project (Not Started, In Progress, Completed)
-     * @param createdBy The ID of the user who created the project
-     * @param projectTasks A list of tasks associated with the project
-     * @param projectMembers A list of team members who are associated with the project
-     *
+     * @param projectId          The id of the project
+     * @param projectName        The name of the project
+     * @param projectDescription The description of the project
+     * @param projectStatus      The status of the project (Not Started, In Progress, Completed)
+     * @param createdBy          The ID of the user who created the project
+     * @param projectTasks       A list of tasks associated with the project
+     * @param projectMembers     A list of team members who are associated with the project
      */
 
-    private CreateProjectRequest(String projectId, String projectName, String projectStatus,
-                                 String createdBy, List<String> projectTasks, List<String> projectMembers) {
+    private CreateProjectRequest(String projectId, String projectName, String projectDescription,
+                                 String projectStatus, String createdBy, List<String> projectTasks,
+                                 List<String> projectMembers) {
         this.projectId = projectId;
         this.projectName = projectName;
+        this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
         this.createdBy = createdBy;
         this.projectTasks = projectTasks;
@@ -57,6 +59,15 @@ public class CreateProjectRequest {
      */
     public String getProjectName() {
         return projectName;
+    }
+
+    /**
+     * Returns the description of the project.
+     *
+     * @return The description of the project.
+     */
+    public String getProjectDescription() {
+        return projectDescription;
     }
 
     /**
