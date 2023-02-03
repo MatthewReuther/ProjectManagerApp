@@ -1,9 +1,5 @@
 package com.nashss.se.projectsyncup.activity.requests;
 
-import com.nashss.se.projectsyncup.activity.results.CreateProjectResult;
-import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
-import com.nashss.se.projectsyncup.models.ProjectModel;
-
 import java.util.List;
 
 
@@ -24,21 +20,19 @@ public class CreateProjectRequest {
 
     /**
      * Instantiates a new CreateProjectRequest object.
-     * Private to enforce the use of the Builder Class
-     * This design pattern is known as the "Builder pattern", and it is often used to create complex objects with multiple constructor arguments.
-     * The Builder pattern allows for the creation of objects step-by-step, using setter methods to configure each parameter.
-     * This is especially useful when there are many parameters involved, as it makes the code more readable and avoids issues with having to pass a large number of parameters to a constructor.
+     * Private to enforce user to use Builder to create a new instance of CreateProjectRequest
      *
-     * @param projectId: The id of the project
-     * @param projectName: The name of the project
-     * @param projectStatus: The status of the project (Not Started, In Progress, Completed)
-     * @param createdBy: The ID of the user who created the project
-     * @param projectTasks: A list of tasks associated with the project
-     * @param projectMembers: A list of team members who are associated with the project
+     * @param projectId The id of the project
+     * @param projectName The name of the project
+     * @param projectStatus The status of the project (Not Started, In Progress, Completed)
+     * @param createdBy The ID of the user who created the project
+     * @param projectTasks A list of tasks associated with the project
+     * @param projectMembers A list of team members who are associated with the project
      *
      */
 
-    private CreateProjectRequest(String projectId, String projectName, String projectStatus, String createdBy, List<String> projectTasks, List<String> projectMembers) {
+    private CreateProjectRequest(String projectId, String projectName, String projectStatus,
+                                 String createdBy, List<String> projectTasks, List<String> projectMembers) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.projectStatus = projectStatus;
@@ -47,32 +41,56 @@ public class CreateProjectRequest {
         this.projectMembers = projectMembers;
     }
 
-
+    /**
+     * Returns the ID of the project.
+     *
+     * @return The ID of the project.
+     */
     public String getProjectId() {
         return projectId;
     }
 
-
+    /**
+     * Returns the name of the project.
+     *
+     * @return The name of the project.
+     */
     public String getProjectName() {
         return projectName;
     }
 
-
+    /**
+     * Returns the status of the project.
+     *
+     * @return The status of the project.
+     */
     public String getProjectStatus() {
         return projectStatus;
     }
 
-
+    /**
+     * Returns the name of the person who created the project.
+     *
+     * @return The name of the person who created the project.
+     */
     public String getCreatedBy() {
         return createdBy;
     }
 
-
+    /**
+     * Returns a list of tasks associated with the project.
+     *
+     * @return A list of tasks associated with the project.
+     */
     public List<String> getProjectTasks() {
         return projectTasks;
     }
 
-
+    /**
+     * Returns a list of members associated with the project.
+     *
+     * @return A list of members associated with the project.
+     */
     public List<String> getProjectMembers() {
         return projectMembers;
     }
