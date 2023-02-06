@@ -3,7 +3,12 @@ package com.nashss.se.projectsyncup.activity;
 import com.nashss.se.projectsyncup.activity.requests.CreateProjectRequest;
 import com.nashss.se.projectsyncup.activity.results.CreateProjectResult;
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
+import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.models.ProjectModel;
+
+import javax.inject.Inject;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Implementation of the CreatePlaylistActivity for the MusicPlaylistService's CreatePlaylist API.
@@ -20,7 +25,7 @@ public class CreateProjectActivity {
      *
      * @param projectDao ProjectDao to access the projects table.
      */
-
+    @Inject
     public CreateProjectActivity(ProjectDao projectDao) {
         this.projectDao = projectDao;
     }
@@ -38,7 +43,36 @@ public class CreateProjectActivity {
 
     public CreateProjectResult handleRequest(final CreateProjectRequest createProjectRequest) {
         CreateProjectResult createProjectResult = null;
+
+        Set<String> projectTasks = null;
+        Set<String> projectMembers = null;
+
+        if (createProjectRequest.getProjectTasks() != null) {
+            projectTasks = new HashSet<>(createProjectRequest.getProjectTasks());
+        }
+
+        if (createProjectRequest.getProjectMembers() != null) {
+            projectMembers = new HashSet<>(createProjectRequest.getProjectMembers());
+        }
+
+        Project newProject = new Project();
+        newProject.setProjectId("01");
+        newProject.setProjectName(createProjectRequest.getProjectName());
+        newProject.setProjectDescription(createProjectRequest.getProjectDescription());
+        newProject.setProjectStatus(createProjectRequest.getProjectStatus());
+        newProject.setCreatedById(createProjectRequest.getCreatedById());
+        newProject.setTasks(projectTasks);
+        newProject.setProjectMembers(projectMembers);
+        newProject.setProjectMembers(projectMembers);
+        //newProject.setTask(new ArrayList<>());
+        //newProject.setProjectMembers(new ArrayList<>());
+
+        projectDao.saveProject(newProject);
+
+        ProjectModel projectModel;
+
         return createProjectResult;
+
     }
 
 }
