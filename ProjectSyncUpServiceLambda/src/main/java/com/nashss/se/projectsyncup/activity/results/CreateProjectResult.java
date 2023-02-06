@@ -29,4 +29,34 @@ public class CreateProjectResult {
     public ProjectModel getProjectModel() {
         return projectModel;
     }
+
+    /**
+     * Returns a string representation of the {@link CreateProjectResult} object.
+     *
+     * @return a string representation of the {@link CreateProjectResult} object, in the format of
+     * "CreateProjectResult{project=PROJECT_MODEL}".
+     */
+    @Override
+    public String toString() {
+        return "CreateProjectResult{" +
+                "project=" + projectModel +
+                '}';
+    }
+
+    //CHECKSTYLE:OFF:Builder
+    public static Builder builder() {
+        return new Builder();
+    }
+    public static class Builder {
+        private ProjectModel projectModel;
+
+        public Builder withProject(ProjectModel projectModel) {
+            this.projectModel = projectModel;
+            return this;
+        }
+
+        public CreateProjectResult build() {
+            return new CreateProjectResult(projectModel);
+        }
+    }
 }
