@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.util.List;
 
+import static com.nashss.se.projectsyncup.utils.CollectionUtils.copyToList;
+
 
 /**
  * CreateProjectRequest implementation representing a request to create a project.
