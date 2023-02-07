@@ -6,6 +6,7 @@ import com.nashss.se.projectsyncup.converters.ModelConverter;
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.models.ProjectModel;
+import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 
 import javax.inject.Inject;
 import java.util.HashSet;
@@ -57,7 +58,7 @@ public class CreateProjectActivity {
         }
 
         Project newProject = new Project();
-        newProject.setProjectId("01");
+        newProject.setProjectId(ProjectSyncUpServiceUtils.generateProjectId());
         newProject.setProjectName(createProjectRequest.getProjectName());
         newProject.setProjectDescription(createProjectRequest.getProjectDescription());
         newProject.setProjectStatus(createProjectRequest.getProjectStatus());
