@@ -5,6 +5,8 @@ import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.nashss.se.projectsyncup.exceptions.ProjectNotFoundException;
 
+import javax.inject.Inject;
+
 
 /**
  * Accesses data for a project using {@link Project} to represent the model in DynamoDB.
@@ -19,6 +21,7 @@ public class ProjectDao {
      * @param dynamoDbMapper the {@link DynamoDBMapper} used to interact with the projects table
      */
 
+    @Inject
     public ProjectDao(DynamoDBMapper dynamoDbMapper) {
         this.dynamoDbMapper = dynamoDbMapper;
     }

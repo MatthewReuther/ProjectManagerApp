@@ -1,5 +1,6 @@
 package com.nashss.se.projectsyncup.lambda;
 
+import com.nashss.se.projectsyncup.dependency.DaggerServiceComponent;
 import com.nashss.se.projectsyncup.dependency.ServiceComponent;
 
 import java.util.function.BiFunction;

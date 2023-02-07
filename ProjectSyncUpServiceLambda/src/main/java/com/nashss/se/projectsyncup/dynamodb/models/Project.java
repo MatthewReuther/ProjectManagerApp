@@ -23,7 +23,6 @@ public class Project {
     private Set<String> projectTasks;
     private Set<String> projectMembers;
 
-
     /**
      * Gets the project ID of this project.
      *
@@ -81,7 +80,6 @@ public class Project {
     public void setProjectDescription(String projectDescription) {
         this.projectDescription = projectDescription;
     }
-
 
     /**
      * Gets the project status of this project (Not started, In Progress, Completed).
