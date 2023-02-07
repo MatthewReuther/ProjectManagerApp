@@ -87,7 +87,7 @@ public class CreateProjectRequest {
      * @return A list of tasks associated with the project.
      */
     public List<String> getProjectTasks() {
-        return projectTasks;
+        return copyToList(projectTasks);
     }
 
     /**
@@ -96,7 +96,18 @@ public class CreateProjectRequest {
      * @return A list of members associated with the project.
      */
     public List<String> getProjectMembers() {
-        return projectMembers;
+        return copyToList(projectTasks);
+    }
+    @Override
+    public String toString() {
+        return "CreateProjectRequest{" +
+                "projectName='" + projectName + '\'' +
+                ", projectDescription='" + projectDescription + '\'' +
+                ", projectStatus='" + projectStatus + '\'' +
+                ", createdById='" + createdById + '\'' +
+                ", projectTasks='" + projectTasks + '\'' +
+                ", projectMembers=" + projectMembers +
+                '}';
     }
 
     //CHECKSTYLE:OFF:Builder

@@ -58,7 +58,7 @@ public class CreateProjectActivityTest {
         assertNotNull(result.getProjectModel().getId());
         assertEquals(expectedName, result.getProjectModel().getName());
         assertEquals(expectedDescription, result.getProjectModel().getDescription());
-        assertEquals(expectedCreatedId, result.getProjectModel().getCreatedBy(
+        assertEquals(expectedCreatedId, result.getProjectModel().getCreatedBy());
         assertEquals(expectedStatus, result.getProjectModel().getStatus());
         assertEquals(expectedTasks, result.getProjectModel().getTasks());
         assertEquals(expectedMembers, result.getProjectModel().getProjectMembers());
