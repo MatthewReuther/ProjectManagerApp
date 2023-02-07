@@ -77,7 +77,7 @@ public class CreateProjectRequest {
      *
      * @return The name of the person who created the project.
      */
-    public String getCreatedBy() {
+    public String getCreatedById() {
         return createdById;
     }
 

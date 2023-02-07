@@ -2,6 +2,7 @@ package com.nashss.se.projectsyncup.activity;
 
 import com.nashss.se.projectsyncup.activity.requests.CreateProjectRequest;
 import com.nashss.se.projectsyncup.activity.results.CreateProjectResult;
+import com.nashss.se.projectsyncup.converters.ModelConverter;
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.models.ProjectModel;
@@ -69,9 +70,11 @@ public class CreateProjectActivity {
 
         projectDao.saveProject(newProject);
 
-        ProjectModel projectModel;
 
-        return createProjectResult;
+        ProjectModel projectModel = new ModelConverter().toProjectModel(newProject);
+        return CreateProjectResult.builder()
+                .withProject(projectModel)
+                .build();
 
     }
 

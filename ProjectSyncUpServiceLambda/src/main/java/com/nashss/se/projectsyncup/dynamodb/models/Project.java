@@ -20,8 +20,8 @@ public class Project {
     private String projectDescription;
     private String projectStatus;
     private String createdById;
-    private List<String> projectTasks;
-    private List<String> projectMembers;
+    private Set<String> projectTasks;
+    private Set<String> projectMembers;
 
 
     /**

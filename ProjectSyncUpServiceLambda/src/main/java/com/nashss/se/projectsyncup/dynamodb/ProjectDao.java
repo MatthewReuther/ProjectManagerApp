@@ -3,6 +3,7 @@ package com.nashss.se.projectsyncup.dynamodb;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.nashss.se.projectsyncup.exceptions.ProjectNotFoundException;
 
 
 /**
@@ -11,18 +12,15 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 public class ProjectDao {
 
     private final DynamoDBMapper dynamoDbMapper;
-    private final MetricsPublisher metricsPublisher;
 
     /**
      * Instantiates a ProjectDao object.
      *
-     * @param dynamoDbMapper   the {@link DynamoDBMapper} used to interact with the projects table
-     * @param metricsPublisher the {@link MetricsPublisher} used to record metrics.
+     * @param dynamoDbMapper the {@link DynamoDBMapper} used to interact with the projects table
      */
 
-    public ProjectDao(DynamoDBMapper dynamoDbMapper, MetricsPublisher metricsPublisher) {
+    public ProjectDao(DynamoDBMapper dynamoDbMapper) {
         this.dynamoDbMapper = dynamoDbMapper;
-        this.metricsPublisher = metricsPublisher;
     }
 
     /**
@@ -62,5 +60,5 @@ public class ProjectDao {
         this.dynamoDbMapper.delete(project);
         return project;
     }
-
+    git commit -m "added/updated projectModel converter, DaoModule, projectDao, and service component"
 }
