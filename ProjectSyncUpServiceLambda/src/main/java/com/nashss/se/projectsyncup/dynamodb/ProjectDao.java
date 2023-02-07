@@ -1,12 +1,11 @@
 package com.nashss.se.projectsyncup.dynamodb;
 
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
-
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.nashss.se.projectsyncup.exceptions.ProjectNotFoundException;
 
-import javax.inject.Inject;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
+import javax.inject.Inject;
 
 /**
  * Accesses data for a project using {@link Project} to represent the model in DynamoDB.

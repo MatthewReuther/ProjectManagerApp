@@ -1,13 +1,13 @@
 package com.nashss.se.projectsyncup.dependency;
+import com.nashss.se.projectsyncup.dynamodb.DynamoDbClientProvider;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.nashss.se.projectsyncup.dynamodb.DynamoDbClientProvider;
+
 import dagger.Module;
 import dagger.Provides;
 
 import javax.inject.Singleton;
-
 /**
  * Dagger Module providing dependencies for DAO classes.
  */

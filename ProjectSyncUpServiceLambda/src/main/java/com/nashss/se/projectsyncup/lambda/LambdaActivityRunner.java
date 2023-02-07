@@ -6,6 +6,12 @@ import com.nashss.se.projectsyncup.dependency.ServiceComponent;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 
+/**
+ * Class that handles running an activity and returning a LambdaResponse.
+ *
+ * @param <TRequest> The type of the request required to run the activity.
+ * @param <TResult> The type of the result obtained after running the activity.
+ */
 public class LambdaActivityRunner<TRequest, TResult> {
     private ServiceComponent service;
 
@@ -29,6 +35,12 @@ public class LambdaActivityRunner<TRequest, TResult> {
         }
     }
 
+    /**
+     * Returns the instance of the ServiceComponent.
+     * If the instance is not already created, it creates a new instance.
+     *
+     * @return the instance of the ServiceComponent
+     */
     private ServiceComponent getService() {
         if (service == null) {
             service = DaggerServiceComponent.create();

@@ -88,7 +88,7 @@ public class ProjectModel {
      * @return A list of tasks associated with the project.
      */
     public List<String> getTasks() {
-        return projectTasks;
+        return copyToList(projectTasks);
     }
 
     /**
@@ -97,13 +97,17 @@ public class ProjectModel {
      * @return A list of members associated with the project.
      */
     public List<String> getProjectMembers() {
-        return projectMembers;
+        return copyToList(projectMembers);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProjectModel)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ProjectModel)) {
+            return false;
+        }
         ProjectModel that = (ProjectModel) o;
         return getId().equals(that.getId()) &&
                 getName().equals(that.getName()) &&

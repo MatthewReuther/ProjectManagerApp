@@ -8,10 +8,9 @@ import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.models.ProjectModel;
 import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 
-import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.Set;
-
+import javax.inject.Inject;
 /**
  * Implementation of the CreatePlaylistActivity for the MusicPlaylistService's CreatePlaylist API.
  * <p>
@@ -44,15 +43,13 @@ public class CreateProjectActivity {
      */
 
     public CreateProjectResult handleRequest(final CreateProjectRequest createProjectRequest) {
-        CreateProjectResult createProjectResult = null;
 
         Set<String> projectTasks = null;
-        Set<String> projectMembers = null;
-
         if (createProjectRequest.getProjectTasks() != null) {
             projectTasks = new HashSet<>(createProjectRequest.getProjectTasks());
         }
 
+        Set<String> projectMembers = null;
         if (createProjectRequest.getProjectMembers() != null) {
             projectMembers = new HashSet<>(createProjectRequest.getProjectMembers());
         }
@@ -65,8 +62,7 @@ public class CreateProjectActivity {
         newProject.setCreatedById(createProjectRequest.getCreatedById());
         newProject.setTasks(projectTasks);
         newProject.setProjectMembers(projectMembers);
-        newProject.setProjectMembers(projectMembers);
-        //newProject.setTask(new ArrayList<>());
+        //newProject.setTasks(new ArrayList<>());
         //newProject.setProjectMembers(new ArrayList<>());
 
         projectDao.saveProject(newProject);
@@ -76,7 +72,6 @@ public class CreateProjectActivity {
         return CreateProjectResult.builder()
                 .withProject(projectModel)
                 .build();
-
     }
 
 }

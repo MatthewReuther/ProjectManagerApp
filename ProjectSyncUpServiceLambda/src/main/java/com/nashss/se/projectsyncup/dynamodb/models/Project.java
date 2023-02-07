@@ -1,12 +1,12 @@
 package com.nashss.se.projectsyncup.dynamodb.models;
 
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -139,17 +139,17 @@ public class Project {
     /**
      * Sets the tasks for this Project as a copy of input, or null if input is null.
      *
-     * @param projectTasks Set of tasks for this project
+     * @param projectTasksSet Set of tasks for this project
      */
-    public void setTasks(Set<String> projectTasks) {
+    public void setTasks(Set<String> projectTasksSet) {
         // see comment in getProjectTasks()
-        if (null == projectTasks) {
+        if (null == projectTasksSet) {
             this.projectTasks = null;
         } else {
             this.projectTasks = new HashSet<>(projectTasks);
         }
 
-        this.projectTasks = projectTasks;
+        this.projectTasks = projectTasksSet;
     }
 
     /**
@@ -184,5 +184,27 @@ public class Project {
         this.projectMembers = projectMembers;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Project)) {
+            return false;
+        }
+        Project project = (Project) o;
+        return getProjectId().equals(project.getProjectId()) &&
+                getProjectName().equals(project.getProjectName()) &&
+                getProjectDescription().equals(project.getProjectDescription()) &&
+                getProjectStatus().equals(project.getProjectStatus()) &&
+                getCreatedById().equals(project.getCreatedById()) &&
+                getProjectTasks().equals(project.getProjectTasks()) &&
+                getProjectMembers().equals(project.getProjectMembers());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProjectId(), getProjectName(), getProjectDescription(),
+                getProjectStatus(), getCreatedById(), getProjectTasks(), getProjectMembers());
+    }
 }
