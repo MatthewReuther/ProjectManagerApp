@@ -60,5 +60,5 @@ public class ProjectDao {
         this.dynamoDbMapper.delete(project);
         return project;
     }
-    git commit -m "added/updated projectModel converter, DaoModule, projectDao, and service component"
+
 }
