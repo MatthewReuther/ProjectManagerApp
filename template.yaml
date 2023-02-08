@@ -110,7 +110,6 @@ Resources:
   #-----------------------------------------------------
   # CloudFront Configuration
   #-----------------------------------------------------
-
   CloudFrontOriginAccessIdentity:
     Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
     Condition: DeployCloudFront
