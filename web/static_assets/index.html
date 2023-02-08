@@ -2,28 +2,37 @@
 <html>
 
     <head>
-        <meta charset="UTF-8">
-        <title>Project Sync Up</title>
+        <script type="text/javascript" src="assets/createProject.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
 
-    <body>
+    <body class="block-body background">
+        <header class="header block-header" id="header">
 
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                </ul>
-            </nav>
         </header>
 
-        <main>
-            <h1>Welcome to Project Sync Up</h1>
-            <p>Here's some sample content.</p>
-        </main>
-
-        <footer>
-            <p>Copyright © 2023</p>
-        </footer>
+        <div class="block block-create">
+            <h2>Create Project</h2>
+            <form class="block-inner block-content">
+                <p class="hidden error" id="error-message"></p>
+                <div class="form-field">
+                    <label>Project Name</label>
+                    <input type="text" required class="validated-field" id="projectName" placeholder="Name of Project" autofocus>
+                </div>
+                <div class="form-field">
+                    <label>Add Task</label>
+                    <input type="text" id="projectTasks" class="projectTasks" placeholder="Redesign Homepage, Update Footer" data-tip="Must be a comma separated list of tags">
+                </div>
+                <div>
+                    <a href="#" class="button" id="create">Create Project</a>
+                </div>
+            </form>
+        </div>
 
     </body>
+
+    <footer>
+        <p>Copyright © 2023</p>
+    </footer>
+
 </html>

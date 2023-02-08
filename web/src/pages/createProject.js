@@ -47,7 +47,7 @@ class CreateProject extends BindingClass {
         if (projectTasksText.length < 1) {
             projectTasks = null;
         } else {
-            projectTasks = tagsText.split(/\s*,\s*/);
+            projectTasks = projectTasksText.split(/\s*,\s*/);
         }
 
         const project = await this.client.createProject(projectName, projectTasks, (error) => {
