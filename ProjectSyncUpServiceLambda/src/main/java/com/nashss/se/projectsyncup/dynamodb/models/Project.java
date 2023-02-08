@@ -143,12 +143,6 @@ public class Project {
      */
     public void setTasks(Set<String> projectTasksSet) {
         // see comment in getProjectTasks()
-        if (null == projectTasksSet) {
-            this.projectTasks = null;
-        } else {
-            this.projectTasks = new HashSet<>(projectTasks);
-        }
-
         this.projectTasks = projectTasksSet;
     }
 

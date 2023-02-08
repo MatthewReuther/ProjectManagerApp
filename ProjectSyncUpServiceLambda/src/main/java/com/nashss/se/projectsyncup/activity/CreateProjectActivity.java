@@ -8,6 +8,7 @@ import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.models.ProjectModel;
 import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
@@ -62,8 +63,8 @@ public class CreateProjectActivity {
         newProject.setCreatedById(createProjectRequest.getCreatedById());
         newProject.setTasks(projectTasks);
         newProject.setProjectMembers(projectMembers);
-        //newProject.setTasks(new ArrayList<>());
-        //newProject.setProjectMembers(new ArrayList<>());
+//        newProject.setTasks(new HashSet<>());
+//        newProject.setProjectMembers(new HashSet<>());
 
         projectDao.saveProject(newProject);
 

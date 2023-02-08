@@ -34,8 +34,8 @@ public class CreateProjectRequest {
      * @param projectMembers     A list of team members who are associated with the project
      */
 
-    private CreateProjectRequest(String projectName, String projectDescription, String createdById,
-                                 String projectStatus, List<String> projectTasks, List<String> projectMembers) {
+    private CreateProjectRequest(String projectName, String projectDescription, String projectStatus,
+                                 String createdById, List<String> projectTasks, List<String> projectMembers) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
@@ -96,15 +96,15 @@ public class CreateProjectRequest {
      * @return A list of members associated with the project.
      */
     public List<String> getProjectMembers() {
-        return copyToList(projectTasks);
+        return copyToList(projectMembers);
     }
     @Override
     public String toString() {
         return "CreateProjectRequest{" +
                 "projectName='" + projectName + '\'' +
                 ", projectDescription='" + projectDescription + '\'' +
-                ", projectStatus='" + projectStatus + '\'' +
                 ", createdById='" + createdById + '\'' +
+                ", projectStatus='" + projectStatus + '\'' +
                 ", projectTasks='" + projectTasks + '\'' +
                 ", projectMembers=" + projectMembers +
                 '}';
