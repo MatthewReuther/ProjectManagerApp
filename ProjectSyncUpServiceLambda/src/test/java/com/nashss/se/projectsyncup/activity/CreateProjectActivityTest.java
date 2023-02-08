@@ -30,6 +30,7 @@ public class CreateProjectActivityTest {
 
     @Test
     public void handleRequest_withTasks_createsAndSavesPlaylistWithTasks() {
+
         // GIVEN
         String expectedId = "expectedId";
         String expectedName = "expectedName";
@@ -40,20 +41,19 @@ public class CreateProjectActivityTest {
         List<String> expectedMembers = List.of("member");
 
         CreateProjectRequest request = CreateProjectRequest.builder()
-                .withProjectName(expectedName)
-                .withProjectDescription(expectedDescription)
-                .withCreatedById(expectedCreatedId)
-                .withProjectStatus(expectedStatus)
-                .withProjectTasks(expectedTasks)
-                .withProjectMembers(expectedMembers)
-                .build();
+            .withProjectName(expectedName)
+            .withProjectDescription(expectedDescription)
+            .withCreatedById(expectedCreatedId)
+            .withProjectStatus(expectedStatus)
+            .withProjectTasks(expectedTasks)
+            .withProjectMembers(expectedMembers)
+            .build();
 
         // WHEN
         CreateProjectResult result = createProjectActivity.handleRequest(request);
 
         // THEN
         verify(projectDao).saveProject(any(Project.class));
-
 
         assertNotNull(result.getProjectModel().getId());
         assertEquals(expectedName, result.getProjectModel().getName());

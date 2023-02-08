@@ -28,14 +28,14 @@ public class ModelConverter {
         }
 
         return ProjectModel.builder()
-                .withProjectId(project.getProjectId())
-                .withProjectName(project.getProjectName())
-                .withProjectDescription(project.getProjectDescription())
-                .withProjectStatus(project.getProjectStatus())
-                .withCreatedById(project.getCreatedById())
-                .withProjectTasks(projectTasks)
-                .withProjectMembers(projectMembers)
-                .build();
+            .withProjectId(project.getProjectId())
+            .withProjectName(project.getProjectName())
+            .withProjectDescription(project.getProjectDescription())
+            .withProjectStatus(project.getProjectStatus())
+            .withCreatedById(project.getCreatedById())
+            .withProjectTasks(projectTasks)
+            .withProjectMembers(projectMembers)
+            .build();
 
     }
 
