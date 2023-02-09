@@ -23,7 +23,7 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    index: path.resolve(__dirname, 'src', 'pages', 'index.js'),
+    createProject: path.resolve(__dirname, 'src', 'pages', 'createProject.js'),
 
   },
   output: {
