@@ -1,6 +1,7 @@
 package com.nashss.se.projectsyncup.activity;
 
 import com.nashss.se.projectsyncup.activity.requests.GetProjectRequest;
+import com.nashss.se.projectsyncup.activity.results.GetProjectResult;
 import com.nashss.se.projectsyncup.converters.ModelConverter;
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
@@ -46,7 +47,7 @@ public class GetProjectActivity {
         ProjectModel projectModel = new ModelConverter().toProjectModel(project);
 
         return GetProjectResult.builder()
-                .withProject(projectModel)
+                .withProjectModel(projectModel)
                 .build();
 
     }
