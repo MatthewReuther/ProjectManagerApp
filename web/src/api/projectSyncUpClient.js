@@ -84,7 +84,7 @@ import Authenticator from "./authenticator";
               const token = await this.getTokenOrThrow("Only authenticated users can create projects.");
               const response = await this.axiosClient.post(`projects`, {
                   projectName: projectName,
-                  projectTasks: projectTasks
+                  projectDescription: projectDescription
               }, {
                   headers: {
                       Authorization: `Bearer ${token}`

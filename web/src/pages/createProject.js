@@ -41,16 +41,18 @@ class CreateProject extends BindingClass {
         createButton.innerText = 'Loading...';
 
         const projectName = document.getElementById('projectName').value;
-        const projectTasksText = document.getElementById('projectTasks').value;
+        const projectDescription = document.getElementById('projectDescription').value;
 
-        let projectTasks;
-        if (projectTasksText.length < 1) {
-            projectTasks = null;
-        } else {
-            projectTasks = projectTasksText.split(/\s*,\s*/);
-        }
+//        const projectTasksText = document.getElementById('projectTasks').value;
 
-        const project = await this.client.createProject(projectName, projectTasks, (error) => {
+//        let projectTasks;
+//        if (projectTasksText.length < 1) {
+//            projectTasks = null;
+//        } else {
+//            projectTasks = projectTasksText.split(/\s*,\s*/);
+//        }
+
+        const project = await this.client.createProject(projectName, projectDescription, (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
@@ -64,7 +66,7 @@ class CreateProject extends BindingClass {
     redirectToViewProject() {
         const project = this.dataStore.get('project');
         if (project != null) {
-            window.location.href = `/project.html?id=${project.id}`;
+            window.location.href = `/project.html?projectId=${project.projectId}`;
         }
     }
 }

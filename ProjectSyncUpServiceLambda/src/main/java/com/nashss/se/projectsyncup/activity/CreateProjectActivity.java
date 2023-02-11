@@ -8,13 +8,15 @@ import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.models.ProjectModel;
 import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 
+//import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
 /**
- * Implementation of the CreatePlaylistActivity for the MusicPlaylistService's CreatePlaylist API.
+ * Implementation of the CreateProjectActivity for the ProjectSyncUpService's CreateProject API.
  * <p>
- * This API allows the customer to create a new playlist with no songs.
+ * This API allows the member to create a new project with no tasks.
  */
 
 public class CreateProjectActivity {
@@ -62,8 +64,8 @@ public class CreateProjectActivity {
         newProject.setCreatedById(createProjectRequest.getCreatedById());
         newProject.setTasks(projectTasks);
         newProject.setProjectMembers(projectMembers);
-        //newProject.setTasks(new HashSet<>());
-        //newProject.setProjectMembers(new HashSet<>());
+        //newProject.setTasks(new ArrayList<>());
+        //newProject.setProjectMembers(new ArrayList<>());
 
         projectDao.saveProject(newProject);
 

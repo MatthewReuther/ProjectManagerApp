@@ -9,7 +9,7 @@ import static com.nashss.se.projectsyncup.utils.CollectionUtils.copyToList;
  * This class represents the model of a project.
  * It contains information about the project ID, project name,
  * project description, project status, who project was created by,
- * list of tasks in project and list of members associated with the playlist
+ * list of tasks in project and list of members associated with the project
  */
 public class ProjectModel {
     private final String projectId;
@@ -21,7 +21,7 @@ public class ProjectModel {
     private final List<String> projectMembers;
 
     /**
-     * Instantiates a new PlaylistModel object.
+     * Instantiates a new ProjectModel object.
      * Private to enforce user to use Builder to create a new instance of CreateProjectRequest
      */
 
