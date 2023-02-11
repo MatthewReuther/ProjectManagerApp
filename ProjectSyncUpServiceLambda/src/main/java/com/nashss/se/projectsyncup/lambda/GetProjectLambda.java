@@ -6,22 +6,32 @@ import com.nashss.se.projectsyncup.activity.requests.GetProjectRequest;
 import com.nashss.se.projectsyncup.activity.results.GetProjectResult;
 
 
-public class GetProjectLambda {
-            extends LambdaActivityRunner<GetProjectRequest, GetProjectResult>
-            implements RequestHandler<LambdaRequest<GetProjectRequest>, LambdaResponse> {
+/**
+ * The `GetProjectLambda` class is an implementation of the AWS Lambda function that retrieves a project.
+ * This class extends the `LambdaActivityRunner` and implements the `RequestHandler` interface.
+ *
+ */
+public class GetProjectLambda
+        extends LambdaActivityRunner<GetProjectRequest, GetProjectResult>
+        implements RequestHandler<LambdaRequest<GetProjectRequest>, LambdaResponse> {
 
-        @Override
-        public LambdaResponse handleRequest(LambdaRequest<GetProjectRequest> input, Context context) {
-
-            return super.runActivity(
-                    () -> input.fromPath(path ->
-                            GetProjectRequest.builder()
-
-                                    .build()),
-                    (request, serviceComponent) ->
-                            serviceComponent.provideGetProjectActivity().handleRequest(request)
-            );
-        }
+    /**
+     * Handles a request to retrieve a project by using the provided `GetProjectRequest` instance.
+     * This method delegates the request handling to the `LambdaActivityRunner` superclass.
+     *
+     * @param input the `LambdaRequest` object that holds the `GetProjectRequest` instance
+     * @param context the AWS Lambda context object
+     * @return the result of the request as a `LambdaResponse` object
+     */
+    @Override
+    public LambdaResponse handleRequest(LambdaRequest<GetProjectRequest> input, Context context) {
+        return super.runActivity(
+                () -> input.fromPath(path ->
+                        GetProjectRequest.builder()
+                                .withProjectId(path.get("projectId"))
+                                .build()),
+                (request, serviceComponent) ->
+                        serviceComponent.provideGetProjectActivity().handleRequest(request)
+                );
     }
-
 }

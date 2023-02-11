@@ -50,7 +50,7 @@ public class GetProjectRequest {
     public static class Builder {
         private String projectId;
 
-        public Builder withId(String projectId) {
+        public Builder withProjectId(String projectId) {
             this.projectId = projectId;
             return this;
         }
