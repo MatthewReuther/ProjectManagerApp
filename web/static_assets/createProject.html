@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <script type="text/javascript" src="assets/createProject.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+
+    <body class="block-body background">
+        <header class="header block-header" id="header">
+
+        </header>
+
+        <div class="block block-viewProject">
+            <h2>Create New Project</h2>
+            <div class="block-content">
+                <form class="block-inner" id="create-project-form">
+                    <p class="hidden error" id="error-message"> </p>
+                    <p class="form-field">
+                        <label>Project Name</label>
+                        <input type="text" required class="validated-field" id="projectName" placeholder="Name of Project" autofocus>
+                    </p>
+                    <p class="form-field">
+                        <label>Project Description</label>
+                        <input type="text" id="projectDescription" class="projectDescription" placeholder="Describe the Project" autofocus>
+                    </p>
+                    <p>
+                        <a href="#" class="button" id="create">Create Project</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright © 2023</p>
+        </footer>
+    </body>
+
+</html>

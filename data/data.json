@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "PutRequest": {
+        "Item": {
+          "projectId": { "S": "4127" },
+          "projectName": { "S": "Client Redesign" },
+          "projectDescription": { "S": "Project to redesign our clients website" },
+          "projectStatus": { "S": "Not Started" },
+          "createdById": { "S": "3124" },
+          "projectTasks": { "SS": [ "Fix Header", "Update Content", "Make Responsive"]},
+          "projectMembers": { "SS": [ "Bill Hader", "Mark Young", "Betty Netty"]}
+        }
+      }
+    }
+  ]
+}
+
