@@ -15,7 +15,7 @@ import Authenticator from "./authenticator";
       constructor(props = {}) {
           super();
 
-          const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createProject'];
+          const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'getProject', 'createProject'];
           this.bindClassMethods(methodsToBind, this);
 
           this.authenticator = new Authenticator();;
@@ -72,6 +72,21 @@ import Authenticator from "./authenticator";
       }
 
       /**
+       * Gets the project for the given ID.
+       * @param id Unique identifier for a project
+       * @param errorCallback (Optional) A function to execute if the call fails.
+       * @returns The project's metadata.
+       */
+       async getProject(projectId, errorCallback) {
+            try {
+                const response = await this.axiosClient.get(`projects/${projectId}`);
+                return response.data.project;
+            } catch (error) {
+                this.handleError(error, errorCallback)
+            }
+       }
+
+      /**
        * Create a new project owned by the current member.
        * @param projectName The name of the project to create.
        * @param projectDescription The description of the project to create.
@@ -95,7 +110,6 @@ import Authenticator from "./authenticator";
               this.handleError(error, errorCallback)
           }
       }
-
 
       /**
        * Helper method to log the error and run any error functions.
