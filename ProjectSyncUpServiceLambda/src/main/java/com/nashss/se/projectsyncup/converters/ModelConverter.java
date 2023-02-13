@@ -1,7 +1,9 @@
 package com.nashss.se.projectsyncup.converters;
 
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
+import com.nashss.se.projectsyncup.dynamodb.models.Task;
 import com.nashss.se.projectsyncup.models.ProjectModel;
+import com.nashss.se.projectsyncup.models.TaskModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,4 +41,19 @@ public class ModelConverter {
 
     }
 
+    /**
+     * Converts a provided {@link Task} into a {@link TaskModel} representation.
+     * @param task the task to convert
+     * @return the converted task
+     */
+    public TaskModel toTaskModel(Task task) {
+        return TaskModel.builder()
+            .withTaskId(task.getTaskId())
+            .withTaskName(task.getTaskName())
+            .withTaskDescription(task.getTaskDescription())
+            .withTaskDueDate(task.getTaskDueDate())
+            .withTaskAssignedUser(task.getTaskAssignedUser())
+            .withCreatedById(task.getCreatedById())
+            .build();
+    }
 }

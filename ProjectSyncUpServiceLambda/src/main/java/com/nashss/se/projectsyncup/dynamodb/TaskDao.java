@@ -53,7 +53,7 @@ public class TaskDao {
 
         DynamoDBQueryExpression<Task> queryExpression = new DynamoDBQueryExpression<Task>()
                 .withKeyConditionExpression("projectId = :projectId")
-                .withExpressionAttributeValues(valueMap)
+                .withExpressionAttributeValues(valueMap);
 
         List<Task> taskList = dynamoDbMapper.queryPage(Task.class, queryExpression).getResults();
 
@@ -73,32 +73,13 @@ public class TaskDao {
 
         DynamoDBQueryExpression<Task> queryExpression = new DynamoDBQueryExpression<Task>()
                 .withKeyConditionExpression("taskAssignedUser = :taskAssignedUser")
-                .withExpressionAttributeValues(valueMap)
-
+                .withExpressionAttributeValues(valueMap);
         List<Task> taskList = dynamoDbMapper.queryPage(Task.class, queryExpression).getResults();
 
         return taskList;
     }
 
-    /**
-     * Returns a {@link List} of {@link Task} corresponding to the specified members id.
-     *
-     * @param taskAssignedUser the members ID
-     * @return A list of stored Tasks assigned to member,
-     * or throws an TaskNotFoundException if none were found.
-     */
-    public List<Task> getAssignedTasks(String taskAssignedUser) {
-        Map<String, AttributeValue> valueMap = new HashMap<>();
-        valueMap.put(":taskAssignedUser" , new AttributeValue().withS(taskAssignedUser));
 
-        DynamoDBQueryExpression<Task> queryExpression = new DynamoDBQueryExpression<Task>()
-                .withKeyConditionExpression("taskAssignedUser = :taskAssignedUser")
-                .withExpressionAttributeValues(valueMap)
-
-        List<Task> taskList = dynamoDbMapper.queryPage(Task.class, queryExpression).getResults();
-
-        return taskList;
-    }
 }
 
 

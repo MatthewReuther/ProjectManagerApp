@@ -18,7 +18,7 @@ public final class ProjectSyncUpServiceUtils {
      *
      * @return the generated project ID
      */
-    public static String generateProjectId() {
-        return RandomStringUtils.randomAlphanumeric(8);
+    public static String generateUniqueId() {
+        return RandomStringUtils.randomAlphanumeric(5);
     }
 }

@@ -26,7 +26,7 @@ public class ProjectDaoTest {
     @Test
     public void getProject_withProjectId_callsMapperWithPartitionKey() {
         // GIVEN
-        String projectId = ProjectSyncUpServiceUtils.generateProjectId();
+        String projectId = ProjectSyncUpServiceUtils.generateUniqueId();
         when(dynamoDBMapper.load(Project.class, projectId)).thenReturn(new Project());
 
         // WHEN

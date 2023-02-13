@@ -17,7 +17,7 @@ public class ModelConverterTest {
     void toProjectModel_withTaskAndMembers_convertsProject() {
 
         Project project = new Project();
-        project.setProjectId(ProjectSyncUpServiceUtils.generateProjectId());
+        project.setProjectId(ProjectSyncUpServiceUtils.generateUniqueId());
         project.setProjectName("name");
         project.setProjectDescription("exprectedDescription");
         project.setProjectStatus("Not Started");

@@ -57,7 +57,7 @@ public class CreateProjectActivity {
         }
 
         Project newProject = new Project();
-        newProject.setProjectId(ProjectSyncUpServiceUtils.generateProjectId());
+        newProject.setProjectId(ProjectSyncUpServiceUtils.generateUniqueId());
         newProject.setProjectName(createProjectRequest.getProjectName());
         newProject.setProjectDescription(createProjectRequest.getProjectDescription());
         newProject.setProjectStatus(createProjectRequest.getProjectStatus());

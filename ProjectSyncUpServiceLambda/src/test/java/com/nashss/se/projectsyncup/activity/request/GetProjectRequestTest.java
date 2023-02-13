@@ -11,7 +11,7 @@ public class GetProjectRequestTest {
 
     @Test
     public void handleRequest_getProjectById_returnsProjectWithGivenId() {
-        String projectId = ProjectSyncUpServiceUtils.generateProjectId();
+        String projectId = ProjectSyncUpServiceUtils.generateUniqueId();
 
         GetProjectRequest request = GetProjectRequest.builder()
                 .withProjectId(projectId)

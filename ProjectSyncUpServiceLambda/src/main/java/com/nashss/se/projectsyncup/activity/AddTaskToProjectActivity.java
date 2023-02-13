@@ -6,10 +6,14 @@ import com.nashss.se.projectsyncup.converters.ModelConverter;
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.TaskDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
-import com.nashss.se.projectsyncup.dynamodb.models.TaskModel;
+import com.nashss.se.projectsyncup.dynamodb.models.Task;
+import com.nashss.se.projectsyncup.models.TaskModel;
+import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 
 import javax.inject.Inject;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -48,22 +52,35 @@ public class AddTaskToProjectActivity {
          */
         public AddTaskToProjectResult handleRequest(final AddTaskToProjectRequest addTaskToProjectRequest) {
 
-            String projectId;
-            String taskId;
-            String taskName;
-            String taskDescription;
-            String taskDueDate;
-            List<String> taskAssignedUsers;
 
+            Task newTask = new Task();
+            newTask.setTaskId(ProjectSyncUpServiceUtils.generateUniqueId());
+            newTask.setTaskName(addTaskToProjectRequest.getTaskName());
+            newTask.setTaskDescription(addTaskToProjectRequest.getTaskDescription());
+            newTask.setTaskDueDate(addTaskToProjectRequest.getTaskDueDate());
+            newTask.setTaskAssignedUser(addTaskToProjectRequest.getTaskAssignedUser());
 
-            String songTitle = addSongToPlaylistRequest.getSongTitle();
-            String songArtist = addSongToPlaylistRequest.getSongArtist();
+            Project project = projectDao.getProject(addTaskToProjectRequest.getProjectId());
 
-            Project project;
+            Set<String> taskList = project.getProjectTasks();
 
-            List<TaskModel> taskModels;
-            return null;
+            if (taskList == null) {
+                taskList = new HashSet<>();
+            }
+
+            String newTaskName = newTask.getTaskId() + ", " + newTask.getTaskName();
+
+            taskList.add(newTaskName);
+            project.setTasks(taskList);
+            projectDao.saveProject(project);
+
+            TaskModel taskModel = new ModelConverter().toTaskModel(newTask);
+
+            return AddTaskToProjectResult.builder()
+                    .withTaskModel(taskModel)
+                    .build();
         }
+
     }
 
 

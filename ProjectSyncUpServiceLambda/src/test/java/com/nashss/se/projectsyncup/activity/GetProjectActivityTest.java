@@ -34,7 +34,7 @@ public class GetProjectActivityTest {
     public void handleRequest_savedProjectFound_returnsProjectModelInResult() {
 
         // GIVEN
-        String expectedId = ProjectSyncUpServiceUtils.generateProjectId();
+        String expectedId = ProjectSyncUpServiceUtils.generateUniqueId();
         String expectedProjectName = "Test Project";
         String expectedProjectDescription = "This is a test project.";
         String expectedProjectStatus = "Active";

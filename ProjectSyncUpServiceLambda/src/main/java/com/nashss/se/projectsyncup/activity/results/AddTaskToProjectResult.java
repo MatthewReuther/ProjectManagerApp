@@ -50,7 +50,18 @@ public class AddTaskToProjectResult {
     }
 
     public static class Builder {
+        private TaskModel taskModel;
         private List<TaskModel> taskList;
+
+        /**
+         * Builder to create AddGuestToPartyResult object.
+         * @param taskModel the list of users at the party.
+         * @return the Builder object
+         */
+        public Builder withTaskModel(TaskModel taskModel) {
+            this.taskModel = taskModel;
+            return this;
+        }
 
         public Builder withTaskList(List<TaskModel> taskList) {
             this.taskList = new ArrayList<>(taskList);
