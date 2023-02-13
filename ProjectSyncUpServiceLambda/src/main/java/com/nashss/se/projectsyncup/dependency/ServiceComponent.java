@@ -1,5 +1,6 @@
 package com.nashss.se.projectsyncup.dependency;
 
+import com.nashss.se.projectsyncup.activity.AddTaskToProjectActivity;
 import com.nashss.se.projectsyncup.activity.CreateProjectActivity;
 
 import com.nashss.se.projectsyncup.activity.GetProjectActivity;
@@ -26,4 +27,10 @@ public interface ServiceComponent {
      * @return GetProjectActivity
      */
     GetProjectActivity provideGetProjectActivity();
+
+    /**
+     * Provides the relevant activity.
+     * @return GetProjectActivity
+     */
+    AddTaskToProjectActivity provideAddTaskToProjectActvity();
 }

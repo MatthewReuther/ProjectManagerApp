@@ -13,12 +13,12 @@ import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
+
 /**
  * Implementation of the CreateProjectActivity for the ProjectSyncUpService's CreateProject API.
- * <p>
+ *
  * This API allows the member to create a new project with no tasks.
  */
-
 public class CreateProjectActivity {
 
     private final ProjectDao projectDao;
@@ -36,9 +36,9 @@ public class CreateProjectActivity {
     /**
      * This method handles the incoming request by persisting a new project
      * with the provided project name and user ID from the request.
-     * <p>
+     *
      * It then returns the newly created project.
-     * <p>
+     *
      *
      * @param createProjectRequest request object containing the project name and user ID  associated with it
      * @return createProjectResult result object containing the API defined {@link ProjectModel}
