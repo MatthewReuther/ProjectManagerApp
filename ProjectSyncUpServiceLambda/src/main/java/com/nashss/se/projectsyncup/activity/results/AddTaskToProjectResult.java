@@ -1,6 +1,6 @@
 package com.nashss.se.projectsyncup.activity.results;
 
-import com.nashss.se.projectsyncup.dynamodb.models.TaskModel;
+import com.nashss.se.projectsyncup.models.TaskModel;
 
 import java.util.ArrayList;
 import java.util.List;

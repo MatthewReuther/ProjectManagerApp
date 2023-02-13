@@ -207,4 +207,17 @@ public class Project {
         return Objects.hash(getProjectId(), getProjectName(), getProjectDescription(),
                 getProjectStatus(), getCreatedById(), getProjectTasks(), getProjectMembers());
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectId='" + projectId + '\'' +
+                ", projectName='" + projectName + '\'' +
+                ", projectDescription='" + projectDescription + '\'' +
+                ", projectStatus='" + projectStatus + '\'' +
+                ", createdById='" + createdById + '\'' +
+                ", projectTasks='" + projectTasks + '\'' +
+                ", projectMembers='" + projectMembers + '\'' +
+                '}';
+    }
 }
