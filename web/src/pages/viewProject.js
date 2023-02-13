@@ -13,6 +13,7 @@ class ViewProject extends BindingClass {
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectToPage);
         this.header = new Header(this.dataStore);
+
     }
 
     /**

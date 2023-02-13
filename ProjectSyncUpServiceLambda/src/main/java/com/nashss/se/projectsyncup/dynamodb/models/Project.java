@@ -4,6 +4,12 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.nashss.se.projectsyncup.activity.requests.GetProjectRequest;
+import com.nashss.se.projectsyncup.activity.results.GetProjectResult;
+import com.nashss.se.projectsyncup.lambda.LambdaActivityRunner;
+import com.nashss.se.projectsyncup.lambda.LambdaRequest;
+import com.nashss.se.projectsyncup.lambda.LambdaResponse;
 
 import java.util.HashSet;
 import java.util.Objects;

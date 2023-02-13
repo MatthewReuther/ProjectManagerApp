@@ -37,7 +37,7 @@ public class CreateProjectActivityTest {
         String expectedDescription = "expectedDescription";
         String expectedStatus = "expectedStatus";
         String expectedCreatedId = "expectedCreatedById";
-        List<String> expectedTasks = List.of("task");
+        List<String> expectedTasks = List.of("task 1");
         List<String> expectedMembers = List.of("member");
 
         CreateProjectRequest request = CreateProjectRequest.builder()
