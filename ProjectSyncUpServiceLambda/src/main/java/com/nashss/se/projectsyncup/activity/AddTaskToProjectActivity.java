@@ -48,6 +48,17 @@ public class AddTaskToProjectActivity {
          */
         public AddTaskToProjectResult handleRequest(final AddTaskToProjectRequest addTaskToProjectRequest) {
 
+            String projectId;
+            String taskId;
+            String taskName;
+            String taskDescription;
+            String taskDueDate;
+            List<String> taskAssignedUsers;
+
+
+            String songTitle = addSongToPlaylistRequest.getSongTitle();
+            String songArtist = addSongToPlaylistRequest.getSongArtist();
+
             Project project;
 
             List<TaskModel> taskModels;
