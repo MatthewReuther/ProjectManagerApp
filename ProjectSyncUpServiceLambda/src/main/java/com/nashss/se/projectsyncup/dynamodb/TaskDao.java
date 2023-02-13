@@ -41,7 +41,7 @@ public class TaskDao {
     }
 
     /**
-     * Returns a {@link List} of {@link Task} corresponding to the specified user id.
+     * Returns a {@link List} of {@link Task} corresponding to the specified project id.
      *
      * @param projectId the project ID
      * @return A list of stored tasks for project, or throws an TasksNotFoundException if none were found.
