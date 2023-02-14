@@ -10,15 +10,15 @@ public class CreateProjectResult {
     /**
      * The projectModel that was created.
      */
-    private final ProjectModel projectModel;
+    private final ProjectModel project;
 
     /**
      * Private constructor to enforce the use of the Builder class.
      *
-     * @param projectModel The projectModel that was created.
+     * @param project The projectModel that was created.
      */
-    private CreateProjectResult(ProjectModel projectModel) {
-        this.projectModel = projectModel;
+    private CreateProjectResult(ProjectModel project) {
+        this.project = project;
     }
 
     /**
@@ -26,8 +26,8 @@ public class CreateProjectResult {
      *
      * @return The projectModel that was created.
      */
-    public ProjectModel getProjectModel() {
-        return projectModel;
+    public ProjectModel getProject() {
+        return project;
     }
 
     /**
@@ -39,7 +39,7 @@ public class CreateProjectResult {
     @Override
     public String toString() {
         return "CreateProjectResult{" +
-                "project=" + projectModel +
+                "project=" + project +
                 '}';
     }
 

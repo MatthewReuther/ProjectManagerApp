@@ -48,7 +48,7 @@ public class GetProjectActivityTest {
         project.setProjectDescription(expectedProjectDescription);
         project.setProjectStatus(expectedProjectStatus);
         project.setCreatedById(expectedCreatedById);
-        project.setTasks(Sets.newHashSet(expectedProjectTasks));
+        project.setProjectTasks(Sets.newHashSet(expectedProjectTasks));
         project.setProjectMembers(Sets.newHashSet(expectedProjectMembers));
 
         when(projectDao.getProject(expectedId)).thenReturn(project);
@@ -61,12 +61,12 @@ public class GetProjectActivityTest {
         GetProjectResult result = getProjectActivity.handleRequest(request);
 
         // THEN
-        assertEquals(expectedId, result.getProjectModel().getId());
-        assertEquals(expectedProjectName, result.getProjectModel().getName());
-        assertEquals(expectedProjectDescription, result.getProjectModel().getDescription());
-        assertEquals(expectedProjectStatus, result.getProjectModel().getStatus());
-        assertEquals(expectedCreatedById, result.getProjectModel().getCreatedBy());
-        assertEquals(expectedProjectTasks, result.getProjectModel().getTasks());
+        assertEquals(expectedId, result.getProjectModel().getProjectId());
+        assertEquals(expectedProjectName, result.getProjectModel().getProjectName());
+        assertEquals(expectedProjectDescription, result.getProjectModel().getProjectDescription());
+        assertEquals(expectedProjectStatus, result.getProjectModel().getProjectStatus());
+        assertEquals(expectedCreatedById, result.getProjectModel().getCreatedById());
+        assertEquals(expectedProjectTasks, result.getProjectModel().getProjectTasks());
         assertEquals(expectedProjectMembers, result.getProjectModel().getProjectMembers());
     }
 

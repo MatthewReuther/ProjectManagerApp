@@ -70,7 +70,7 @@ public class CreateProjectActivity {
         newProject.setProjectDescription(createProjectRequest.getProjectDescription());
         newProject.setProjectStatus(createProjectRequest.getProjectStatus());
         newProject.setCreatedById(createProjectRequest.getCreatedById());
-        newProject.setTasks(projectTasks);
+        newProject.setProjectTasks(projectTasks);
         newProject.setProjectMembers(projectMembers);
         //newProject.setTasks(new ArrayList<>());
         //newProject.setProjectMembers(new ArrayList<>());

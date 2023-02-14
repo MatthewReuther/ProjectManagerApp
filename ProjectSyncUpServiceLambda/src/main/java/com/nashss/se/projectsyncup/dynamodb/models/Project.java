@@ -136,14 +136,14 @@ public class Project {
 
         return new HashSet<>(projectTasks);
     }
-    
+
 
     /**
      * Sets the tasks for this Project as a copy of input, or null if input is null.
      *
      * @param projectTasksSet Set of tasks for this project
      */
-    public void setTasks(Set<String> projectTasksSet) {
+    public void setProjectTasks(Set<String> projectTasksSet) {
         // see comment in getProjectTasks()
         this.projectTasks = projectTasksSet;
     }

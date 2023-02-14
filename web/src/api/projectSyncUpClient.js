@@ -94,7 +94,7 @@ import Authenticator from "./authenticator";
        * @param errorCallback (Optional) A function to execute if the call fails.
        * @returns The project that has been created.
        */
-      async createProject(projectName, projectDescription, projectTasks, errorCallback) {
+      async createProject(projectName, projectDescription, errorCallback) {
           try {
               const token = await this.getTokenOrThrow("Only authenticated users can create projects.");
               const response = await this.axiosClient.post(`projects`, {
@@ -105,6 +105,7 @@ import Authenticator from "./authenticator";
                       Authorization: `Bearer ${token}`
                   }
               });
+              console.log(response.data.project)
               return response.data.project;
           } catch (error) {
               this.handleError(error, errorCallback)

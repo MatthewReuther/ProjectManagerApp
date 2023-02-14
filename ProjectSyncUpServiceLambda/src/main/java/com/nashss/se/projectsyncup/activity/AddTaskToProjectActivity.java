@@ -76,7 +76,7 @@ public class AddTaskToProjectActivity {
         String newTaskName = newTask.getTaskId() + ", " + newTask.getTaskName();
 
         taskList.add(newTaskName);
-        project.setTasks(taskList);
+        project.setProjectTasks(taskList);
         projectDao.saveProject(project);
 
         TaskModel taskModel = new ModelConverter().toTaskModel(newTask);

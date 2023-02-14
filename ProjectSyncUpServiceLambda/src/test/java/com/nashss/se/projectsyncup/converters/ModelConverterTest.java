@@ -22,17 +22,17 @@ public class ModelConverterTest {
         project.setProjectDescription("exprectedDescription");
         project.setProjectStatus("Not Started");
         project.setCreatedById("expectedUser");
-        project.setTasks(Sets.newHashSet("Update Links", "Remove Border..."));
+        project.setProjectTasks(Sets.newHashSet("Update Links", "Remove Border..."));
         project.setProjectMembers(Sets.newHashSet("Mark", "Ben"));
 
         ProjectModel projectModel = modelConverter.toProjectModel(project);
-        assertEquals(project.getProjectId(), projectModel.getId());
-        assertEquals(project.getProjectName(), projectModel.getName());
-        assertEquals(project.getProjectDescription(), projectModel.getDescription());
-        assertEquals(project.getProjectStatus(), projectModel.getStatus());
-        assertEquals(project.getCreatedById(), projectModel.getCreatedBy());
-        assertEquals(project.getProjectStatus(), projectModel.getStatus());
-        assertEquals(project.getProjectTasks(), copyToSet(projectModel.getTasks()));
+        assertEquals(project.getProjectId(), projectModel.getProjectId());
+        assertEquals(project.getProjectName(), projectModel.getProjectName());
+        assertEquals(project.getProjectDescription(), projectModel.getProjectDescription());
+        assertEquals(project.getProjectStatus(), projectModel.getProjectStatus());
+        assertEquals(project.getCreatedById(), projectModel.getCreatedById());
+        assertEquals(project.getProjectStatus(), projectModel.getProjectStatus());
+        assertEquals(project.getProjectTasks(), copyToSet(projectModel.getProjectTasks()));
         assertEquals(project.getProjectMembers(), copyToSet(projectModel.getProjectMembers()));
 
     }
