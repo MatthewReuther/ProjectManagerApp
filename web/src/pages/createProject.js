@@ -66,7 +66,7 @@ class CreateProject extends BindingClass {
     redirectToViewProject() {
         const project = this.dataStore.get('project');
         if (project != null) {
-            window.location.href = `/project.html?projectId=${project.projectId}`;
+            window.location.href = `/project.html?id=${project.projectId}`;
         }
     }
 

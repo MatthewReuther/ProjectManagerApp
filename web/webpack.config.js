@@ -23,8 +23,9 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    createProject: path.resolve(__dirname, 'src', 'pages', 'createProject.js'),
     index: path.resolve(__dirname, 'src', 'pages', 'index.js'),
+    createProject: path.resolve(__dirname, 'src', 'pages', 'createProject.js'),
+    viewProject: path.resolve(__dirname, 'src', 'pages', 'viewProject.js')
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),
