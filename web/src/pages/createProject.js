@@ -69,6 +69,7 @@ class CreateProject extends BindingClass {
             window.location.href = `/project.html?projectId=${project.projectId}`;
         }
     }
+
 }
 
 /**
