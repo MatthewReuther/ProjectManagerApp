@@ -4,6 +4,7 @@ import com.nashss.se.projectsyncup.activity.AddTaskToProjectActivity;
 import com.nashss.se.projectsyncup.activity.CreateProjectActivity;
 
 import com.nashss.se.projectsyncup.activity.GetProjectActivity;
+
 import dagger.Component;
 
 import javax.inject.Singleton;

@@ -2,10 +2,16 @@ package com.nashss.se.projectsyncup.activity;
 
 import com.nashss.se.projectsyncup.activity.requests.GetProjectRequest;
 import com.nashss.se.projectsyncup.activity.results.GetProjectResult;
+
 import com.nashss.se.projectsyncup.converters.ModelConverter;
+
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
+
 import com.nashss.se.projectsyncup.models.ProjectModel;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 
@@ -16,7 +22,7 @@ import javax.inject.Inject;
  */
 
 public class GetProjectActivity {
-
+    private final Logger log = LogManager.getLogger();
     private final ProjectDao projectDao;
 
     /**
@@ -41,6 +47,7 @@ public class GetProjectActivity {
      */
 
     public GetProjectResult handleRequest(final GetProjectRequest getProjectRequest) {
+        log.info("Received GetPlaylistRequest {}", getProjectRequest);
 
         String requestedId = getProjectRequest.getProjectId();
         Project project = projectDao.getProject(requestedId);

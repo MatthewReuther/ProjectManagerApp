@@ -28,14 +28,14 @@ public class ProjectDao {
     /**
      * Returns the {@link Project} corresponding to the specified id.
      *
-     * @param id the Project ID
+     * @param projectId the Project ID
      * @return the stored project, or null if none was found.
      */
-    public Project getProject(String id) {
-        Project project = this.dynamoDbMapper.load(Project.class, id);
+    public Project getProject(String projectId) {
+        Project project = this.dynamoDbMapper.load(Project.class, projectId);
 
         if (project == null) {
-            throw new ProjectNotFoundException("Could not find project with id " + id);
+            throw new ProjectNotFoundException("Could not find project with id " + projectId);
         }
 
         return project;

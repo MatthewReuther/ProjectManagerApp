@@ -2,16 +2,23 @@ package com.nashss.se.projectsyncup.activity;
 
 import com.nashss.se.projectsyncup.activity.requests.CreateProjectRequest;
 import com.nashss.se.projectsyncup.activity.results.CreateProjectResult;
+
 import com.nashss.se.projectsyncup.converters.ModelConverter;
+
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
+
 import com.nashss.se.projectsyncup.models.ProjectModel;
 import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 //import java.util.ArrayList;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.inject.Inject;
 
 /**
@@ -20,7 +27,7 @@ import javax.inject.Inject;
  * This API allows the member to create a new project with no tasks.
  */
 public class CreateProjectActivity {
-
+    private final Logger log = LogManager.getLogger();
     private final ProjectDao projectDao;
 
     /**
@@ -45,6 +52,7 @@ public class CreateProjectActivity {
      */
 
     public CreateProjectResult handleRequest(final CreateProjectRequest createProjectRequest) {
+        log.info("Received CreateProjectRequest {} ", createProjectRequest);
 
         Set<String> projectTasks = null;
         if (createProjectRequest.getProjectTasks() != null) {
@@ -68,7 +76,6 @@ public class CreateProjectActivity {
         //newProject.setProjectMembers(new ArrayList<>());
 
         projectDao.saveProject(newProject);
-
 
         ProjectModel projectModel = new ModelConverter().toProjectModel(newProject);
         return CreateProjectResult.builder()
