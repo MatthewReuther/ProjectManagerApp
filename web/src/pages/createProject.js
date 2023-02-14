@@ -43,15 +43,6 @@ class CreateProject extends BindingClass {
         const projectName = document.getElementById('projectName').value;
         const projectDescription = document.getElementById('projectDescription').value;
 
-//        const projectTasksText = document.getElementById('projectTasks').value;
-
-//        let projectTasks;
-//        if (projectTasksText.length < 1) {
-//            projectTasks = null;
-//        } else {
-//            projectTasks = projectTasksText.split(/\s*,\s*/);
-//        }
-
         const project = await this.client.createProject(projectName, projectDescription, (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;

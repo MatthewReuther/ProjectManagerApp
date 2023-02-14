@@ -12,12 +12,41 @@
         </header>
 
         <div class="block block-viewProject">
-            <h2>View Project</h2>
+            <h3>Project: <span id="projectName"></span></h3>
             <div class="block-inner block-content">
-                <h2 id="projectName"></h2>
-                <h3>Description <span id="projectDescription"></span></h3>
+                <h3>Description: <br> <span id="projectDescription"></span></h3>
+                <h3>Created by: <span id="projectOwner"></span></h3>
+                <h3>Project Task List: <div class="tasks" id="tasks"></div></h3>
+
             </div>
         </div>
+
+        <div class="block block-addTask">
+            <h2>Create New Project</h2>
+            <div class="block-content">
+                <form class="block-inner" id="add-task-form">
+                    <p class="hidden error" id="error-message"> </p>
+                    <p class="form-field">
+                        <label>Task Title:</label>
+                        <input type="text" required class="validated-field" id="taskTitle" placeholder="Title of Task" autofocus>
+                    </p>
+                    <p class="form-field">
+                        <label>Task Description:</label>
+                        <input type="text" id="taskDescription" class="taskDescription" placeholder="Describe the Task" autofocus>
+                    </p>
+                    <p class="form-field">
+                        <label>Task Due Date:</label>
+                        <input type="text" id="taskDueDate" class="taskDueDate" placeholder="Set When Task is Due" autofocus>
+                    </p>
+                    <p class="form-field">
+                        <label>Assign Task:</label>
+                        <input type="text" id="taskAssignedTo" class="taskAssignedTo" placeholder="Set who the task is assigned to." autofocus>
+                    </p>
+                    <p>
+                        <a href="#" class="button" id="add-task">Add Task</a>
+                    </p>
+                </form>
+            </div>
 
     </body>
 

@@ -61,13 +61,13 @@ public class GetProjectActivityTest {
         GetProjectResult result = getProjectActivity.handleRequest(request);
 
         // THEN
-        assertEquals(expectedId, result.getProjectModel().getProjectId());
-        assertEquals(expectedProjectName, result.getProjectModel().getProjectName());
-        assertEquals(expectedProjectDescription, result.getProjectModel().getProjectDescription());
-        assertEquals(expectedProjectStatus, result.getProjectModel().getProjectStatus());
-        assertEquals(expectedCreatedById, result.getProjectModel().getCreatedById());
-        assertEquals(expectedProjectTasks, result.getProjectModel().getProjectTasks());
-        assertEquals(expectedProjectMembers, result.getProjectModel().getProjectMembers());
+        assertEquals(expectedId, result.getProject().getProjectId());
+        assertEquals(expectedProjectName, result.getProject().getProjectName());
+        assertEquals(expectedProjectDescription, result.getProject().getProjectDescription());
+        assertEquals(expectedProjectStatus, result.getProject().getProjectStatus());
+        assertEquals(expectedCreatedById, result.getProject().getCreatedById());
+        assertEquals(expectedProjectTasks, result.getProject().getProjectTasks());
+        assertEquals(expectedProjectMembers, result.getProject().getProjectMembers());
     }
 
 }

@@ -13,7 +13,7 @@ class ViewProject extends BindingClass {
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectToPage);
         this.header = new Header(this.dataStore);
-
+        console.log("viewProject constructor");
     }
 
     /**
@@ -23,6 +23,7 @@ class ViewProject extends BindingClass {
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('projectId');
         document.getElementById('projectName').innerText = "Loading Project ...";
+
         const project = await this.client.getProject(projectId);
         this.dataStore.set('project', project);
     }
@@ -49,8 +50,27 @@ class ViewProject extends BindingClass {
 
         document.getElementById('projectName').innerText = project.projectName;
         document.getElementById('projectDescription').innerText = project.projectDescription;
+        document.getElementById('projectOwner').innerText = project.createdById;
+
+//        const projectTasksText = document.getElementById('projectTasks').value;
+
+//        let projectTasks;
+//        if (projectTasksText.length < 1) {
+//            projectTasks = null;
+//        } else {
+//            projectTasks = projectTasksText.split(/\s*,\s*/);
+//        }
+
+        let taskHtml = '';
+        let task;
+        for (task of project.projectTasks) {
+            taskHtml += '<div class="task">' + task + '</div>';
+        }
+        document.getElementById('tasks').innerHTML = taskHtml;
 
     }
+
+
 
 }
 
