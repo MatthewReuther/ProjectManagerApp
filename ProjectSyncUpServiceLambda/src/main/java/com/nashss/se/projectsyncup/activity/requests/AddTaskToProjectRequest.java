@@ -1,11 +1,13 @@
 package com.nashss.se.projectsyncup.activity.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 
 /**
  * AddTaskToProjectRequest is a class that holds the necessary information to add a task to a project.
  */
+@JsonDeserialize(builder = AddTaskToProjectRequest.Builder.class)
 public class AddTaskToProjectRequest {
     private final String projectId;
     private final String taskName;
