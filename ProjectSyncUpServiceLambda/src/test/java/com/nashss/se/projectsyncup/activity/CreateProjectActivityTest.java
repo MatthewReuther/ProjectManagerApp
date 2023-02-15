@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,15 +38,16 @@ public class CreateProjectActivityTest {
         String expectedDescription = "expectedDescription";
         String expectedStatus = "expectedStatus";
         String expectedCreatedId = "expectedCreatedById";
-        List<String> expectedTasks = List.of("task 1");
-        List<String> expectedMembers = List.of("member");
+        List<String> expectedTasks = null;
+        List<String> expectedMembers = null;
 
         CreateProjectRequest request = CreateProjectRequest.builder()
             .withProjectName(expectedName)
             .withProjectDescription(expectedDescription)
             .withCreatedById(expectedCreatedId)
             .withProjectStatus(expectedStatus)
-
+            .withProjectTasks(expectedTasks)
+            .withProjectMembers(expectedMembers)
             .build();
 
         // WHEN
@@ -59,7 +61,8 @@ public class CreateProjectActivityTest {
         assertEquals(expectedDescription, result.getProject().getProjectDescription());
         assertEquals(expectedStatus, result.getProject().getProjectStatus());
         assertEquals(expectedCreatedId, result.getProject().getCreatedById());
-
+        assertEquals(expectedTasks, result.getProject().getProjectTasks());
+        assertEquals(expectedMembers, result.getProject().getProjectMembers());
 
     }
 }
