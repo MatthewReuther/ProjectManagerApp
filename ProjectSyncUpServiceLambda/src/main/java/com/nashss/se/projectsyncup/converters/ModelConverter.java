@@ -19,11 +19,8 @@ public class ModelConverter {
      * @return the converted project
      */
     public ProjectModel toProjectModel(Project project) {
-        List<String> projectTasks = null;
+
         List<String> projectMembers = null;
-        if (project.getProjectTasks() != null) {
-            projectTasks = new ArrayList<>(project.getProjectTasks());
-        }
 
         if (project.getProjectMembers() != null) {
             projectMembers = new ArrayList<>(project.getProjectMembers());
@@ -35,8 +32,6 @@ public class ModelConverter {
             .withProjectDescription(project.getProjectDescription())
             .withProjectStatus(project.getProjectStatus())
             .withCreatedById(project.getCreatedById())
-            .withProjectTasks(projectTasks)
-            .withProjectMembers(projectMembers)
             .build();
 
     }
@@ -56,4 +51,21 @@ public class ModelConverter {
             .withCreatedById(task.getCreatedById())
             .build();
     }
+
+    /**
+     * Converts a list of Project Tasks to a list of TaskModels.
+     *
+     * @param projectTasks The Project Tasks to convert to TaskModels
+     * @return The converted list of TaskModels
+     */
+    public List<TaskModel> toTaskModelList(List<Task> projectTasks) {
+        List<TaskModel> taskModels = new ArrayList<>();
+
+        for (Task projectTask : projectTasks) {
+            taskModels.add(toTaskModel(projectTask));
+        }
+
+        return taskModels;
+    }
+
 }

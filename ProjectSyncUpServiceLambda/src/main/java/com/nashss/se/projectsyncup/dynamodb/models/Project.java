@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class Project {
     private String projectDescription;
     private String projectStatus;
     private String createdById;
-    private Set<String> projectTasks;
+    private List<Task> projectTasks;
     private Set<String> projectMembers;
 
     /**
@@ -126,26 +127,18 @@ public class Project {
      * @return Set of tasks for this project
      */
     @DynamoDBAttribute(attributeName = "projectTasks")
-    public Set<String> getProjectTasks() {
-        // normally, we would prefer to return an empty Set if there are no
-        // tasks, but DynamoDB doesn't represent empty Sets...needs to be null
-        // instead
-        if (null == projectTasks) {
-            return null;
-        }
-
-        return new HashSet<>(projectTasks);
+    public List<Task> getProjectTasks() {
+        return projectTasks;
     }
 
 
     /**
      * Sets the tasks for this Project as a copy of input, or null if input is null.
      *
-     * @param projectTasksSet Set of tasks for this project
+     * @param projectTasks list of tasks for this project
      */
-    public void setProjectTasks(Set<String> projectTasksSet) {
-        // see comment in getProjectTasks()
-        this.projectTasks = projectTasksSet;
+    public void setProjectTasks(List<Task> projectTasks) {
+        this.projectTasks = projectTasks;
     }
 
     /**

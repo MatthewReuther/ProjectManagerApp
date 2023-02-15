@@ -16,7 +16,9 @@ import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -67,22 +69,20 @@ public class AddTaskToProjectActivity {
 
         Project project = projectDao.getProject(addTaskToProjectRequest.getProjectId());
 
-        Set<String> taskList = project.getProjectTasks();
+        List<Task> taskList = project.getProjectTasks();
 
         if (taskList == null) {
-            taskList = new HashSet<>();
+            taskList = new ArrayList<>();
         }
 
-        String newTaskName = newTask.getTaskId() + ", " + newTask.getTaskName();
+        project.setProjectTasks(taskList);
 
-        taskList.add(newTaskName);
         project.setProjectTasks(taskList);
         projectDao.saveProject(project);
 
-        TaskModel taskModel = new ModelConverter().toTaskModel(newTask);
-
+        List<TaskModel> taskModel = new ModelConverter().toTaskModelList(project.getProjectTasks());
         return AddTaskToProjectResult.builder()
-                .withTaskModel(taskModel)
+                .withTaskList(taskModel)
                 .build();
     }
 

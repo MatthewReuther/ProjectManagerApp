@@ -2,6 +2,7 @@ package com.nashss.se.projectsyncup.activity.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.nashss.se.projectsyncup.dynamodb.models.Task;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class CreateProjectRequest {
     private final String projectDescription;
     private final String projectStatus;
     private final String createdById;
-    private final List<String> projectTasks;
+    private final List<Task> projectTasks;
     private final List<String> projectMembers;
 
     /**
@@ -35,7 +36,7 @@ public class CreateProjectRequest {
      */
 
     private CreateProjectRequest(String projectName, String projectDescription, String projectStatus,
-                                 String createdById, List<String> projectTasks, List<String> projectMembers) {
+                                 String createdById, List<Task> projectTasks, List<String> projectMembers) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;

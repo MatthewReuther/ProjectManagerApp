@@ -11,15 +11,15 @@ import java.util.List;
  */
 public class AddTaskToProjectResult {
 
-    private final List<TaskModel> taskList;
+    private final List<TaskModel> projectTasks;
 
     /**
      * Private constructor to enforce the use of the Builder class.
      *
-     * @param taskList The list of tasks in project.
+     * @param projectTasks The list of tasks in project.
      */
-    private AddTaskToProjectResult(List<TaskModel> taskList) {
-        this.taskList = taskList;
+    private AddTaskToProjectResult(List<TaskModel> projectTasks) {
+        this.projectTasks = projectTasks;
     }
 
     /**
@@ -27,8 +27,8 @@ public class AddTaskToProjectResult {
      *
      * @return The taskList that was updated.
      */
-    public List<TaskModel> getTaskList() {
-        return new ArrayList<>(taskList);
+    public List<TaskModel> getProjectTasks() {
+        return new ArrayList<>(projectTasks);
     }
 
     /**
@@ -40,7 +40,7 @@ public class AddTaskToProjectResult {
     @Override
     public String toString() {
         return "AddTaskToProjectResult{" +
-                "taskList=" + taskList +
+                "projectTasks=" + projectTasks +
                 '}';
     }
 
@@ -51,7 +51,7 @@ public class AddTaskToProjectResult {
 
     public static class Builder {
         private TaskModel taskModel;
-        private List<TaskModel> taskList;
+        private List<TaskModel> projectTasks;
 
         /**
          * Builder to create AddGuestToPartyResult object.
@@ -64,12 +64,12 @@ public class AddTaskToProjectResult {
         }
 
         public Builder withTaskList(List<TaskModel> taskList) {
-            this.taskList = new ArrayList<>(taskList);
+            this.projectTasks = new ArrayList<>(taskList);
             return this;
         }
 
         public AddTaskToProjectResult build() {
-            return new AddTaskToProjectResult(taskList);
+            return new AddTaskToProjectResult(projectTasks);
         }
     }
 
