@@ -76,8 +76,6 @@ public class AddTaskToProjectActivity {
         }
 
         project.setProjectTasks(taskList);
-
-        project.setProjectTasks(taskList);
         projectDao.saveProject(project);
 
         List<TaskModel> taskModel = new ModelConverter().toTaskModelList(project.getProjectTasks());

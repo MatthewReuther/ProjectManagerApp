@@ -34,8 +34,8 @@ public class CreateProjectLambda
                         .withProjectDescription(unauthenticatedRequest.getProjectDescription())
                         .withCreatedById(claims.get("name"))
                         .withProjectStatus(unauthenticatedRequest.getProjectStatus())
-                        .withProjectTasks(unauthenticatedRequest.getProjectTasks())
-                        .withProjectMembers(unauthenticatedRequest.getProjectMembers())
+//                        .withProjectTasks(unauthenticatedRequest.getProjectTasks())
+//                        .withProjectMembers(unauthenticatedRequest.getProjectMembers())
                         .build());
             }, (request, serviceComponent) ->
                         serviceComponent.provideCreateProjectActivity().handleRequest(request)

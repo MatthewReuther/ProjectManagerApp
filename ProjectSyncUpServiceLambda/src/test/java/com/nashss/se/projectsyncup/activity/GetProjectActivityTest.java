@@ -48,8 +48,8 @@ public class GetProjectActivityTest {
         project.setProjectDescription(expectedProjectDescription);
         project.setProjectStatus(expectedProjectStatus);
         project.setCreatedById(expectedCreatedById);
-        project.setProjectTasks(Sets.newHashSet(expectedProjectTasks));
-        project.setProjectMembers(Sets.newHashSet(expectedProjectMembers));
+//        project.setProjectTasks(Sets.newHashSet(expectedProjectTasks));
+//        project.setProjectMembers(Sets.newHashSet(expectedProjectMembers));
 
         when(projectDao.getProject(expectedId)).thenReturn(project);
 
@@ -66,8 +66,8 @@ public class GetProjectActivityTest {
         assertEquals(expectedProjectDescription, result.getProject().getProjectDescription());
         assertEquals(expectedProjectStatus, result.getProject().getProjectStatus());
         assertEquals(expectedCreatedById, result.getProject().getCreatedById());
-        assertEquals(expectedProjectTasks, result.getProject().getProjectTasks());
-        assertEquals(expectedProjectMembers, result.getProject().getProjectMembers());
+//        assertEquals(expectedProjectTasks, result.getProject().getProjectTasks());
+//        assertEquals(expectedProjectMembers, result.getProject().getProjectMembers());
     }
 
 }

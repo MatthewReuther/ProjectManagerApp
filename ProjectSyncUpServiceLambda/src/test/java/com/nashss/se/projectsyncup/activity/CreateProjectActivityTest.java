@@ -45,8 +45,7 @@ public class CreateProjectActivityTest {
             .withProjectDescription(expectedDescription)
             .withCreatedById(expectedCreatedId)
             .withProjectStatus(expectedStatus)
-            .withProjectTasks(expectedTasks)
-            .withProjectMembers(expectedMembers)
+
             .build();
 
         // WHEN
@@ -60,8 +59,7 @@ public class CreateProjectActivityTest {
         assertEquals(expectedDescription, result.getProject().getProjectDescription());
         assertEquals(expectedStatus, result.getProject().getProjectStatus());
         assertEquals(expectedCreatedId, result.getProject().getCreatedById());
-        assertEquals(expectedTasks, result.getProject().getProjectTasks());
-        assertEquals(expectedMembers, result.getProject().getProjectMembers());
+
 
     }
 }

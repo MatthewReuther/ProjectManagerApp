@@ -60,10 +60,10 @@ public class CreateProjectActivity {
 //            projectTasks = new HashSet<>(createProjectRequest.getProjectTasks());
 //        }
 
-        Set<String> projectMembers = null;
-        if (createProjectRequest.getProjectMembers() != null) {
-            projectMembers = new HashSet<>(createProjectRequest.getProjectMembers());
-        }
+//        Set<String> projectMembers = null;
+//        if (createProjectRequest.getProjectMembers() != null) {
+//            projectMembers = new HashSet<>(createProjectRequest.getProjectMembers());
+//        }
 
         Project newProject = new Project();
         newProject.setProjectId(ProjectSyncUpServiceUtils.generateUniqueId());
@@ -72,7 +72,7 @@ public class CreateProjectActivity {
         newProject.setProjectStatus(createProjectRequest.getProjectStatus());
         newProject.setCreatedById(createProjectRequest.getCreatedById());
 //        newProject.setProjectTasks(projectTasks);
-        newProject.setProjectMembers(projectMembers);
+//        newProject.setProjectMembers(projectMembers);
         newProject.setProjectTasks(new ArrayList<>());
         //newProject.setProjectMembers(new ArrayList<>());
 
