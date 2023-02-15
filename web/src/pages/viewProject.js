@@ -9,7 +9,7 @@ import DataStore from "../util/DataStore";
 class ViewProject extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addTasksToPage', 'addProject'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectToPage);
         this.header = new Header(this.dataStore);
@@ -71,6 +71,64 @@ class ViewProject extends BindingClass {
     }
 
 
+
+    /**
+     * When the tasks are updated in the datastore, update the list of tasks on the page.
+     */
+    addTasksToPage() {
+        const songs = this.dataStore.get('tasks')
+
+        if (projectTasks == null) {
+            return;
+        }
+
+        let taskHtml = '';
+        let projectTask;
+        for (projectTask of projectTasks) {
+            songHtml += `
+                <li class="projectTask">
+                    <span class="title">${projectTask.taskName}</span>
+                    <span class="description">${projectTask.taskDescription}</span>
+                    <span class="dueDate">${projectTask.taskDueDate}</span>
+                    <span class="assignedTo">${projectTask.taskAssignedUser}</span>
+                </li>
+            `;
+        }
+        document.getElementById('tasks').innerHTML = songHtml;
+    }
+
+    /**
+     * Method to run when the add task project submit button is pressed. Call the ProjectSyncUpService to add a task to the
+     * project.
+     */
+    async addTask() {
+        const errorMessageDisplay = document.getElementById('error-message');
+        errorMessageDisplay.innerText = ``;
+        errorMessageDisplay.classList.add('hidden');
+
+        const project = this.dataStore.get('project');
+        if (project == null) {
+            return;
+        }
+
+        document.getElementById('addTask').innerText = 'Adding...';
+        const taskName = document.getElementById('taskName').value;
+        const taskDescription = document.getElementById('taskDescription').value;
+        const taskDueDate = document.getElementById('taskDueDate').value;
+        const createdById = document.getElementById('createdById').value;
+        const taskAssignedUser = document.getElementById('taskAssignedUser').value;
+        const projectId = project.projectId;
+
+        const projectTasks = await this.client.addTaskToProject(taskName, taskDescription, taskDueDate, createdById, taskAssignedUser, projectId (error) => {
+            errorMessageDisplay.innerText = `Error: ${error.message}`;
+            errorMessageDisplay.classList.remove('hidden');
+        });
+
+        this.dataStore.set('tasks', projectTasks);
+
+        document.getElementById('addTask').innerText = 'Add Task';
+        document.getElementById("add-task-form").reset();
+    }
 
 }
 
