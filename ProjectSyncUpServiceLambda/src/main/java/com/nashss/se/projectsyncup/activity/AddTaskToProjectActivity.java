@@ -75,16 +75,18 @@ public class AddTaskToProjectActivity {
         log.info("Created a new task object to the table");
 
 
-        //Project project = projectDao.getProject(addTaskToProjectRequest.getProjectId());
-//
-//        List<Task> taskList = project.getProjectTasks();
-//
-//        if (taskList == null) {
-//            taskList = new ArrayList<>();
-//            project.setProjectTasks(taskList);
-//        }
-//        taskList.add(newTask);
-//        projectDao.saveProject(project);
+        Project project = projectDao.getProject(addTaskToProjectRequest.getProjectId());
+
+        List<Task> taskList = project.getProjectTasks();
+
+        if (taskList == null) {
+            taskList = new ArrayList<>();
+            project.setProjectTasks(taskList);
+        }
+        String newTaskName = newTask.getTaskId() + ", " + newTask.getTaskName();
+
+        taskList.add(newTask);
+        projectDao.saveProject(project);
 //
 //        List<TaskModel> taskModel = new ModelConverter().toTaskModelList(project.getProjectTasks());
 //        return AddTaskToProjectResult.builder()
