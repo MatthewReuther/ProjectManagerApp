@@ -113,6 +113,35 @@ import Authenticator from "./authenticator";
       }
 
       /**
+       * Add a task to a project.
+       * @param projectId The id of the project to add a task to.
+       * @param taskDescription The description of the task.
+       * @param taskDueDate The due date of the task.
+       * @param createdById The manager who created the task.
+       * @param taskAssignedUser The member assigned to complete the task.
+       * @returns The list of tasks in a project.
+       */
+      async addTaskToProject(projectId, taskName, taskDescription, taskDueDate, createdById, taskAssignedUser, errorCallback) {
+          try {
+              const token = await this.getTokenOrThrow("Only authenticated users can add a task to a project.");
+              const response = await this.axiosClient.post(`projects/${projectId}/tasks`, {
+                  projectId: projectId,
+                  taskDescription: taskDescription,
+                  taskDueDate: taskDueDate,
+                  createdById: createdById,
+                  taskAssignedUser: taskAssignedUser
+              }, {
+                  headers: {
+                      Authorization: `Bearer ${token}`
+                  }
+              });
+              return response.data.songList;
+          } catch (error) {
+              this.handleError(error, errorCallback)
+          }
+      }
+
+      /**
        * Helper method to log the error and run any error functions.
        * @param error The error received from the server.
        * @param errorCallback (Optional) A function to execute if the call fails.

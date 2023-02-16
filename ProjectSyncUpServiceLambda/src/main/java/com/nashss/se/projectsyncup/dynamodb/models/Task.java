@@ -2,6 +2,7 @@ package com.nashss.se.projectsyncup.dynamodb.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
 /**
  * Class represents a record in the Task in DynamoDB.
  */
-@DynamoDBTable(tableName = "tasks")
+@DynamoDBTable(tableName = "projectTasks")
 public class Task {
 
     private String taskId;
@@ -19,6 +20,7 @@ public class Task {
     private String taskDueDate;
     private String createdById;
     private String taskAssignedUser;
+    private String projectId;
 
     @DynamoDBHashKey(attributeName = "taskId")
     public String getTaskId() {
@@ -27,6 +29,15 @@ public class Task {
 
     public void setTaskId(String taskId) {
         this.taskId = taskId;
+    }
+
+    @DynamoDBRangeKey(attributeName = "projectId")
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
     }
 
     @DynamoDBAttribute(attributeName = "taskName")
@@ -56,10 +67,10 @@ public class Task {
         this.taskDueDate = taskDueDate;
     }
 
-    @DynamoDBAttribute(attributeName = "createdById")
-    public String getCreatedById() {
-        return createdById;
-    }
+//    @DynamoDBAttribute(attributeName = "createdById")
+//    public String getCreatedById() {
+//        return createdById;
+//    }
 
     public void setCreatedById(String createdById) {
         this.createdById = createdById;
@@ -80,17 +91,18 @@ public class Task {
         if (!(o instanceof Task)) return false;
         Task task = (Task) o;
         return getTaskId().equals(task.getTaskId()) &&
+                getProjectId().equals(task.getProjectId()) &&
                 getTaskName().equals(task.getTaskName()) &&
                 getTaskDescription().equals(task.getTaskDescription()) &&
                 getTaskDueDate().equals(task.getTaskDueDate()) &&
-                getCreatedById().equals(task.getCreatedById()) &&
+//                getCreatedById().equals(task.getCreatedById()) &&
                 getTaskAssignedUser().equals(task.getTaskAssignedUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTaskId(), getTaskName(), getTaskDescription(),
-                getTaskDueDate(), getCreatedById(), getTaskAssignedUser());
+        return Objects.hash(getTaskId(), getProjectId(), getTaskName(),
+                getTaskDescription(), getTaskDueDate(), getTaskAssignedUser());
     }
 
     @Override
@@ -100,8 +112,8 @@ public class Task {
                 ", taskName='" + taskName + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", taskDueDate='" + taskDueDate + '\'' +
-                ", createdById=" + createdById +
-                ", taskAssignedUser=" + taskAssignedUser +
+                ", taskAssignedUser=" + taskAssignedUser + '\'' +
+                ", projectId=" + projectId +
                 '}';
     }
 }

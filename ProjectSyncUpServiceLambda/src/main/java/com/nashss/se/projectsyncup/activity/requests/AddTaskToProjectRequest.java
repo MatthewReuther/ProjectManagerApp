@@ -10,33 +10,30 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = AddTaskToProjectRequest.Builder.class)
 public class AddTaskToProjectRequest {
     private final String projectId;
+
+    private final String taskId;
     private final String taskName;
     private final String taskDescription;
     private final String taskDueDate;
-    private final String taskStatus;
     private final String taskAssignedUser;
-    private final Integer taskTimer;
 
     /**
      * Constructor for the AddTaskToProjectRequest class.
      *
-     * @param projectId The id of the project to which the task should be added.
-     * @param taskName The name of the task to be added.
-     * @param taskDescription The description of the task to be added.
-     * @param taskDueDate The due date of the task to be added.
-     * @param taskStatus The status of the task to be added.
+     * @param taskId
+     * @param taskName         The name of the task to be added.
+     * @param taskDescription  The description of the task to be added.
+     * @param taskDueDate      The due date of the task to be added.
      * @param taskAssignedUser The user assigned to the task to be added.
-     * @param taskTimer The time spent on the task to be added.
+     * @param projectId        The id of the project to which the task should be added.
      */
-    public AddTaskToProjectRequest(String projectId, String taskName, String taskDescription, String taskDueDate,
-                                   String taskStatus, String taskAssignedUser, Integer taskTimer) {
-        this.projectId = projectId;
+    public AddTaskToProjectRequest(String taskId, String taskName, String taskDescription, String taskDueDate, String taskAssignedUser, String projectId) {
+        this.taskId = taskId;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDueDate = taskDueDate;
-        this.taskStatus = taskStatus;
         this.taskAssignedUser = taskAssignedUser;
-        this.taskTimer = taskTimer;
+        this.projectId = projectId;
     }
 
     /**
@@ -48,6 +45,9 @@ public class AddTaskToProjectRequest {
         return projectId;
     }
 
+    public String getTaskId() {
+        return projectId;
+    }
 
     /**
      * Returns the name of the task to be added.
@@ -81,9 +81,7 @@ public class AddTaskToProjectRequest {
      *
      * @return the task status
      */
-    public String getTaskStatus() {
-        return taskStatus;
-    }
+
 
     /**
      * Returns the user assigned to the task to be added.
@@ -99,24 +97,20 @@ public class AddTaskToProjectRequest {
      *
      * @return the task timer
      */
-    public Integer getTaskTimer() {
-        return taskTimer;
-    }
+
 
 
     @Override
     public String toString() {
         return "AddTaskToProjectRequest{" +
-                "projectId='" + projectId + '\'' +
+                "taskId='" + taskId + '\'' +
                 ", taskName='" + taskName + '\'' +
                 ", taskDescription='" + taskDescription + '\'' +
                 ", taskDueDate='" + taskDueDate + '\'' +
-                ", taskStatus='" + taskStatus + '\'' +
-                ", taskAssignedUser=" + taskAssignedUser +
-                ", taskTimer=" + taskTimer +
+                ", taskAssignedUser=" + taskAssignedUser + '\'' +
+                ", projectId=" + projectId +
                 '}';
     }
-
 
     //CHECKSTYLE:OFF:Builder
     public static Builder builder() {
@@ -124,16 +118,17 @@ public class AddTaskToProjectRequest {
     }
     @JsonPOJOBuilder
     public static class Builder {
-        private String projectId;
+
+        private String taskId;
         private String taskName;
         private String taskDescription;
         private String taskDueDate;
-        private String taskStatus;
         private String taskAssignedUser;
-        private Integer taskTimer;
+        private String projectId;
 
-        public Builder withProjectId(String projectId) {
-            this.projectId = projectId;
+
+        public Builder withTaskId(String taskId) {
+            this.taskId = taskId;
             return this;
         }
 
@@ -152,24 +147,19 @@ public class AddTaskToProjectRequest {
             return this;
         }
 
-        public Builder withTaskStatus(String taskStatus) {
-            this.taskStatus = taskStatus;
-            return this;
-        }
-
         public Builder withTaskAssignedUser(String taskAssignedUser) {
             this.taskAssignedUser = taskAssignedUser;
             return this;
         }
 
-        public Builder withTaskTimer(Integer taskTimer) {
-            this.taskTimer = taskTimer;
+        public Builder withProjectId(String projectId) {
+            this.projectId = projectId;
             return this;
         }
 
         public AddTaskToProjectRequest build() {
-            return new AddTaskToProjectRequest(projectId, taskName, taskDescription,
-                    taskDueDate, taskStatus, taskAssignedUser, taskTimer);
+            return new AddTaskToProjectRequest(taskId, taskName, taskDescription,
+                    taskDueDate, taskAssignedUser, projectId);
         }
     }
 

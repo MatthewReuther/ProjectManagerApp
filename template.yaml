@@ -247,28 +247,10 @@ Resources:
         ProjectSyncUpService:
           Type: Api
           Properties:
-            Path: /projects/{projectId}/tasks
-            Method: post
-
-  GetProjectLambda:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt AccessRole.Arn
-      CodeUri: ProjectSyncUpServiceLambda
-      Handler: com.nashss.se.projectsyncup.lambda.GetProjectLambda::handleRequest
-      Runtime: java11
-      Architectures:
-        - x86_64
-      MemorySize: 512
-      Environment:
-        Variables:
-          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
-      Events:
-        ProjectSyncUpService:
-          Type: Api
-          Properties:
             Path: /projects/{projectId}
             Method: get
+            Auth:
+              Authorizer: 'NONE'
 
   AddTaskToProjectLambda:
     Type: AWS::Serverless::Function
@@ -287,7 +269,7 @@ Resources:
         ProjectSyncUpService:
           Type: Api
           Properties:
-            Path: /projects/{projectId}/tasks
+            Path: /tasks/{projectId}
             Method: post
 
   #-----------------------------------------------------
@@ -311,15 +293,15 @@ Resources:
       AttributeDefinitions:
         - AttributeName: "taskId"
           AttributeType: "S"
-        - AttributeName: "taskAssignedUser"
+        - AttributeName: "projectId"
           AttributeType: "S"
       KeySchema:
         - AttributeName: "taskId"
           KeyType: "HASH"
-        - AttributeName: "taskAssignedUser"
+        - AttributeName: "projectId"
           KeyType: "RANGE"
       BillingMode: "PAY_PER_REQUEST"
-      TableName: "tasks"
+      TableName: "projectTasks"
 
 #-----------------------------------------------------
 # The outputs defined below will be printed

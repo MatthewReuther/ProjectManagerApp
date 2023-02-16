@@ -3,6 +3,7 @@ package com.nashss.se.projectsyncup.activity;
 import com.nashss.se.projectsyncup.activity.requests.AddTaskToProjectRequest;
 import com.nashss.se.projectsyncup.activity.results.AddTaskToProjectResult;
 
+import com.nashss.se.projectsyncup.activity.results.CreateProjectResult;
 import com.nashss.se.projectsyncup.converters.ModelConverter;
 
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
@@ -10,6 +11,7 @@ import com.nashss.se.projectsyncup.dynamodb.TaskDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.dynamodb.models.Task;
 
+import com.nashss.se.projectsyncup.models.ProjectModel;
 import com.nashss.se.projectsyncup.models.TaskModel;
 import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 
@@ -30,8 +32,8 @@ import javax.inject.Inject;
  */
 public class AddTaskToProjectActivity {
     private final Logger log = LogManager.getLogger();
-    private final ProjectDao projectDao;
     private final TaskDao taskDao;
+    private final ProjectDao projectDao;
 
     /**
      * Instantiates a new AddTaskToProjectActivity object.
@@ -40,9 +42,9 @@ public class AddTaskToProjectActivity {
      * @param taskDao TaskDao to access the project_track table.
      */
     @Inject
-    public AddTaskToProjectActivity(ProjectDao projectDao, TaskDao taskDao) {
-        this.projectDao = projectDao;
+    public AddTaskToProjectActivity(TaskDao taskDao, ProjectDao projectDao) {
         this.taskDao = taskDao;
+        this.projectDao = projectDao;
     }
 
     /**
@@ -60,29 +62,41 @@ public class AddTaskToProjectActivity {
     public AddTaskToProjectResult handleRequest(final AddTaskToProjectRequest addTaskToProjectRequest) {
         log.info("Received AddTaskToProjectRequest {} ", addTaskToProjectRequest);
 
+
+
         Task newTask = new Task();
         newTask.setTaskId(ProjectSyncUpServiceUtils.generateUniqueId());
         newTask.setTaskName(addTaskToProjectRequest.getTaskName());
         newTask.setTaskDescription(addTaskToProjectRequest.getTaskDescription());
         newTask.setTaskDueDate(addTaskToProjectRequest.getTaskDueDate());
         newTask.setTaskAssignedUser(addTaskToProjectRequest.getTaskAssignedUser());
+        newTask.setProjectId(addTaskToProjectRequest.getProjectId());
+        taskDao.saveTask(newTask);
+        log.info("Created a new task object to the table");
 
-        Project project = projectDao.getProject(addTaskToProjectRequest.getProjectId());
 
-        List<Task> taskList = project.getProjectTasks();
+        //Project project = projectDao.getProject(addTaskToProjectRequest.getProjectId());
+//
+//        List<Task> taskList = project.getProjectTasks();
+//
+//        if (taskList == null) {
+//            taskList = new ArrayList<>();
+//            project.setProjectTasks(taskList);
+//        }
+//        taskList.add(newTask);
+//        projectDao.saveProject(project);
+//
+//        List<TaskModel> taskModel = new ModelConverter().toTaskModelList(project.getProjectTasks());
+//        return AddTaskToProjectResult.builder()
+//                .withTaskList(taskModel)
+//                .build();
 
-        if (taskList == null) {
-            taskList = new ArrayList<>();
-        }
-
-        project.setProjectTasks(taskList);
-        projectDao.saveProject(project);
-
-        List<TaskModel> taskModel = new ModelConverter().toTaskModelList(project.getProjectTasks());
+        TaskModel taskModel = new ModelConverter().toTaskModel(newTask);
         return AddTaskToProjectResult.builder()
-                .withTaskList(taskModel)
+                .withTaskModel(taskModel)
                 .build();
     }
+
 
 }
 

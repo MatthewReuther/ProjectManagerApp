@@ -1,7 +1,7 @@
 import ProjectSyncUpClient from '../api/projectSyncUpClient';
 import Header from '../components/header';
-import BindingClass from "../util/bindingClass";
-import DataStore from "../util/DataStore";
+import BindingClass from '../util/bindingClass';
+import DataStore from '../util/DataStore';
 
 /**
  * Logic needed for the view project page of the website.
@@ -12,6 +12,7 @@ class ViewProject extends BindingClass {
         this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addTasksToPage', 'addProject'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectToPage);
+        this.dataStore.addChangeListener(this.addTasksToPage);
         this.header = new Header(this.dataStore);
         console.log("viewProject constructor");
     }
@@ -23,15 +24,20 @@ class ViewProject extends BindingClass {
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('projectId');
         document.getElementById('projectName').innerText = "Loading Project ...";
-
         const project = await this.client.getProject(projectId);
         this.dataStore.set('project', project);
+
+        document.getElementById('projectTasks').innerText = "(loading tasks...)";
+        const tasks = await this.client.getProjectTasks(projectId);
+        this.dataStore.set('projectTasks', projectTasks);
+
     }
 
     /**
      * Add the header to the page and load the ProjectSyncUpClient.
      */
     mount() {
+        document.getElementById('addTask').addEventListener('click', this.addSong);
 
         this.header.addHeaderToPage();
 
@@ -66,7 +72,7 @@ class ViewProject extends BindingClass {
         for (task of project.projectTasks) {
             taskHtml += '<div class="task">' + task + '</div>';
         }
-        document.getElementById('tasks').innerHTML = taskHtml;
+        document.getElementById('projectTasks').innerHTML = taskHtml;
 
     }
 
@@ -76,16 +82,16 @@ class ViewProject extends BindingClass {
      * When the tasks are updated in the datastore, update the list of tasks on the page.
      */
     addTasksToPage() {
-        const songs = this.dataStore.get('tasks')
+        const projectTasks = this.dataStore.get('projectTasks')
 
         if (projectTasks == null) {
             return;
         }
 
-        let taskHtml = '';
+        let projectTaskHtml = '';
         let projectTask;
         for (projectTask of projectTasks) {
-            songHtml += `
+            projectTaskHtml += `
                 <li class="projectTask">
                     <span class="title">${projectTask.taskName}</span>
                     <span class="description">${projectTask.taskDescription}</span>
@@ -94,7 +100,7 @@ class ViewProject extends BindingClass {
                 </li>
             `;
         }
-        document.getElementById('tasks').innerHTML = songHtml;
+        document.getElementById('projectTasks').innerHTML = projectTaskHtml;
     }
 
     /**
@@ -112,19 +118,20 @@ class ViewProject extends BindingClass {
         }
 
         document.getElementById('addTask').innerText = 'Adding...';
+        const projectId = project.projectId;
         const taskName = document.getElementById('taskName').value;
         const taskDescription = document.getElementById('taskDescription').value;
         const taskDueDate = document.getElementById('taskDueDate').value;
         const createdById = document.getElementById('createdById').value;
-        const taskAssignedUser = document.getElementById('taskAssignedUser').value;
-        const projectId = project.projectId;
+        const taskAssignedUser = document.getElementById('taskAssignedTo').value;
 
-        const projectTasks = await this.client.addTaskToProject(taskName, taskDescription, taskDueDate, createdById, taskAssignedUser, projectId (error) => {
+
+        const projectTasks = await this.client.addTaskToProject(projectId, taskName, taskDescription, taskDueDate, createdById, taskAssignedUser (error) => {
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
         });
 
-        this.dataStore.set('tasks', projectTasks);
+        this.dataStore.set('projectTasks', projectTasks);
 
         document.getElementById('addTask').innerText = 'Add Task';
         document.getElementById("add-task-form").reset();

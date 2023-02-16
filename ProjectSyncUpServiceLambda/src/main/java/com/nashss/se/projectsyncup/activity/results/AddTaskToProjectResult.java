@@ -11,15 +11,20 @@ import java.util.List;
  */
 public class AddTaskToProjectResult {
 
-    private final List<TaskModel> projectTasks;
+//    private final List<TaskModel> projectTasks;
+    private final TaskModel projectTask;
 
     /**
      * Private constructor to enforce the use of the Builder class.
      *
-     * @param projectTasks The list of tasks in project.
+     * @param projectTask The list of tasks in project.
      */
-    private AddTaskToProjectResult(List<TaskModel> projectTasks) {
-        this.projectTasks = projectTasks;
+    private AddTaskToProjectResult(TaskModel projectTask) {
+        this.projectTask = projectTask;
+    }
+
+    public TaskModel getTask() {
+        return projectTask;
     }
 
     /**
@@ -27,9 +32,9 @@ public class AddTaskToProjectResult {
      *
      * @return The taskList that was updated.
      */
-    public List<TaskModel> getProjectTasks() {
-        return new ArrayList<>(projectTasks);
-    }
+//    public List<TaskModel> getProjectTasks() {
+//        return new ArrayList<>(projectTask);
+//    }
 
     /**
      * Returns a string representation of the {@link AddTaskToProjectResult} object.
@@ -40,7 +45,7 @@ public class AddTaskToProjectResult {
     @Override
     public String toString() {
         return "AddTaskToProjectResult{" +
-                "projectTasks=" + projectTasks +
+                "projectTask=" + projectTask +
                 '}';
     }
 
@@ -50,26 +55,26 @@ public class AddTaskToProjectResult {
     }
 
     public static class Builder {
-        private TaskModel taskModel;
-        private List<TaskModel> projectTasks;
+        private TaskModel projectTask;
+
 
         /**
          * Builder to create AddGuestToPartyResult object.
-         * @param taskModel the list of users at the party.
+         * @param projectTask the list of users at the party.
          * @return the Builder object
          */
-        public Builder withTaskModel(TaskModel taskModel) {
-            this.taskModel = taskModel;
+        public Builder withTaskModel(TaskModel projectTask) {
+            this.projectTask = projectTask;
             return this;
         }
 
-        public Builder withTaskList(List<TaskModel> taskList) {
-            this.projectTasks = new ArrayList<>(taskList);
-            return this;
-        }
+//        public Builder withTaskList(List<TaskModel> taskList) {
+//            this.projectTasks = new ArrayList<>(taskList);
+//            return this;
+//        }
 
         public AddTaskToProjectResult build() {
-            return new AddTaskToProjectResult(projectTasks);
+            return new AddTaskToProjectResult(projectTask);
         }
     }
 

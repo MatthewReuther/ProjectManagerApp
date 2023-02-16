@@ -60,7 +60,7 @@ public class CreateProjectActivity {
 //            projectTasks = new HashSet<>(createProjectRequest.getProjectTasks());
 //        }
 
-//        Set<String> projectMembers = null;
+        //Set<String> projectMembers = null;
 //        if (createProjectRequest.getProjectMembers() != null) {
 //            projectMembers = new HashSet<>(createProjectRequest.getProjectMembers());
 //        }
@@ -71,10 +71,8 @@ public class CreateProjectActivity {
         newProject.setProjectDescription(createProjectRequest.getProjectDescription());
         newProject.setProjectStatus(createProjectRequest.getProjectStatus());
         newProject.setCreatedById(createProjectRequest.getCreatedById());
-//        newProject.setProjectTasks(projectTasks);
-//        newProject.setProjectMembers(projectMembers);
         newProject.setProjectTasks(new ArrayList<>());
-        //newProject.setProjectMembers(new ArrayList<>());
+        newProject.setProjectMembers(null);
 
         projectDao.saveProject(newProject);
 

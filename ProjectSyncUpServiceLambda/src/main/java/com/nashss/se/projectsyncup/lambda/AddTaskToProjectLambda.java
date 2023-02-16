@@ -20,6 +20,8 @@ public class AddTaskToProjectLambda extends LambdaActivityRunner<AddTaskToProjec
                 AddTaskToProjectRequest unauthenticatedRequest = input.fromBody(AddTaskToProjectRequest.class);
                 return input.fromUserClaims(claims ->
                     AddTaskToProjectRequest.builder()
+                        .withProjectId(unauthenticatedRequest.getProjectId())
+                        .withTaskId(unauthenticatedRequest.getTaskId())
                         .withTaskName(unauthenticatedRequest.getTaskName())
                         .withTaskDescription(unauthenticatedRequest.getTaskDescription())
                         .withTaskDueDate(unauthenticatedRequest.getTaskDueDate())

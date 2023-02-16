@@ -4,6 +4,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
+import com.nashss.se.projectsyncup.converters.ProjectTasksListConverter;
 
 
 import java.util.HashSet;
@@ -16,7 +18,6 @@ import java.util.Set;
  */
 @DynamoDBTable(tableName = "projects")
 public class Project {
-
     private String projectId;
     private String projectName;
     private String projectDescription;
@@ -126,11 +127,11 @@ public class Project {
      *
      * @return Set of tasks for this project
      */
+    @DynamoDBTypeConverted(converter = ProjectTasksListConverter.class)
     @DynamoDBAttribute(attributeName = "projectTasks")
     public List<Task> getProjectTasks() {
         return projectTasks;
     }
-
 
     /**
      * Sets the tasks for this Project as a copy of input, or null if input is null.
@@ -197,16 +198,16 @@ public class Project {
                 getProjectStatus(), getCreatedById(), getProjectTasks(), getProjectMembers());
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "projectId='" + projectId + '\'' +
-                ", projectName='" + projectName + '\'' +
-                ", projectDescription='" + projectDescription + '\'' +
-                ", projectStatus='" + projectStatus + '\'' +
-                ", createdById='" + createdById + '\'' +
-                ", projectTasks='" + projectTasks + '\'' +
-                ", projectMembers='" + projectMembers + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Project{" +
+//                "projectId='" + projectId + '\'' +
+//                ", projectName='" + projectName + '\'' +
+//                ", projectDescription='" + projectDescription + '\'' +
+//                ", projectStatus='" + projectStatus + '\'' +
+//                ", createdById='" + createdById + '\'' +
+//                ", projectTasks='" + projectTasks + '\'' +
+//                ", projectMembers='" + projectMembers + '\'' +
+//                '}';
+//    }
 }

@@ -38,9 +38,7 @@ public class CreateProjectRequest {
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
         this.createdById = createdById;
-
     }
-
 
     /**
      * Returns the name of the project.
@@ -102,7 +100,6 @@ public class CreateProjectRequest {
                 ", projectDescription='" + projectDescription + '\'' +
                 ", createdById='" + createdById + '\'' +
                 ", projectStatus='" + projectStatus + '\'' +
-
                 '}';
     }
 
@@ -140,10 +137,10 @@ public class CreateProjectRequest {
             return this;
         }
 
-//        public Builder withProjectTasks(List<String> projectTasks) {
-//            this.projectTasks = copyToList(projectTasks);
-//            return this;
-//        }
+        public Builder withProjectTasks(List<String> projectTasks) {
+            this.projectTasks = copyToList(projectTasks);
+            return this;
+        }
 
         public Builder withProjectMembers(List<String> projectMembers) {
             this.projectMembers = copyToList(projectMembers);
@@ -154,5 +151,6 @@ public class CreateProjectRequest {
             return new CreateProjectRequest(projectName, projectDescription,
                     projectStatus, createdById);
         }
+
     }
 }

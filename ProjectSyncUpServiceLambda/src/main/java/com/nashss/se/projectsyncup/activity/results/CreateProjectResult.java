@@ -48,15 +48,15 @@ public class CreateProjectResult {
         return new Builder();
     }
     public static class Builder {
-        private ProjectModel projectModel;
+        private ProjectModel project;
 
-        public Builder withProject(ProjectModel projectModel) {
-            this.projectModel = projectModel;
+        public Builder withProject(ProjectModel project) {
+            this.project = project;
             return this;
         }
 
         public CreateProjectResult build() {
-            return new CreateProjectResult(projectModel);
+            return new CreateProjectResult(project);
         }
     }
 }

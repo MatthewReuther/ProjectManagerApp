@@ -48,7 +48,7 @@ public class ModelConverter {
             .withTaskDescription(task.getTaskDescription())
             .withTaskDueDate(task.getTaskDueDate())
             .withTaskAssignedUser(task.getTaskAssignedUser())
-            .withCreatedById(task.getCreatedById())
+            .withProjectId(task.getProjectId())
             .build();
     }
 

@@ -33,7 +33,7 @@ public class CreateProjectLambda
                         .withProjectName(unauthenticatedRequest.getProjectName())
                         .withProjectDescription(unauthenticatedRequest.getProjectDescription())
                         .withCreatedById(claims.get("name"))
-                        .withProjectStatus(unauthenticatedRequest.getProjectStatus())
+//                        .withProjectStatus(unauthenticatedRequest.getProjectStatus())
 //                        .withProjectTasks(unauthenticatedRequest.getProjectTasks())
 //                        .withProjectMembers(unauthenticatedRequest.getProjectMembers())
                         .build());

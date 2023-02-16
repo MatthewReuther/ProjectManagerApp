@@ -9,11 +9,13 @@ import java.util.Objects;
  * and who the tasks was assigned to.
  */
 public class TaskModel {
+
     private final String taskId;
+    private final String projectId;
     private final String taskName;
     private final String taskDescription;
     private final String taskDueDate;
-    private final String createdById;
+//    private final String createdById;
     private final String taskAssignedUser;
 
     /**
@@ -21,13 +23,18 @@ public class TaskModel {
      * Private to enforce user to use Builder to create a new instance of CreateProjectRequest
      */
     public TaskModel(String taskId, String taskName, String taskDescription,
-                     String taskDueDate, String createdById, String taskAssignedUser) {
+                     String taskDueDate, String taskAssignedUser, String projectId) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskDueDate = taskDueDate;
-        this.createdById = createdById;
+
         this.taskAssignedUser = taskAssignedUser;
+        this.projectId = projectId;
+    }
+
+    public String getProjectId() {
+        return taskId;
     }
 
     public String getTaskId() {
@@ -47,9 +54,9 @@ public class TaskModel {
         return taskDueDate;
     }
 
-    public String getCreatedById() {
-        return createdById;
-    }
+//    public String getCreatedById() {
+//        return createdById;
+//    }
 
     public String getTaskAssignedUser() {
         return taskAssignedUser;
@@ -61,17 +68,17 @@ public class TaskModel {
         if (!(o instanceof TaskModel)) return false;
         TaskModel taskModel = (TaskModel) o;
         return getTaskId().equals(taskModel.getTaskId()) &&
+                getProjectId().equals(taskModel.getProjectId()) &&
                 getTaskName().equals(taskModel.getTaskName()) &&
                 getTaskDescription().equals(taskModel.getTaskDescription()) &&
                 getTaskDueDate().equals(taskModel.getTaskDueDate()) &&
-                getCreatedById().equals(taskModel.getCreatedById()) &&
                 getTaskAssignedUser().equals(taskModel.getTaskAssignedUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTaskId(), getTaskName(), getTaskDescription(),
-                getTaskDueDate(), getCreatedById(), getTaskAssignedUser());
+        return Objects.hash(getTaskId(), getProjectId(), getTaskName(),
+                getTaskDescription(), getTaskDueDate(), getTaskAssignedUser());
     }
 
     //CHECKSTYLE:OFF:Builder
@@ -82,14 +89,20 @@ public class TaskModel {
     public static class Builder {
 
         private String taskId;
+        private String projectId;
         private String taskName;
         private String taskDescription;
         private String taskDueDate;
-        private String createdById;
+//        private String createdById;
         private String taskAssignedUser;
 
         public Builder withTaskId(String taskId) {
             this.taskId = taskId;
+            return this;
+        }
+
+        public Builder withProjectId(String projectId) {
+            this.projectId = projectId;
             return this;
         }
 
@@ -108,10 +121,10 @@ public class TaskModel {
             return this;
         }
 
-        public Builder withCreatedById(String createdById) {
-            this.createdById = createdById;
-            return this;
-        }
+//        public Builder withCreatedById(String createdById) {
+//            this.createdById = createdById;
+//            return this;
+//        }
 
         public Builder withTaskAssignedUser(String taskAssignedUser) {
             this.taskAssignedUser = taskAssignedUser;
@@ -120,7 +133,7 @@ public class TaskModel {
 
         public TaskModel build() {
             return new TaskModel(taskId, taskName, taskDescription,
-                    taskDueDate, createdById, taskAssignedUser);
+                    taskDueDate, taskAssignedUser, projectId);
         }
     }
 }
