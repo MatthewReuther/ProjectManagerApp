@@ -10,6 +10,9 @@ public class GetProjectTasksRequest {
         return new Builder();
     }
 
+    public String getProjectId() {
+    }
+
     public static class Builder {
 
         public GetProjectTasksRequest build() {

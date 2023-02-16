@@ -6,7 +6,7 @@ import com.nashss.se.projectsyncup.activity.requests.GetProjectTasksRequest;
 import com.nashss.se.projectsyncup.activity.results.GetProjectTasksResult;
 
 /**
- * The `GetProjectLambda` class is an implementation of the AWS Lambda function that retrieves a project.
+ * The `GetProjectTasksLambda` class is an implementation of the AWS Lambda function that retrieves a projects tasks.
  * This class extends the `LambdaActivityRunner` and implements the `RequestHandler` interface.
  *
  */
