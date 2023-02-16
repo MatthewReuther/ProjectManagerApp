@@ -13,6 +13,21 @@
         }
       }
     }
+  ],
+
+  "tasks": [
+    {
+      "PutRequest": {
+        "Item": {
+          "taskId": { "S": "LTSpK" },
+          "taskName": { "S": "Fix Header" },
+          "taskDescription": { "S": "update what needs to be done" },
+          "taskDueDate": { "S": "Monday" },
+          "taskAssignedUser": { "S": "Mark" },
+          "projectId": { "S": "SRSpK" }
+        }
+      }
+    }
   ]
 }
 

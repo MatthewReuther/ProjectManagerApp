@@ -4,14 +4,12 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.nashss.se.projectsyncup.activity.requests.GetProjectRequest;
-import com.nashss.se.projectsyncup.activity.results.GetProjectResult;
-import com.nashss.se.projectsyncup.lambda.LambdaActivityRunner;
-import com.nashss.se.projectsyncup.lambda.LambdaRequest;
-import com.nashss.se.projectsyncup.lambda.LambdaResponse;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
+import com.nashss.se.projectsyncup.converters.ProjectTasksListConverter;
+
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,13 +18,12 @@ import java.util.Set;
  */
 @DynamoDBTable(tableName = "projects")
 public class Project {
-
     private String projectId;
     private String projectName;
     private String projectDescription;
     private String projectStatus;
     private String createdById;
-    private Set<String> projectTasks;
+    private List<Task> projectTasks;
     private Set<String> projectMembers;
 
     /**
@@ -130,26 +127,19 @@ public class Project {
      *
      * @return Set of tasks for this project
      */
+    @DynamoDBTypeConverted(converter = ProjectTasksListConverter.class)
     @DynamoDBAttribute(attributeName = "projectTasks")
-    public Set<String> getProjectTasks() {
-        // normally, we would prefer to return an empty Set if there are no
-        // tasks, but DynamoDB doesn't represent empty Sets...needs to be null
-        // instead
-        if (null == projectTasks) {
-            return null;
-        }
-
-        return new HashSet<>(projectTasks);
+    public List<Task> getProjectTasks() {
+        return projectTasks;
     }
 
     /**
      * Sets the tasks for this Project as a copy of input, or null if input is null.
      *
-     * @param projectTasksSet Set of tasks for this project
+     * @param projectTasks list of tasks for this project
      */
-    public void setTasks(Set<String> projectTasksSet) {
-        // see comment in getProjectTasks()
-        this.projectTasks = projectTasksSet;
+    public void setProjectTasks(List<Task> projectTasks) {
+        this.projectTasks = projectTasks;
     }
 
     /**
@@ -207,4 +197,17 @@ public class Project {
         return Objects.hash(getProjectId(), getProjectName(), getProjectDescription(),
                 getProjectStatus(), getCreatedById(), getProjectTasks(), getProjectMembers());
     }
+
+//    @Override
+//    public String toString() {
+//        return "Project{" +
+//                "projectId='" + projectId + '\'' +
+//                ", projectName='" + projectName + '\'' +
+//                ", projectDescription='" + projectDescription + '\'' +
+//                ", projectStatus='" + projectStatus + '\'' +
+//                ", createdById='" + createdById + '\'' +
+//                ", projectTasks='" + projectTasks + '\'' +
+//                ", projectMembers='" + projectMembers + '\'' +
+//                '}';
+//    }
 }

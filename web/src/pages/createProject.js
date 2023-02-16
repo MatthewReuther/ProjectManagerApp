@@ -20,7 +20,6 @@ class CreateProject extends BindingClass {
      */
     mount() {
         document.getElementById('create').addEventListener('click', this.submit);
-
         this.header.addHeaderToPage();
 
         this.client = new ProjectSyncUpClient();
@@ -40,23 +39,16 @@ class CreateProject extends BindingClass {
         const origButtonText = createButton.innerText;
         createButton.innerText = 'Loading...';
 
+
         const projectName = document.getElementById('projectName').value;
         const projectDescription = document.getElementById('projectDescription').value;
-
-//        const projectTasksText = document.getElementById('projectTasks').value;
-
-//        let projectTasks;
-//        if (projectTasksText.length < 1) {
-//            projectTasks = null;
-//        } else {
-//            projectTasks = projectTasksText.split(/\s*,\s*/);
-//        }
 
         const project = await this.client.createProject(projectName, projectDescription, (error) => {
             createButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
         });
+        console.log("project:", project);
         this.dataStore.set('project', project);
     }
 
@@ -69,6 +61,7 @@ class CreateProject extends BindingClass {
             window.location.href = `/project.html?projectId=${project.projectId}`;
         }
     }
+
 }
 
 /**

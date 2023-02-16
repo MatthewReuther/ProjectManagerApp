@@ -1,7 +1,9 @@
 package com.nashss.se.projectsyncup.converters;
 
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
+import com.nashss.se.projectsyncup.dynamodb.models.Task;
 import com.nashss.se.projectsyncup.models.ProjectModel;
+import com.nashss.se.projectsyncup.models.TaskModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +19,8 @@ public class ModelConverter {
      * @return the converted project
      */
     public ProjectModel toProjectModel(Project project) {
-        List<String> projectTasks = null;
+
         List<String> projectMembers = null;
-        if (project.getProjectTasks() != null) {
-            projectTasks = new ArrayList<>(project.getProjectTasks());
-        }
 
         if (project.getProjectMembers() != null) {
             projectMembers = new ArrayList<>(project.getProjectMembers());
@@ -33,10 +32,40 @@ public class ModelConverter {
             .withProjectDescription(project.getProjectDescription())
             .withProjectStatus(project.getProjectStatus())
             .withCreatedById(project.getCreatedById())
-            .withProjectTasks(projectTasks)
-            .withProjectMembers(projectMembers)
             .build();
 
+    }
+
+    /**
+     * Converts a provided {@link Task} into a {@link TaskModel} representation.
+     * @param task the task to convert
+     * @return the converted task
+     */
+    public TaskModel toTaskModel(Task task) {
+        return TaskModel.builder()
+            .withTaskId(task.getTaskId())
+            .withTaskName(task.getTaskName())
+            .withTaskDescription(task.getTaskDescription())
+            .withTaskDueDate(task.getTaskDueDate())
+            .withTaskAssignedUser(task.getTaskAssignedUser())
+            .withProjectId(task.getProjectId())
+            .build();
+    }
+
+    /**
+     * Converts a list of Project Tasks to a list of TaskModels.
+     *
+     * @param projectTasks The Project Tasks to convert to TaskModels
+     * @return The converted list of TaskModels
+     */
+    public List<TaskModel> toTaskModelList(List<Task> projectTasks) {
+        List<TaskModel> taskModels = new ArrayList<>();
+
+        for (Task projectTask : projectTasks) {
+            taskModels.add(toTaskModel(projectTask));
+        }
+
+        return taskModels;
     }
 
 }

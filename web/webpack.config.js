@@ -24,6 +24,7 @@ module.exports = {
   },
   entry: {
     createProject: path.resolve(__dirname, 'src', 'pages', 'createProject.js'),
+    viewProject: path.resolve(__dirname, 'src', 'pages', 'viewProject.js'),
     index: path.resolve(__dirname, 'src', 'pages', 'index.js'),
   },
   output: {

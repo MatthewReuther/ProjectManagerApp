@@ -1,8 +1,10 @@
 package com.nashss.se.projectsyncup.dependency;
 
+import com.nashss.se.projectsyncup.activity.AddTaskToProjectActivity;
 import com.nashss.se.projectsyncup.activity.CreateProjectActivity;
 
 import com.nashss.se.projectsyncup.activity.GetProjectActivity;
+
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -26,4 +28,10 @@ public interface ServiceComponent {
      * @return GetProjectActivity
      */
     GetProjectActivity provideGetProjectActivity();
+
+    /**
+     * Provides the relevant activity.
+     * @return GetProjectActivity
+     */
+    AddTaskToProjectActivity provideAddTaskToProjectActvity();
 }

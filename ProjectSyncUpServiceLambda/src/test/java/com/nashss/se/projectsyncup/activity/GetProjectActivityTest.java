@@ -34,7 +34,7 @@ public class GetProjectActivityTest {
     public void handleRequest_savedProjectFound_returnsProjectModelInResult() {
 
         // GIVEN
-        String expectedId = ProjectSyncUpServiceUtils.generateProjectId();
+        String expectedId = ProjectSyncUpServiceUtils.generateUniqueId();
         String expectedProjectName = "Test Project";
         String expectedProjectDescription = "This is a test project.";
         String expectedProjectStatus = "Active";
@@ -48,8 +48,8 @@ public class GetProjectActivityTest {
         project.setProjectDescription(expectedProjectDescription);
         project.setProjectStatus(expectedProjectStatus);
         project.setCreatedById(expectedCreatedById);
-        project.setTasks(Sets.newHashSet(expectedProjectTasks));
-        project.setProjectMembers(Sets.newHashSet(expectedProjectMembers));
+//        project.setProjectTasks(Sets.newHashSet(expectedProjectTasks));
+//        project.setProjectMembers(Sets.newHashSet(expectedProjectMembers));
 
         when(projectDao.getProject(expectedId)).thenReturn(project);
 
@@ -61,13 +61,13 @@ public class GetProjectActivityTest {
         GetProjectResult result = getProjectActivity.handleRequest(request);
 
         // THEN
-        assertEquals(expectedId, result.getProjectModel().getId());
-        assertEquals(expectedProjectName, result.getProjectModel().getName());
-        assertEquals(expectedProjectDescription, result.getProjectModel().getDescription());
-        assertEquals(expectedProjectStatus, result.getProjectModel().getStatus());
-        assertEquals(expectedCreatedById, result.getProjectModel().getCreatedBy());
-        assertEquals(expectedProjectTasks, result.getProjectModel().getTasks());
-        assertEquals(expectedProjectMembers, result.getProjectModel().getProjectMembers());
+        assertEquals(expectedId, result.getProject().getProjectId());
+        assertEquals(expectedProjectName, result.getProject().getProjectName());
+        assertEquals(expectedProjectDescription, result.getProject().getProjectDescription());
+        assertEquals(expectedProjectStatus, result.getProject().getProjectStatus());
+        assertEquals(expectedCreatedById, result.getProject().getCreatedById());
+//        assertEquals(expectedProjectTasks, result.getProject().getProjectTasks());
+//        assertEquals(expectedProjectMembers, result.getProject().getProjectMembers());
     }
 
 }

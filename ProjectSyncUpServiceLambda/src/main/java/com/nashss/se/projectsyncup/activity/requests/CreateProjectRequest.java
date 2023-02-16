@@ -2,6 +2,7 @@ package com.nashss.se.projectsyncup.activity.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.nashss.se.projectsyncup.dynamodb.models.Task;
 
 import java.util.List;
 
@@ -20,8 +21,7 @@ public class CreateProjectRequest {
     private final String projectDescription;
     private final String projectStatus;
     private final String createdById;
-    private final List<String> projectTasks;
-    private final List<String> projectMembers;
+
 
     /**
      * Instantiates a new CreateProjectRequest object.
@@ -30,20 +30,15 @@ public class CreateProjectRequest {
      * @param projectName        The name of the project
      * @param projectDescription The description of the project
      * @param createdById        The ID of the user who created the project
-     * @param projectTasks       A list of tasks associated with the project
-     * @param projectMembers     A list of team members who are associated with the project
      */
 
     private CreateProjectRequest(String projectName, String projectDescription, String projectStatus,
-                                 String createdById, List<String> projectTasks, List<String> projectMembers) {
+                                 String createdById) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
         this.createdById = createdById;
-        this.projectTasks = projectTasks;
-        this.projectMembers = projectMembers;
     }
-
 
     /**
      * Returns the name of the project.
@@ -86,18 +81,18 @@ public class CreateProjectRequest {
      *
      * @return A list of tasks associated with the project.
      */
-    public List<String> getProjectTasks() {
-        return copyToList(projectTasks);
-    }
+//    public List<String> getProjectTasks() {
+//        return copyToList(projectTasks);
+//    }
 
     /**
      * Returns a list of members associated with the project.
      *
      * @return A list of members associated with the project.
      */
-    public List<String> getProjectMembers() {
-        return copyToList(projectMembers);
-    }
+//    public List<String> getProjectMembers() {
+//        return copyToList(projectMembers);
+//    }
     @Override
     public String toString() {
         return "CreateProjectRequest{" +
@@ -105,8 +100,6 @@ public class CreateProjectRequest {
                 ", projectDescription='" + projectDescription + '\'' +
                 ", createdById='" + createdById + '\'' +
                 ", projectStatus='" + projectStatus + '\'' +
-                ", projectTasks='" + projectTasks + '\'' +
-                ", projectMembers=" + projectMembers +
                 '}';
     }
 
@@ -156,7 +149,8 @@ public class CreateProjectRequest {
 
         public CreateProjectRequest build() {
             return new CreateProjectRequest(projectName, projectDescription,
-                    projectStatus, createdById, projectTasks, projectMembers);
+                    projectStatus, createdById);
         }
+
     }
 }

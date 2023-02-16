@@ -10,15 +10,15 @@ public class GetProjectResult {
     /**
      * The `ProjectModel` object that holds the details of the project.
      */
-    private final ProjectModel projectModel;
+    private final ProjectModel project;
 
     /**
      * Constructs a `GetProjectResult` object with the given `ProjectModel` instance.
      *
-     * @param projectModel the `ProjectModel` object
+     * @param project the `ProjectModel` object
      */
-    private GetProjectResult(ProjectModel projectModel) {
-        this.projectModel = projectModel;
+    private GetProjectResult(ProjectModel project) {
+        this.project = project;
     }
 
     /**
@@ -26,8 +26,8 @@ public class GetProjectResult {
      *
      * @return the `ProjectModel` object
      */
-    public ProjectModel getProjectModel() {
-        return projectModel;
+    public ProjectModel getProject() {
+        return project;
     }
 
     /**
@@ -38,7 +38,7 @@ public class GetProjectResult {
     @Override
     public String toString() {
         return "GetProjectResult{" +
-                "project=" + projectModel +
+                "project=" + project +
                 '}';
     }
 

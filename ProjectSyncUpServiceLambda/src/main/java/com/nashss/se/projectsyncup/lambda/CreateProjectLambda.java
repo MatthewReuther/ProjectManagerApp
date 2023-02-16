@@ -9,7 +9,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 /**
  * CreateProjectLambda class extends the LambdaActivityRunner and implements the RequestHandler interface.
  * This class provides the implementation for the handleRequest method, which is used to create a new project.
- *
  */
 public class CreateProjectLambda
         extends LambdaActivityRunner<CreateProjectRequest, CreateProjectResult>
@@ -33,10 +32,10 @@ public class CreateProjectLambda
                 CreateProjectRequest.builder()
                         .withProjectName(unauthenticatedRequest.getProjectName())
                         .withProjectDescription(unauthenticatedRequest.getProjectDescription())
-                        .withCreatedById(claims.get("createdById"))
-                        .withProjectStatus(unauthenticatedRequest.getProjectStatus())
-                        .withProjectTasks(unauthenticatedRequest.getProjectTasks())
-                        .withProjectMembers(unauthenticatedRequest.getProjectMembers())
+                        .withCreatedById(claims.get("name"))
+//                        .withProjectStatus(unauthenticatedRequest.getProjectStatus())
+//                        .withProjectTasks(unauthenticatedRequest.getProjectTasks())
+//                        .withProjectMembers(unauthenticatedRequest.getProjectMembers())
                         .build());
             }, (request, serviceComponent) ->
                         serviceComponent.provideCreateProjectActivity().handleRequest(request)

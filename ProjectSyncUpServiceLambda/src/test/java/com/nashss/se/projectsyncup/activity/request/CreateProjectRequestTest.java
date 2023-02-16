@@ -20,17 +20,17 @@ public class CreateProjectRequestTest {
         String expectedProjectDescription = "This is a test project.";
         String expectedProjectStatus = "Active";
         String expectedCreatedById = "user1";
-        List<String> expectedProjectTasks = Arrays.asList("Task 1", "Task 2");
-        List<String> expectedProjectMembers = Arrays.asList("user2", "user3");
+//        List<String> expectedProjectTasks = Arrays.asList("Task 1", "Task 2");
+//        List<String> expectedProjectMembers = Arrays.asList("user2", "user3");
 
         // Define the JSON string
         String json = "{" +
                 "\"projectName\":\"" + expectedProjectName + "\"," +
                 "\"projectDescription\":\"" + expectedProjectDescription + "\"," +
                 "\"projectStatus\":\"" + expectedProjectStatus + "\"," +
-                "\"createdById\":\"" + expectedCreatedById + "\"," +
-                "\"projectTasks\":[\"" + String.join("\",\"", expectedProjectTasks) + "\"]," +
-                "\"projectMembers\":[\"" + String.join("\",\"", expectedProjectMembers) + "\"]" +
+                "\"createdById\":\"" + expectedCreatedById + "\"" +
+//                "\"projectTasks\":[\"" + String.join("\",\"", expectedProjectTasks) + "\"]," +
+//                "\"projectMembers\":[\"" + String.join("\",\"", expectedProjectMembers) + "\"]" +
                 "}";
 
         // Use the ObjectMapper to deserialize the JSON string
@@ -42,7 +42,7 @@ public class CreateProjectRequestTest {
         assertEquals(expectedProjectDescription, request.getProjectDescription());
         assertEquals(expectedProjectStatus, request.getProjectStatus());
         assertEquals(expectedCreatedById, request.getCreatedById());
-        assertEquals(expectedProjectTasks, request.getProjectTasks());
-        assertEquals(expectedProjectMembers, request.getProjectMembers());
+//        assertEquals(expectedProjectTasks, request.getProjectTasks());
+//        assertEquals(expectedProjectMembers, request.getProjectMembers());
     }
 }

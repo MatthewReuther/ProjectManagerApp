@@ -42,7 +42,7 @@ public class ProjectModel {
      *
      * @return The ID of the project.
      */
-    public String getId() {
+    public String getProjectId() {
         return projectId;
     }
 
@@ -51,7 +51,7 @@ public class ProjectModel {
      *
      * @return The name of the project.
      */
-    public String getName() {
+    public String getProjectName() {
         return projectName;
     }
 
@@ -60,7 +60,7 @@ public class ProjectModel {
      *
      * @return The description of the project.
      */
-    public String getDescription() {
+    public String getProjectDescription() {
         return projectDescription;
     }
 
@@ -69,7 +69,7 @@ public class ProjectModel {
      *
      * @return The status of the project.
      */
-    public String getStatus() {
+    public String getProjectStatus() {
         return projectStatus;
     }
 
@@ -78,7 +78,7 @@ public class ProjectModel {
      *
      * @return The name of the person who created the project.
      */
-    public String getCreatedBy() {
+    public String getCreatedById() {
         return createdById;
     }
 
@@ -87,7 +87,7 @@ public class ProjectModel {
      *
      * @return A list of tasks associated with the project.
      */
-    public List<String> getTasks() {
+    public List<String> getProjectTasks() {
         return copyToList(projectTasks);
     }
 
@@ -109,19 +109,19 @@ public class ProjectModel {
             return false;
         }
         ProjectModel that = (ProjectModel) o;
-        return getId().equals(that.getId()) &&
-                getName().equals(that.getName()) &&
-                getDescription().equals(that.getDescription()) &&
-                getStatus().equals(that.getStatus()) &&
-                getCreatedBy().equals(that.getCreatedBy()) &&
-                getTasks().equals(that.getTasks()) &&
+        return getProjectId().equals(that.getProjectId()) &&
+                getProjectName().equals(that.getProjectName()) &&
+                getProjectDescription().equals(that.getProjectDescription()) &&
+                getProjectStatus().equals(that.getProjectStatus()) &&
+                getCreatedById().equals(that.getCreatedById()) &&
+                getProjectTasks().equals(that.getProjectTasks()) &&
                 getProjectMembers().equals(that.getProjectMembers());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription(),
-                getStatus(), getCreatedBy(), getTasks(), getProjectMembers());
+        return Objects.hash(getProjectId(), getProjectName(), getProjectDescription(),
+                getProjectStatus(), getCreatedById(), getProjectTasks(), getProjectMembers());
     }
 
     //CHECKSTYLE:OFF:Builder
