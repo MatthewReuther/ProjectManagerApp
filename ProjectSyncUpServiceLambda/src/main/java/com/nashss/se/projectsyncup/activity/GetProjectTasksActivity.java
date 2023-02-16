@@ -49,13 +49,12 @@ public class GetProjectTasksActivity {
     public GetProjectTasksResult handleRequest(final GetProjectTasksRequest getProjectTasksRequest) {
         log.info("Received GetProjectTasksRequest {}", getProjectTasksRequest);
 
-
         Project project = projectDao.getProject(getProjectTasksRequest.getProjectId());
         List<TaskModel> taskModels = new ModelConverter().toTaskModelList(project.getProjectTasks());
 
-
         return GetProjectTasksResult.builder()
-                .build(taskModels);
+                .withTaskList(taskModels)
+                .build();
     }
 
 }
