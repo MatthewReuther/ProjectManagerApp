@@ -141,6 +141,7 @@ import Authenticator from "./authenticator";
           try {
               const token = await this.getTokenOrThrow("Only authenticated users can add a task to a project.");
               const response = await this.axiosClient.post(`tasks/${projectId}/`, {
+                  taskName: taskName,
                   taskDescription: taskDescription,
                   taskDueDate: taskDueDate,
                   taskAssignedUser: taskAssignedUser,
