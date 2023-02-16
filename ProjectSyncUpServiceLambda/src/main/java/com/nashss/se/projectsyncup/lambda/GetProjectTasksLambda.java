@@ -19,6 +19,7 @@ public class GetProjectTasksLambda
         return super.runActivity(
                 () -> input.fromPathAndQuery((path, query) ->
                         GetProjectTasksRequest.builder()
+                                .withProjectId(path.get("projectId"))
                                 .build()),
                 (request, serviceComponent) ->
                         serviceComponent.provideGetProjectTasksActivity().handleRequest(request)

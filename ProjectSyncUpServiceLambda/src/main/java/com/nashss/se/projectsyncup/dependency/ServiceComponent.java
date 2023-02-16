@@ -6,6 +6,7 @@ import com.nashss.se.projectsyncup.activity.CreateProjectActivity;
 
 import com.nashss.se.projectsyncup.activity.GetProjectActivity;
 
+import com.nashss.se.projectsyncup.activity.GetProjectTasksActivity;
 import com.nashss.se.projectsyncup.activity.requests.GetProjectTasksRequest;
 import dagger.Component;
 
@@ -41,5 +42,5 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return GetProjectTasksActivity
      */
-    RequestHandler provideGetProjectTasksActivity();
+    GetProjectTasksActivity provideGetProjectTasksActivity();
 }
