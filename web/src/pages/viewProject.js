@@ -21,6 +21,7 @@ class ViewProject extends BindingClass {
      * Once the client is loaded, get the project metadata and task list.
      */
     async clientLoaded() {
+
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('projectId');
         document.getElementById('projectName').innerText = "Loading Project ...";
@@ -28,8 +29,10 @@ class ViewProject extends BindingClass {
         this.dataStore.set('project', project);
 
         document.getElementById('tasks').innerText = "(loading tasks...)";
-//        const tasks = await this.client.getProjectTasks(projectId);
-//        this.dataStore.set('tasks', tasks);
+        const tasks = await this.client.getProjectTasks(projectId);
+        console.log("Project Tasks:", tasks);
+        this.dataStore.set('tasks', tasks);
+
 
     }
 
@@ -88,11 +91,11 @@ class ViewProject extends BindingClass {
             return;
         }
 
-        let taskTaskHtml = '';
-        let taskTask;
+        let taskHtml = '';
+        let task;
         for (task of tasks) {
-            projectTaskHtml += `
-                <li class="projectTask">
+            taskHtml += `
+                <li class="task">
                     <span class="title">${task.taskName}</span>
                     <span class="description">${task.taskDescription}</span>
                     <span class="dueDate">${task.taskDueDate}</span>
@@ -100,7 +103,9 @@ class ViewProject extends BindingClass {
                 </li>
             `;
         }
-        document.getElementById('tasks').innerHTML = projectTaskHtml;
+        console.log("Project Task:", tasks);
+        document.getElementById('tasks').innerHTML = taskHtml;
+
     }
 
     /**
@@ -127,12 +132,15 @@ class ViewProject extends BindingClass {
         const projectId = project.projectId;
 
 
-        const projectTasks = await this.client.addTaskToProject(taskName, taskDescription, taskDueDate, taskAssignedUser, projectId, (error) => {
+        const taskList = await this.client.addTaskToProject(taskName, taskDescription, taskDueDate, taskAssignedUser, projectId, (error) => {
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
+
         });
 
-        this.dataStore.set('tasks', projectTasks);
+
+        this.dataStore.set('tasks', taskList);
+        console.log("tasks:", taskList);
 
         document.getElementById('addTask').innerText = 'Add Task';
         document.getElementById("add-task-form").reset();
