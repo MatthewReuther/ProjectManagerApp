@@ -1,46 +1,24 @@
 package com.nashss.se.projectsyncup.lambda;
 
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.projectsyncup.activity.requests.RemoveTaskFromProjectRequest;
 import com.nashss.se.projectsyncup.activity.requests.RemoveTaskFromProjectResult;
-import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
-import com.nashss.se.projectsyncup.dynamodb.models.Project;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
-import java.util.List;
-
-public class RemoveTaskFromProjectLambda {
-    private final Logger log = LogManager.getLogger();
-    private final ProjectDao projectDao;
-
-
-    /**
-     *
-     * @param projectDao PlaylistDao to access the project table.
-     */
-    @Inject
-    public RemoveTaskFromProjectLambda(ProjectDao projectDao) {
-        this.projectDao = projectDao;
+/**
+ * RemoveTaskFromProjectLambda class extends the LambdaActivityRunner and implements the RequestHandler interface.
+ * This class provides the implementation for the handleRequest method, which is used to remove a task from a project.
+ */
+public class RemoveTaskFromProjectLambda
+        extends LambdaActivityRunner<RemoveTaskFromProjectRequest, RemoveTaskFromProjectResult>
+        implements RequestHandler<LambdaRequest<RemoveTaskFromProjectRequest>, LambdaResponse> {
+    @Override
+    public LambdaResponse handleRequest(LambdaRequest<RemoveTaskFromProjectRequest> input, Context context) {
+        return super.runActivity(
+                () -> input.fromBody(RemoveTaskFromProjectRequest.class),
+                (request, serviceComponent) ->
+                        serviceComponent.provideRemoveTaskFromProjectActivity().handleRequest(request)
+        );
     }
-
-    /**
-     *
-     * @param request request containing information on a task to be removed
-     * @return the task being removed from the project
-     */
-    public RemoveTaskFromProjectResult handleRequest(final RemoveTaskFromProjectRequest request) {
-        log.info("Received RemoveTaskFromProjectRequest {} ", request);
-
-        String taskId = request.getTaskId();
-        String projectId = request.getprojectId();
-
-        Project project = projectDao.getProject(projectId);
-
-        projectDao.saveProject(project);
-
-        return RemoveTaskFromProjectResult.builder()
-                .build();
-    }
-
 }
+
