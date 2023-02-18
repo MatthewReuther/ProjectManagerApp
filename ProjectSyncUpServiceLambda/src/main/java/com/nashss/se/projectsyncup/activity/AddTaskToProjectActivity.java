@@ -18,10 +18,7 @@ import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.inject.Inject;
 
@@ -63,7 +60,6 @@ public class AddTaskToProjectActivity {
         log.info("Received AddTaskToProjectRequest {} ", addTaskToProjectRequest);
 
 
-
         Task newTask = new Task();
         newTask.setTaskId(ProjectSyncUpServiceUtils.generateUniqueId());
         newTask.setTaskName(addTaskToProjectRequest.getTaskName());
@@ -81,24 +77,18 @@ public class AddTaskToProjectActivity {
 
         if (taskList == null) {
             taskList = new ArrayList<>();
-            project.setProjectTasks(taskList);
+        } else {
+            taskList.add(newTask);
         }
-        String newTaskName = newTask.getTaskId() + ", " + newTask.getTaskName();
-
-        taskList.add(newTask);
+//        String newTaskName = newTask.getTaskId() + ", " + newTask.getTaskName();
+        project.setProjectTasks(taskList);
         projectDao.saveProject(project);
-//
-//        List<TaskModel> taskModel = new ModelConverter().toTaskModelList(project.getProjectTasks());
-//        return AddTaskToProjectResult.builder()
-//                .withTaskList(taskModel)
-//                .build();
 
-        TaskModel taskModel = new ModelConverter().toTaskModel(newTask);
+        List<TaskModel> taskModel = new ModelConverter().toTaskModelList(project.getProjectTasks());
         return AddTaskToProjectResult.builder()
-                .withTaskModel(taskModel)
+                .withTaskList(taskModel)
                 .build();
     }
-
 
 }
 

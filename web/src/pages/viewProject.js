@@ -21,16 +21,17 @@ class ViewProject extends BindingClass {
      * Once the client is loaded, get the project metadata and task list.
      */
     async clientLoaded() {
+
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('projectId');
         document.getElementById('projectName').innerText = "Loading Project ...";
         const project = await this.client.getProject(projectId);
         this.dataStore.set('project', project);
 
-        document.getElementById('tasks').innerText = "(loading tasks...)";
-//        const tasks = await this.client.getProjectTasks(projectId);
-//        this.dataStore.set('tasks', tasks);
-
+        document.getElementById('projectTasksList').innerText = "(loading tasks...)";
+        const projectTasks = await this.client.getProjectTasks(projectId);
+        console.log("ProjectTasks:", projectTasks);
+        this.dataStore.set('tasks', projectTasks);
     }
 
     /**
@@ -38,9 +39,7 @@ class ViewProject extends BindingClass {
      */
     mount() {
         document.getElementById('addTask').addEventListener('click', this.addTask);
-
         this.header.addHeaderToPage();
-
         this.client = new ProjectSyncUpClient();
         this.clientLoaded();
     }
@@ -58,25 +57,7 @@ class ViewProject extends BindingClass {
         document.getElementById('projectDescription').innerText = project.projectDescription;
         document.getElementById('projectOwner').innerText = project.createdById;
 
-//        const projectTasksText = document.getElementById('projectTasks').value;
-
-//        let projectTasks;
-//        if (projectTasksText.length < 1) {
-//            projectTasks = null;
-//        } else {
-//            projectTasks = projectTasksText.split(/\s*,\s*/);
-//        }
-
-//        let taskHtml = '';
-//        let task;
-//        for (task of project.projectTasks) {
-//            taskHtml += '<div class="task">' + task + '</div>';
-//        }
-//        document.getElementById('projectTasks').innerHTML = taskHtml;
-
     }
-
-
 
     /**
      * When the tasks are updated in the datastore, update the list of tasks on the page.
@@ -88,11 +69,11 @@ class ViewProject extends BindingClass {
             return;
         }
 
-        let taskTaskHtml = '';
-        let taskTask;
+        let taskHtml = '';
+        let task;
         for (task of tasks) {
-            projectTaskHtml += `
-                <li class="projectTask">
+            taskHtml += `
+                <li class="task">
                     <span class="title">${task.taskName}</span>
                     <span class="description">${task.taskDescription}</span>
                     <span class="dueDate">${task.taskDueDate}</span>
@@ -100,15 +81,17 @@ class ViewProject extends BindingClass {
                 </li>
             `;
         }
-        document.getElementById('tasks').innerHTML = projectTaskHtml;
+        console.log("ProjectTask:", tasks);
+        document.getElementById('projectTasksList').innerHTML = taskHtml;
+
     }
 
     /**
      * Method to run when the add task project submit button is pressed. Call the ProjectSyncUpService to add a task to the
      * project.
      */
-    async addTask() {
 
+    async addTask() {
         const errorMessageDisplay = document.getElementById('error-message');
         errorMessageDisplay.innerText = ``;
         errorMessageDisplay.classList.add('hidden');
@@ -126,7 +109,6 @@ class ViewProject extends BindingClass {
         const taskAssignedUser = document.getElementById('taskAssignedTo').value;
         const projectId = project.projectId;
 
-
         const projectTasks = await this.client.addTaskToProject(taskName, taskDescription, taskDueDate, taskAssignedUser, projectId, (error) => {
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
@@ -136,6 +118,7 @@ class ViewProject extends BindingClass {
 
         document.getElementById('addTask').innerText = 'Add Task';
         document.getElementById("add-task-form").reset();
+        this.clientLoaded();
     }
 
 }

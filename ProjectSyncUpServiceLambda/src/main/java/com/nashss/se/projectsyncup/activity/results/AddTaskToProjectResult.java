@@ -11,20 +11,15 @@ import java.util.List;
  */
 public class AddTaskToProjectResult {
 
-//    private final List<TaskModel> projectTasks;
-    private final TaskModel projectTask;
+    private final List<TaskModel> taskList;
 
     /**
      * Private constructor to enforce the use of the Builder class.
      *
-     * @param projectTask The list of tasks in project.
+     * @param taskList The list of tasks in project.
      */
-    private AddTaskToProjectResult(TaskModel projectTask) {
-        this.projectTask = projectTask;
-    }
-
-    public TaskModel getTask() {
-        return projectTask;
+    private AddTaskToProjectResult(List<TaskModel> taskList) {
+        this.taskList = taskList;
     }
 
     /**
@@ -32,9 +27,9 @@ public class AddTaskToProjectResult {
      *
      * @return The taskList that was updated.
      */
-//    public List<TaskModel> getProjectTasks() {
-//        return new ArrayList<>(projectTask);
-//    }
+    public List<TaskModel> getProjectTasks() {
+        return new ArrayList<>(taskList);
+    }
 
     /**
      * Returns a string representation of the {@link AddTaskToProjectResult} object.
@@ -45,7 +40,7 @@ public class AddTaskToProjectResult {
     @Override
     public String toString() {
         return "AddTaskToProjectResult{" +
-                "projectTask=" + projectTask +
+                "taskList=" + taskList +
                 '}';
     }
 
@@ -55,26 +50,22 @@ public class AddTaskToProjectResult {
     }
 
     public static class Builder {
-        private TaskModel projectTask;
+        private List<TaskModel> taskList;
 
 
         /**
          * Builder to create AddGuestToPartyResult object.
-         * @param projectTask the list of users at the party.
+         * @param taskList the list of users at the party.
          * @return the Builder object
          */
-        public Builder withTaskModel(TaskModel projectTask) {
-            this.projectTask = projectTask;
+
+        public Builder withTaskList(List<TaskModel> taskList) {
+            this.taskList = new ArrayList<>(taskList);
             return this;
         }
 
-//        public Builder withTaskList(List<TaskModel> taskList) {
-//            this.projectTasks = new ArrayList<>(taskList);
-//            return this;
-//        }
-
         public AddTaskToProjectResult build() {
-            return new AddTaskToProjectResult(projectTask);
+            return new AddTaskToProjectResult(taskList);
         }
     }
 

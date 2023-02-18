@@ -41,11 +41,6 @@ curl -X POST \
 
 ```
 
-## GetProjectById
-```
-curl -X GET http://127.0.0.1:3000/projects/0J6q5 
-```
-
 ## AddTaskToProject
 ```
 curl -X POST \
@@ -58,4 +53,14 @@ curl -X POST \
         "taskAssignedUser": "John Doe",
         "projectId": "SRSpK"
     }'
+```
+
+## GetProjectById
+```
+curl -X GET http://127.0.0.1:3000/projects/0J6q5 
+```
+
+## GetProjectTasks
+```
+curl -X GET http://127.0.0.1:3000/projects/gDiDZ/tasks 
 ```

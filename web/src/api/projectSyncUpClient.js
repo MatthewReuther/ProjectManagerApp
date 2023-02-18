@@ -15,7 +15,7 @@ import Authenticator from "./authenticator";
       constructor(props = {}) {
           super();
 
-          const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'getProject', 'createProject'];
+          const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'getProject', 'getProjectTasks', 'createProject'];
           this.bindClassMethods(methodsToBind, this);
 
           this.authenticator = new Authenticator();;
@@ -96,7 +96,7 @@ import Authenticator from "./authenticator";
        async getProjectTasks(projectId, errorCallback) {
            try {
                const response = await this.axiosClient.get(`projects/${projectId}/tasks`);
-               return response.data.projectTasks;
+               return response.data.taskList;
            } catch (error) {
                this.handleError(error, errorCallback)
            }
@@ -140,22 +140,25 @@ import Authenticator from "./authenticator";
       async addTaskToProject(taskName, taskDescription, taskDueDate, taskAssignedUser, projectId, errorCallback) {
           try {
               const token = await this.getTokenOrThrow("Only authenticated users can add a task to a project.");
-              const response = await this.axiosClient.post(`tasks/${projectId}/`, {
+              const response = await this.axiosClient.post(`projects/${projectId}/tasks`, {
                   taskName: taskName,
                   taskDescription: taskDescription,
                   taskDueDate: taskDueDate,
                   taskAssignedUser: taskAssignedUser,
-                  projectId: projectId,
+                  projectId: projectId
               }, {
                   headers: {
                       Authorization: `Bearer ${token}`
                   }
               });
-              return response.data.songList;
+              console.log("data:", response.data)
+              return response.data.taskList;
           } catch (error) {
               this.handleError(error, errorCallback)
           }
       }
+
+
 
       /**
        * Helper method to log the error and run any error functions.
