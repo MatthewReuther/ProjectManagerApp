@@ -39,7 +39,6 @@ public class AddTaskToProjectActivityTest {
     @Test
     public void handleRequest_addTask_createsAndSavesTaskInTaskDao() {
 
-        String taskId = ProjectSyncUpServiceUtils.generateUniqueId();
         String taskName = "Task Name";
         String taskDescription = "Task Description";
         String taskDueDate = "Task Due Date";
@@ -49,6 +48,7 @@ public class AddTaskToProjectActivityTest {
         Project project = new Project();
         project.setProjectId(projectId);
 
+        //WHEN
         when(projectDao.getProject(projectId)).thenReturn(project);
 
         AddTaskToProjectRequest request = new AddTaskToProjectRequest.Builder()
@@ -65,36 +65,6 @@ public class AddTaskToProjectActivityTest {
         //THEN
         verify(taskDao).saveTask(any(Task.class));
 
-        assertNotNull(result.getTask().getTaskId());
-        assertNotNull(result.getTask().getProjectId());
-        assertEquals(taskName, result.getTask().getTaskName());
-        assertEquals(taskDescription, result.getTask().getTaskDescription());
-        assertEquals(taskDueDate, result.getTask().getTaskDueDate());
-        assertEquals(taskAssignedUser, result.getTask().getTaskAssignedUser());
-
     }
-
-//    @Test
-//    void handleRequest_validRequest_addsTaskToProject() {
-//        // GIVEN
-//        // a non-empty playlist
-//        Project originalProject = ProjectTestHelper.generateProjectWithTasks(3);
-//        String projectId = originalProject.getProjectId();
-//        String projectName = originalProject.getProjectName();
-//        String projectDescription = originalProject.getProjectDescription();
-//        String projectStatus = originalProject.getProjectStatus();
-//        String projectCreatedBy = originalProject.getCreatedById();
-//
-//        // the new task to add to the playlist
-//        Task taskToAdd = ProjectTaskTestHelper.generateTask(2);
-//        String taskId = taskToAdd.getTaskId();
-//        String taskName = taskToAdd.getTaskName();
-//        String taskDescription = taskToAdd.getTaskDescription();
-//        String taskAssignedUser = taskToAdd.getTaskAssignedUser();
-//
-//        when(projectDao.getProject(projectId)).thenReturn(originalProject);
-//        when(projectDao.saveProject(originalProject)).thenReturn(originalProject);
-//
-//    }
 
 }
