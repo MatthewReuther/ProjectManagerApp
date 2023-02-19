@@ -1,8 +1,9 @@
 package com.nashss.se.projectsyncup.activity;
 
 import com.nashss.se.projectsyncup.activity.requests.RemoveTaskFromProjectRequest;
-import com.nashss.se.projectsyncup.activity.requests.RemoveTaskFromProjectResult;
+import com.nashss.se.projectsyncup.activity.results.RemoveTaskFromProjectResult;
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
+import com.nashss.se.projectsyncup.dynamodb.TaskDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,15 +13,16 @@ import javax.inject.Inject;
 public class RemoveTaskFromProjectActivity {
     private final Logger log = LogManager.getLogger();
     private final ProjectDao projectDao;
-
+    private final TaskDao taskDao;
 
     /**
-     *
      * @param projectDao PlaylistDao to access the project table.
+     * @param taskDao
      */
     @Inject
-    public RemoveTaskFromProjectActivity(ProjectDao projectDao) {
+    public RemoveTaskFromProjectActivity(ProjectDao projectDao, TaskDao taskDao) {
         this.projectDao = projectDao;
+        this.taskDao = taskDao;
     }
 
     /**

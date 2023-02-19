@@ -3,7 +3,7 @@ package com.nashss.se.projectsyncup.lambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.projectsyncup.activity.requests.RemoveTaskFromProjectRequest;
-import com.nashss.se.projectsyncup.activity.requests.RemoveTaskFromProjectResult;
+import com.nashss.se.projectsyncup.activity.results.RemoveTaskFromProjectResult;
 
 /**
  * RemoveTaskFromProjectLambda class extends the LambdaActivityRunner and implements the RequestHandler interface.
