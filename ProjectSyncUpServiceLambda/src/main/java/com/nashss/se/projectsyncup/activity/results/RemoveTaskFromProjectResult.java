@@ -38,7 +38,6 @@ public class RemoveTaskFromProjectResult {
                 '}';
     }
 
-
     //CHECKSTYLE:OFF:Builder
     public static Builder builder() { return new Builder(); }
 
