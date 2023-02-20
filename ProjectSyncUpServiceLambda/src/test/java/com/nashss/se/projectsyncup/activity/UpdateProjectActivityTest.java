@@ -55,4 +55,6 @@ public class UpdateProjectActivityTest {
         assertEquals(expectedDescription, result.getProject().getProjectDescription());
         assertEquals(newProjectStatus, result.getProject().getProjectStatus());
     }
+
+
 }
