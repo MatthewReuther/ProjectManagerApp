@@ -1,16 +1,10 @@
 package com.nashss.se.projectsyncup.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.model.ScanRequest;
-import com.amazonaws.services.dynamodbv2.model.ScanResult;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nashss.se.projectsyncup.dynamodb.models.Task;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +39,18 @@ public class TaskDao {
     public Task saveTask(Task task) {
         this.dynamoDbMapper.save(task);
         return task;
+    }
+
+    /**
+     * Removes a task object from the database.
+     * @param task to be deleted
+     */
+    public void deleteTask(Task task) {
+        dynamoDbMapper.delete(task);
+    }
+
+    public Task getTaskId(String taskId) {
+        return dynamoDbMapper.load(Task.class, taskId);
     }
 
     /**
@@ -86,30 +92,7 @@ public class TaskDao {
         return taskList;
     }
 
-    /**
-     * Retrieves the entire Guest List at the party.
-     *
-     * @return The current Guest List
-     */
-    public List<Task> getTaskList() {
-        List<Task> projectTaskList = new ArrayList<>();
-        final ObjectMapper mapper = new ObjectMapper();
 
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
-
-        ScanRequest scanRequest = new ScanRequest()
-                .withTableName("tasks");
-
-        ScanResult result = client.scan(scanRequest);
-        List<Map<String, AttributeValue>> taskList = result.getItems();
-
-        for (Map<String, AttributeValue> entry : taskList) {
-            final Task task = mapper.convertValue(taskList, Task.class);
-            projectTaskList.add(task);
-        }
-
-        return projectTaskList;
-    }
 
 
 }

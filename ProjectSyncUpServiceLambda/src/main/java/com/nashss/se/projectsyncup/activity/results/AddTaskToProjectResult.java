@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * The `AddTaskToProjectResult` class represents the result of adding a TaskModel.
- * It contains the projectModel that was created.
+ * It contains the taskModel that was created.
  */
 public class AddTaskToProjectResult {
 

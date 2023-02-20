@@ -15,7 +15,7 @@ import Authenticator from "./authenticator";
       constructor(props = {}) {
           super();
 
-          const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'getProject', 'getProjectTasks', 'createProject'];
+          const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'getProject', 'getProjectTasks', 'createProject', 'deleteTaskFromProject'];
           this.bindClassMethods(methodsToBind, this);
 
           this.authenticator = new Authenticator();;
@@ -151,6 +151,24 @@ import Authenticator from "./authenticator";
                       Authorization: `Bearer ${token}`
                   }
               });
+              console.log("data:", response.data)
+              return response.data.taskList;
+          } catch (error) {
+              this.handleError(error, errorCallback)
+          }
+      }
+
+      async deleteTaskFromProject(taskId, projectId, errorCallback) {
+          try {
+            const token = await this.getTokenOrThrow("Only authenticated users can add a task to a project.");
+            const response = await this.axiosClient.delete(`projects/${projectId}/tasks/${taskId}`, {
+                taskId: taskId,
+                projectId: projectId
+            }, {
+                  headers: {
+                      Authorization: `Bearer ${token}`
+                  }
+            });
               console.log("data:", response.data)
               return response.data.taskList;
           } catch (error) {

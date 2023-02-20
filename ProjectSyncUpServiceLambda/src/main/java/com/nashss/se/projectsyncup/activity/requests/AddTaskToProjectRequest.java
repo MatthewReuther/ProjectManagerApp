@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = AddTaskToProjectRequest.Builder.class)
 public class AddTaskToProjectRequest {
     private final String projectId;
-
     private final String taskId;
     private final String taskName;
     private final String taskDescription;

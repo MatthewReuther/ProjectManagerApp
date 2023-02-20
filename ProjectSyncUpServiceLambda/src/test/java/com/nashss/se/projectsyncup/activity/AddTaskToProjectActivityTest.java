@@ -6,15 +6,12 @@ import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.TaskDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.dynamodb.models.Task;
-import com.nashss.se.projectsyncup.test.helper.ProjectTaskTestHelper;
-import com.nashss.se.projectsyncup.test.helper.ProjectTestHelper;
+
 import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
