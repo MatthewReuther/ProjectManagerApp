@@ -47,9 +47,18 @@ public class UpdateProjectActivity {
 
         Project project = projectDao.getProject(updateProjectRequest.getProjectId());
 
-        project.setProjectName(updateProjectRequest.getProjectName());
-        project.setProjectDescription(updateProjectRequest.getProjectDescription());
-        project.setProjectStatus(updateProjectRequest.getProjectStatus());
+        if (updateProjectRequest.getProjectName() != null && !updateProjectRequest.getProjectName().equals(project.getProjectName())) {
+            project.setProjectName(updateProjectRequest.getProjectName());
+        }
+
+        if (updateProjectRequest.getProjectDescription() != null && !updateProjectRequest.getProjectDescription().equals(project.getProjectDescription())) {
+            project.setProjectDescription(updateProjectRequest.getProjectDescription());
+        }
+
+        if (updateProjectRequest.getProjectStatus() != null && !updateProjectRequest.getProjectStatus().equals(project.getProjectStatus())) {
+            project.setProjectStatus(updateProjectRequest.getProjectStatus());
+        }
+
         project = projectDao.saveProject(project);
 
         return UpdateProjectResult.builder()
