@@ -39,10 +39,6 @@
                         <input type="text" id="taskDueDate" class="taskDueDate" placeholder="Set When Task is Due" autofocus>
                     </p>
                     <p class="form-field">
-                        <label>Task Created By:</label>
-<!--                        <input type="text" id="createdById" class="taskCreatedById" placeholder="Who Created This Task" autofocus>-->
-                    </p>
-                    <p class="form-field">
                         <label>Assign Task:</label>
                         <input type="text" id="taskAssignedTo" class="taskAssignedTo" placeholder="Set who the task is assigned to." autofocus>
                     </p>
@@ -50,7 +46,16 @@
                     <p>
                         <a href="#" class="button" id="addTask">Add Task</a>
                     </p>
+
                 </form>
+                <h2>Delete Task</h2>
+                <p class="form-field">
+                    <label>TaskId to Remove</label>
+                    <input type="text" id="taskId" class="taskId" placeholder="taskId to be deleted" autofocus>
+                </p>
+                <p>
+                    <a href="#" class="button" id="deleteTask">Delete Task</a>
+                </p>
             </div>
 
     </body>

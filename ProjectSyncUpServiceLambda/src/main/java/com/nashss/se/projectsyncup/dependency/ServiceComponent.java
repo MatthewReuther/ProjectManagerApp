@@ -36,15 +36,20 @@ public interface ServiceComponent {
 
     /**
      * Provides the relevant activity.
+     * @return UpdateProjectActivity
+     */
+    UpdateProjectActivity provideUpdateProjectActivity();
+
+    /**
+     * Provides the relevant activity.
      * @return GetProjectTasksActivity
      */
     GetProjectTasksActivity provideGetProjectTasksActivity();
 
     /**
      * Provides the relevant activity.
-     * @return RemoveTaskFromProjectActivity
+     * @return DeleteTaskFromProjectActivity
      */
-    DeleteTaskFromProjectActivity provideRemoveTaskFromProjectActivity();
+    DeleteTaskFromProjectActivity provideDeleteTaskFromProjectActivity();
 
-    UpdateProjectActivity provideUpdateProjectActivity();
 }

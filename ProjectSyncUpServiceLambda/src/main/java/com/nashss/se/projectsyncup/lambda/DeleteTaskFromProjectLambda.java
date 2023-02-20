@@ -15,9 +15,13 @@ public class DeleteTaskFromProjectLambda
     @Override
     public LambdaResponse handleRequest(LambdaRequest<DeleteTaskFromProjectRequest> input, Context context) {
         return super.runActivity(
-                () -> input.fromBody(DeleteTaskFromProjectRequest.class),
+                () -> input.fromPath(path ->
+                        DeleteTaskFromProjectRequest.builder()
+                                .withTaskId(path.get("taskId"))
+                                .withProjectId(path.get("projectId"))
+                                .build()),
                 (request, serviceComponent) ->
-                        serviceComponent.provideRemoveTaskFromProjectActivity().handleRequest(request)
+                        serviceComponent.provideDeleteTaskFromProjectActivity().handleRequest(request)
         );
     }
 }

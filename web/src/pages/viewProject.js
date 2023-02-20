@@ -9,7 +9,7 @@ import DataStore from '../util/DataStore';
 class ViewProject extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addTasksToPage', 'addTask'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addTasksToPage', 'addTask', 'deleteTask'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectToPage);
         this.dataStore.addChangeListener(this.addTasksToPage);
@@ -39,6 +39,7 @@ class ViewProject extends BindingClass {
      */
     mount() {
         document.getElementById('addTask').addEventListener('click', this.addTask);
+        document.getElementById('deleteTask').addEventListener('click', this.deleteTask);
         this.header.addHeaderToPage();
         this.client = new ProjectSyncUpClient();
         this.clientLoaded();
@@ -117,6 +118,28 @@ class ViewProject extends BindingClass {
         this.dataStore.set('tasks', projectTasks);
 
         document.getElementById('addTask').innerText = 'Add Task';
+        document.getElementById("add-task-form").reset();
+        this.clientLoaded();
+    }
+
+    /**
+     * Method to run when the remove song playlist submit button is pressed. Call the PartyPlaylist to remove a song to the
+     * playlist.
+     */
+    async deleteTask() {
+        const project = this.dataStore.get('project');
+        if (project == null) {
+            return;
+        }
+
+        document.getElementById('deleteTask').innerText = 'Deleting...';
+        const taskId = document.getElementById('taskId').value;
+        const projectId = project.projectId;
+
+        const projectTasks = await this.client.deleteTaskFromProject(taskId, projectId);
+        this.dataStore.set('tasks', projectTasks);
+
+        document.getElementById('deleteTask').innerText = 'Delete Task';
         document.getElementById("add-task-form").reset();
         this.clientLoaded();
     }
