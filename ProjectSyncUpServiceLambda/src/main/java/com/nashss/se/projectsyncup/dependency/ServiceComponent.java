@@ -1,9 +1,7 @@
 package com.nashss.se.projectsyncup.dependency;
 
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.projectsyncup.activity.*;
 
-import com.nashss.se.projectsyncup.activity.requests.GetProjectTasksRequest;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -44,5 +42,5 @@ public interface ServiceComponent {
      * Provides the relevant activity.
      * @return RemoveTaskFromProjectActivity
      */
-    RemoveTaskFromProjectActivity provideRemoveTaskFromProjectActivity();
+    DeleteTaskFromProjectActivity provideRemoveTaskFromProjectActivity();
 }

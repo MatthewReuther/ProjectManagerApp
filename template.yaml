@@ -294,6 +294,26 @@ Resources:
             Path: /projects/{projectId}/tasks
             Method: post
 
+  DeleteTaskFromProjectLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ProjectSyncUpServiceLambda
+      Handler: com.nashss.se.projectsyncup.lambda.DeleteTaskFromProjectLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ProjectSyncUpService:
+          Type: Api
+          Properties:
+            Path: /projects/{projectId}/tasks
+            Method: delete
+
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------

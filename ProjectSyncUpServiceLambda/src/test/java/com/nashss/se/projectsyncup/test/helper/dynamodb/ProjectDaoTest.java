@@ -1,6 +1,7 @@
-package com.nashss.se.projectsyncup.dynamodb;
+package com.nashss.se.projectsyncup.test.helper.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.models.Project;
 import com.nashss.se.projectsyncup.utils.ProjectSyncUpServiceUtils;
 import org.junit.jupiter.api.BeforeEach;

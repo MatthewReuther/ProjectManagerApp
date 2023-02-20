@@ -1,7 +1,7 @@
 package com.nashss.se.projectsyncup.activity;
 
-import com.nashss.se.projectsyncup.activity.requests.RemoveTaskFromProjectRequest;
-import com.nashss.se.projectsyncup.activity.results.RemoveTaskFromProjectResult;
+import com.nashss.se.projectsyncup.activity.requests.DeleteTaskFromProjectRequest;
+import com.nashss.se.projectsyncup.activity.results.DeleteTaskFromProjectResult;
 import com.nashss.se.projectsyncup.converters.ModelConverter;
 import com.nashss.se.projectsyncup.dynamodb.ProjectDao;
 import com.nashss.se.projectsyncup.dynamodb.TaskDao;
@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import java.util.List;
 
-public class RemoveTaskFromProjectActivity {
+public class DeleteTaskFromProjectActivity {
     private final Logger log = LogManager.getLogger();
     private final ProjectDao projectDao;
     private final TaskDao taskDao;
@@ -24,7 +24,7 @@ public class RemoveTaskFromProjectActivity {
      * @param taskDao TaskDao to access the task table
      */
     @Inject
-    public RemoveTaskFromProjectActivity(ProjectDao projectDao, TaskDao taskDao) {
+    public DeleteTaskFromProjectActivity(ProjectDao projectDao, TaskDao taskDao) {
         this.projectDao = projectDao;
         this.taskDao = taskDao;
     }
@@ -34,26 +34,49 @@ public class RemoveTaskFromProjectActivity {
      * @param request request containing information on a task to be removed
      * @return the task being removed from the project
      */
-    public RemoveTaskFromProjectResult handleRequest(final RemoveTaskFromProjectRequest request) {
+    public DeleteTaskFromProjectResult handleRequest(final DeleteTaskFromProjectRequest request) {
         log.info("Received RemoveTaskFromProjectRequest {} ", request);
 
         String taskId = request.getTaskId();
         String projectId = request.getProjectId();
 
-
+        // Get the project object
         Project project = projectDao.getProject(projectId);
+
+        // Get the list of tasks from the project
         List<Task> taskList = project.getProjectTasks();
 
-        taskList.removeIf(task -> task.getTaskId().equals(taskId) &&
-                task.getProjectId().equals(projectId));
+        // Find the task to delete
+        Task taskToDelete = null;
+        for (Task task : taskList) {
+            if (task.getTaskId().equals(taskId)) {
+                taskToDelete = task;
+                break;
+            }
+        }
 
-        project.setProjectTasks(taskList);
-        projectDao.saveProject(project);
+        if (taskToDelete != null) {
+            // Delete the task from the database
+            taskDao.deleteTask(taskToDelete);
 
+            // Remove the task from the list of project tasks
+            taskList.remove(taskToDelete);
+
+            // Update the project object with the modified list of tasks
+            project.setProjectTasks(taskList);
+
+            // Save the project to the database
+            projectDao.saveProject(project);
+        }
+
+        // Convert the list of remaining tasks in the project to a list of task models
         List<TaskModel> taskModelList = new ModelConverter().toTaskModelList(project.getProjectTasks());
-        return RemoveTaskFromProjectResult.builder()
+
+        // Return the result with the updated project
+        return DeleteTaskFromProjectResult.builder()
                 .withProject(taskModelList)
                 .build();
     }
+
 
 }
