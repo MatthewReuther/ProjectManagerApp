@@ -34,8 +34,9 @@ public class DeleteTaskFromProjectActivity {
      * @param request request containing information on a task to be removed
      * @return the task being removed from the project
      */
+
     public DeleteTaskFromProjectResult handleRequest(final DeleteTaskFromProjectRequest request) {
-        log.info("Received RemoveTaskFromProjectRequest {} ", request);
+        log.info("Received DeleteTaskFromProjectResult {} ", request);
 
         String taskId = request.getTaskId();
         String projectId = request.getProjectId();

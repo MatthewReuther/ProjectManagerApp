@@ -38,21 +38,20 @@ public class DeleteTaskFromProjectRequest {
     @JsonPOJOBuilder
     public static class Builder {
 
-        private String projectId;
         private String taskId;
-
-        public Builder withProjectId(String projectId) {
-            this.projectId = projectId;
-            return this;
-        }
+        private String projectId;
 
         public Builder withTaskId(String taskId) {
             this.taskId = taskId;
             return this;
         }
-
+        public Builder withProjectId(String projectId) {
+            this.projectId = projectId;
+            return this;
+        }
 
         public DeleteTaskFromProjectRequest build() {
+
             return new DeleteTaskFromProjectRequest(projectId, taskId);
         }
     }

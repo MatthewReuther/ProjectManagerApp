@@ -311,7 +311,7 @@ Resources:
         ProjectSyncUpService:
           Type: Api
           Properties:
-            Path: /projects/{projectId}/tasks
+            Path: /projects/{projectId}/tasks/{taskId}
             Method: delete
 
   #-----------------------------------------------------

@@ -40,7 +40,7 @@ public interface ServiceComponent {
 
     /**
      * Provides the relevant activity.
-     * @return RemoveTaskFromProjectActivity
+     * @return DeleteTaskFromProjectActivity
      */
-    DeleteTaskFromProjectActivity provideRemoveTaskFromProjectActivity();
+    DeleteTaskFromProjectActivity provideDeleteTaskFromProjectActivity();
 }
