@@ -247,7 +247,7 @@ Resources:
         ProjectSyncUpService:
           Type: Api
           Properties:
-            Path: /projects/{projectId}
+            Path: /project/{projectId}
             Method: put
 
   GetProjectLambda:
