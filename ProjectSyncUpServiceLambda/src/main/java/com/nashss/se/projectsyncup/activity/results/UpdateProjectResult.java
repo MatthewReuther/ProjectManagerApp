@@ -2,7 +2,7 @@ package com.nashss.se.projectsyncup.activity.results;
 
 import com.nashss.se.projectsyncup.models.ProjectModel;
 
-public class updated {
+public class UpdateProjectResult {
 
     /**
      * The projectModel that was updated.

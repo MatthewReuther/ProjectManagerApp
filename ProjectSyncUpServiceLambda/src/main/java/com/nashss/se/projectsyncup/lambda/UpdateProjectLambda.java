@@ -22,11 +22,9 @@ public class UpdateProjectLambda
                 return input.fromUserClaims(claims ->
                     UpdateProjectRequest.builder()
                         .withProjectId(unauthenticatedRequest.getProjectId())
-                        .withTaskId(unauthenticatedRequest.getTaskId())
-                        .withTaskName(unauthenticatedRequest.getTaskName())
-                        .withTaskDescription(unauthenticatedRequest.getTaskDescription())
-                        .withTaskDueDate(unauthenticatedRequest.getTaskDueDate())
-                        .withTaskAssignedUser(unauthenticatedRequest.getTaskAssignedUser())
+                        .withProjectName(unauthenticatedRequest.getProjectName())
+                        .withProjectDescription(unauthenticatedRequest.getProjectDescription())
+                        .withProjectStatus(unauthenticatedRequest.getProjectStatus())
                         .build());
                 },
                 (request, serviceComponent) ->

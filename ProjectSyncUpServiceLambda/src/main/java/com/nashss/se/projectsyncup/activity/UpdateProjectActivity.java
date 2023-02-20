@@ -53,7 +53,7 @@ public class UpdateProjectActivity {
         project = projectDao.saveProject(project);
 
         return UpdateProjectResult.builder()
-                .withPlaylist(new ModelConverter().toProjectModel(project))
+                .withProject(new ModelConverter().toProjectModel(project))
                 .build();
     }
 

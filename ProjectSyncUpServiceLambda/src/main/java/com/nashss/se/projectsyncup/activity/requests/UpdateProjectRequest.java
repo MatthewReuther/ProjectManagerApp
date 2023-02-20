@@ -1,9 +1,12 @@
 package com.nashss.se.projectsyncup.activity.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-
+@JsonDeserialize(builder = UpdateProjectRequest.Builder.class)
 public class UpdateProjectRequest {
+
+    private final String projectId;
     private final String projectName;
     private final String projectDescription;
     private final String projectStatus;
@@ -18,10 +21,21 @@ public class UpdateProjectRequest {
      * @param projectStatus      The status of the project
      */
 
-    private UpdateProjectRequest(String projectName, String projectDescription, String projectStatus) {
+    private UpdateProjectRequest(String projectId, String projectName,
+                                 String projectDescription, String projectStatus) {
+        this.projectId = projectId;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectStatus = projectStatus;
+    }
+
+    /**
+     * Returns the id of the project.
+     *
+     * @return The id of the project.
+     */
+    public String getProjectId() {
+        return projectId;
     }
 
     /**
@@ -54,7 +68,8 @@ public class UpdateProjectRequest {
     @Override
     public String toString() {
         return "UpdateProjectRequest{" +
-                "projectName='" + projectName + '\'' +
+                "projectId='" + projectId + '\'' +
+                ", projectName='" + projectName + '\'' +
                 ", projectDescription='" + projectDescription + '\'' +
                 ", projectStatus='" + projectStatus + '\'' +
                 '}';
@@ -67,9 +82,15 @@ public class UpdateProjectRequest {
 
     @JsonPOJOBuilder
     public static class Builder {
+        private String projectId;
         private String projectName;
         private String projectDescription;
         private String projectStatus;
+
+        public Builder withProjectId(String projectId) {
+            this.projectId = projectId;
+            return this;
+        }
 
         public Builder withProjectName(String projectName) {
             this.projectName = projectName;
@@ -87,7 +108,7 @@ public class UpdateProjectRequest {
         }
 
         public UpdateProjectRequest build() {
-            return new UpdateProjectRequest(projectName, projectDescription, projectStatus);
+            return new UpdateProjectRequest(projectId, projectName, projectDescription, projectStatus);
         }
 
     }
