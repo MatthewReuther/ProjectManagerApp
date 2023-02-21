@@ -11,9 +11,20 @@ import com.nashss.se.projectsyncup.activity.results.DeleteTaskFromProjectResult;
  */
 public class DeleteTaskFromProjectLambda
         extends LambdaActivityRunner<DeleteTaskFromProjectRequest, DeleteTaskFromProjectResult>
-        implements RequestHandler<LambdaRequest<DeleteTaskFromProjectRequest>, LambdaResponse> {
+        implements RequestHandler<AuthenticatedLambdaRequest<DeleteTaskFromProjectRequest>, LambdaResponse> {
+
+    /**
+     * Takes in an AuthenticatedLambdaRequest and Context returns a LambdaResponse.
+     * handleRequest used to create a new project using the super class's runActivity method.
+     * Input first converted to a CreateProjectRequest object, then used to create new CreateProjectRequest.
+     * New CreateProjectRequest then passed to handleRequest of CreateProjectActivity created new project.
+     *
+     * @param input   An AuthenticatedLambdaRequest containing the request to create a new project.
+     * @param context The context in which this method is executed.
+     * @return A LambdaResponse indicating the result of the request.
+     */
     @Override
-    public LambdaResponse handleRequest(LambdaRequest<DeleteTaskFromProjectRequest> input, Context context) {
+    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<DeleteTaskFromProjectRequest> input, Context context) {
         return super.runActivity(
                 () -> input.fromPath(path ->
                         DeleteTaskFromProjectRequest.builder()
