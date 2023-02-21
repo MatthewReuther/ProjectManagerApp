@@ -182,9 +182,6 @@ export default class ProjectSyncUpClient extends BindingClass {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can add a task to a project.");
             const response = await this.axiosClient.delete(`projects/${projectId}/tasks/${taskId}`, {
-                taskId: taskId,
-                projectId: projectId
-            }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

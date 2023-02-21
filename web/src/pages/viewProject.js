@@ -191,6 +191,10 @@ class ViewProject extends BindingClass {
      * playlist.
      */
     async deleteTask() {
+        const errorMessageDisplay = document.getElementById('error-message');
+        errorMessageDisplay.innerText = ``;
+        errorMessageDisplay.classList.add('hidden');
+
         const project = this.dataStore.get('project');
         if (project == null) {
             return;
@@ -200,7 +204,10 @@ class ViewProject extends BindingClass {
         const taskId = document.getElementById('taskId').value;
         const projectId = project.projectId;
 
-        const projectTasks = await this.client.deleteTaskFromProject(taskId, projectId);
+        const projectTasks = await this.client.deleteTaskFromProject(taskId, projectId, (error) => {
+            errorMessageDisplay.innerText = `Error: ${error.message}`;
+            errorMessageDisplay.classList.remove('hidden');
+        });
         this.dataStore.set('tasks', projectTasks);
 
         document.getElementById('deleteTask').innerText = 'Delete Task';
