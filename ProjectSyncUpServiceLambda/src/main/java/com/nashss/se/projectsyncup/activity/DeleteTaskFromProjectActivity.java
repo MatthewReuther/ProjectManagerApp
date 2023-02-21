@@ -31,15 +31,15 @@ public class DeleteTaskFromProjectActivity {
 
     /**
      *
-     * @param request request containing information on a task to be removed
+     * @param deleteTaskFromProjectRequest deleteTaskFromProjectRequest containing information on a task to be removed
      * @return the task being removed from the project
      */
 
-    public DeleteTaskFromProjectResult handleRequest(final DeleteTaskFromProjectRequest request) {
-        log.info("Received DeleteTaskFromProjectResult {} ", request);
+    public DeleteTaskFromProjectResult handleRequest(final DeleteTaskFromProjectRequest deleteTaskFromProjectRequest) {
+        log.info("Received DeleteTaskFromProjectResult {} ", deleteTaskFromProjectRequest);
 
-        String taskId = request.getTaskId();
-        String projectId = request.getProjectId();
+        String taskId = deleteTaskFromProjectRequest.getTaskId();
+        String projectId = deleteTaskFromProjectRequest.getProjectId();
 
         // Get the project object
         Project project = projectDao.getProject(projectId);
