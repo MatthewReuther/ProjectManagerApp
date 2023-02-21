@@ -5,15 +5,15 @@ public class GetCreatedProjectsRequest {
     /**
      * The ID of the project.
      */
-    private final String projectId;
+    private final String createdById;
 
     /**
-     * Constructs a `GetCreatedProjectsRequest` object with the given project ID.
+     * Constructs a `GetCreatedProjectsRequest` object with the given createdById.
      *
-     * @param projectId the ID of the project
+     * @param createdById the ID of the project
      */
-    private GetCreatedProjectsRequest(String projectId) {
-        this.projectId = projectId;
+    public GetCreatedProjectsRequest(String createdById) {
+        this.createdById = createdById;
     }
 
     /**
@@ -21,8 +21,8 @@ public class GetCreatedProjectsRequest {
      *
      * @return the project ID
      */
-    public String getProjectId() {
-        return projectId;
+    public String getCreatedById() {
+        return createdById;
     }
 
     /**
@@ -33,7 +33,7 @@ public class GetCreatedProjectsRequest {
     @Override
     public String toString() {
         return "GetCreatedProjectsRequest{" +
-                "projectId='" + projectId + '\'' +
+                "createdById='" + createdById + '\'' +
                 '}';
     }
 
@@ -43,16 +43,16 @@ public class GetCreatedProjectsRequest {
     }
 
     public static class Builder {
-        private String projectId;
+        private String createdById;
 
-        public Builder withProjectId(String projectId) {
-            this.projectId = projectId;
+        public Builder withCreatedById(String createdById) {
+            this.createdById = createdById;
             return this;
         }
 
         public GetCreatedProjectsRequest build() {
 
-            return new GetCreatedProjectsRequest(projectId);
+            return new GetCreatedProjectsRequest(createdById);
         }
     }
 

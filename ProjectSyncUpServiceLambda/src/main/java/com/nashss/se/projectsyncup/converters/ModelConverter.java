@@ -18,7 +18,7 @@ public class ModelConverter {
      * @param project the project to convert
      * @return the converted project
      */
-    public ProjectModel toProjectModel(Project project) {
+    public static ProjectModel toProjectModel(Project project) {
 
         List<String> projectMembers = null;
 
@@ -67,5 +67,7 @@ public class ModelConverter {
 
         return taskModels;
     }
+
+
 
 }

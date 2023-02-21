@@ -1,5 +1,8 @@
 package com.nashss.se.projectsyncup.activity.results;
 import com.nashss.se.projectsyncup.models.ProjectModel;
+import com.nashss.se.projectsyncup.models.TaskModel;
+
+import java.util.List;
 
 /**
  * The `GetCreatedProjectsResult` class represents the result of a request to retrieve a list of created projects.
@@ -10,15 +13,15 @@ public class GetCreatedProjectsResult {
     /**
      * The `ProjectModel` object that holds the details of the project.
      */
-    private final ProjectModel project;
+    private final List<ProjectModel> createdProjects;
 
     /**
      * Constructs a `GetCreatedProjectsResult` object with the given `ProjectModel` instance.
      *
-     * @param project the `ProjectModel` object
+     * @param createdProjects the `ProjectModel` object
      */
-    private GetCreatedProjectsResult(ProjectModel project) {
-        this.project = project;
+    private GetCreatedProjectsResult(List<ProjectModel> createdProjects) {
+        this.createdProjects = createdProjects;
     }
 
     /**
@@ -26,9 +29,8 @@ public class GetCreatedProjectsResult {
      *
      * @return the `ProjectModel` object
      */
-    public ProjectModel getProject() {
-
-        return project;
+    public List<ProjectModel> getCreatedProjects() {
+        return createdProjects;
     }
 
     /**
@@ -39,7 +41,7 @@ public class GetCreatedProjectsResult {
     @Override
     public String toString() {
         return "GetCreatedProjectsResult{" +
-                "project=" + project +
+                "createdProjects=" + createdProjects +
                 '}';
     }
 
@@ -49,16 +51,18 @@ public class GetCreatedProjectsResult {
     }
 
     public static class Builder {
-        private ProjectModel projectModel;
+        private List<ProjectModel> createdProjects;
 
-        public Builder withProjectModel(ProjectModel projectModel) {
-            this.projectModel = projectModel;
+        public Builder withCreatedProjects(List<ProjectModel> createdProjects) {
+            this.createdProjects = createdProjects;
             return this;
         }
 
-        public GetCreatedProjectsResult build() {
 
-            return new GetCreatedProjectsResult(projectModel);
+        public GetCreatedProjectsResult build() {
+            return new GetCreatedProjectsResult(createdProjects);
         }
+
+
     }
 }

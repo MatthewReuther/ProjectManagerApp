@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.projectsyncup.activity.requests.GetCreatedProjectsRequest;
 import com.nashss.se.projectsyncup.activity.requests.GetProjectRequest;
+import com.nashss.se.projectsyncup.activity.results.GetCreatedProjectsResult;
 import com.nashss.se.projectsyncup.activity.results.GetProjectResult;
 
 
@@ -13,8 +14,8 @@ import com.nashss.se.projectsyncup.activity.results.GetProjectResult;
  *
  */
 public class GetCreatedProjectsLambda
-        extends LambdaActivityRunner<GetProjectRequest, GetProjectResult>
-        implements RequestHandler<LambdaRequest<GetProjectRequest>, LambdaResponse> {
+        extends LambdaActivityRunner<GetCreatedProjectsRequest, GetCreatedProjectsResult>
+        implements RequestHandler<LambdaRequest<GetCreatedProjectsRequest>, LambdaResponse> {
 
     /**
      * Handles a request to retrieve a project by using the provided `GetCreatedProjectsRequest` instance.
@@ -28,11 +29,11 @@ public class GetCreatedProjectsLambda
     public LambdaResponse handleRequest(LambdaRequest<GetCreatedProjectsRequest> input, Context context) {
         return super.runActivity(
                 () -> input.fromPath(path ->
-                        GetProjectRequest.builder()
-                                .withProjectId(path.get("projectId"))
+                        GetCreatedProjectsRequest.builder()
+                                .withCreatedById(path.get("createdById"))
                                 .build()),
                 (request, serviceComponent) ->
-                        serviceComponent.provideGetProjectActivity().handleRequest(request)
+                        serviceComponent.provideGetCreatedProjectsActivity().handleRequest(request)
                 );
     }
 }
