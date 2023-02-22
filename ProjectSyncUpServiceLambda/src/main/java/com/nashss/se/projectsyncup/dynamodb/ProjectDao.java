@@ -2,7 +2,9 @@ package com.nashss.se.projectsyncup.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
@@ -76,45 +78,24 @@ public class ProjectDao {
     }
 
     /**
-     * Retrieves the entire Guest List at the party.
+     * Retrieves the entire List of Projects created bu member.
      *
-     * @return The current Guest List
+     * @return The current project List
      */
-
-
+    
     public List<Project> getAllCreatedProjects(String createdById) {
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":createdById", new AttributeValue().withS(createdById));
 
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("contains(creators, :createdById)")
-                .withExpressionAttributeValues(valueMap);
+        DynamoDBQueryExpression<Project> queryExpression = new DynamoDBQueryExpression<Project>()
+                .withIndexName("createdByIdIndex")
+                .withKeyConditionExpression("createdById = :createdById")
+                .withExpressionAttributeValues(valueMap)
+                .withConsistentRead(false); // set consistency mode to EventuallyConsistent
 
-        List<Project> projects = dynamoDbMapper.scan(Project.class, scanExpression);
+        List<Project> projects = dynamoDbMapper.query(Project.class, queryExpression);
 
         return projects;
     }
-
-
-
-//    public List<Project> getCreatedProjects() {
-//        final ObjectMapper mapper = new ObjectMapper();
-//
-//        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
-//
-//        ScanRequest scanRequest = new ScanRequest()
-//                .withTableName("projects");
-//
-//        ScanResult result = client.scan(scanRequest);
-//        List<Map<String, AttributeValue>> createdProjects = result.getItems();
-//        List<Project> projects = new ArrayList<>();
-//
-//        for (Map<String, AttributeValue> entry : createdProjects) {
-//            final Project project = mapper.convertValue(entry, Project.class);
-//            projects.add(project);
-//        }
-//
-//        return projects;
-//    }
 
 }

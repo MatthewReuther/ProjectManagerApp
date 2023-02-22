@@ -23,11 +23,6 @@ curl -X POST \
     "projectTasks": [
     "Task 1",
     "Task 2"
-    ],
-    "projectMembers": [
-    "User 1",
-    "User 2"
-    ]
 }'
 
 curl -X POST \
@@ -86,3 +81,9 @@ curl -X GET http://127.0.0.1:3000/projects/eGhUZ
 ```
 curl -X GET http://127.0.0.1:3000/projects/gDiDZ/tasks 
 ```
+
+## GetCreatedProjectTasks
+```
+curl -X GET http://127.0.0.1:3000/projects/createdBy/Matthew
+```
+
