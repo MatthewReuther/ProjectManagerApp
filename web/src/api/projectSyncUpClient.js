@@ -94,15 +94,40 @@ export default class ProjectSyncUpClient extends BindingClass {
          * @param errorCallback (Optional) A function to execute if the call fails.
          * @returns The project's metadata.
          */
-        async getCreatedProjects(createdById, errorCallback) {
-            try {
-                const response = await this.axiosClient.get(`projects/createdBy/${createdById}`);
-                console.log("data:", response.data)
-                return response.data.createdProjects;
-            } catch (error) {
-                this.handleError(error, errorCallback)
+//        async getCreatedProjects(createdById, errorCallback) {
+//            try {
+//                console.log("About to get token(get tasks for creator");
+//
+//
+//                const response = await this.axiosClient.get(`projects/allCreated`, {
+//                    headers: {
+//                        Authorization: `Bearer ${token}`
+//                    }
+//                });
+//                console.log("data:", response.data)
+//                return response.data.createdProjects;
+//            } catch (error) {
+//                this.handleError(error, errorCallback)
+//            }
+//        }
+
+            async getCreatedProjects(errorCallback) {
+                try {
+                    console.log("About to get token(get tasks for creator");
+                    const token = await this.getTokenOrThrow("Only authenticated users can get a tm");
+                    const response = await this.axiosClient.get(`projects`, {
+
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+                    console.log(token);
+                    console.log("data:", response.data)
+                    return response.data.createdProjects;
+                } catch (error) {
+                    this.handleError(error, errorCallback);
+                }
             }
-        }
 
 
     /**
@@ -119,6 +144,8 @@ export default class ProjectSyncUpClient extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
+
+
 
     /**
      * Create a new project owned by the current member.

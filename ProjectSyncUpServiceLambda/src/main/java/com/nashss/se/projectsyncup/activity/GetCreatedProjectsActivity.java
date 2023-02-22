@@ -51,17 +51,29 @@ public class GetCreatedProjectsActivity {
     public GetCreatedProjectsResult handleRequest(final GetCreatedProjectsRequest getCreatedProjectsRequest) {
         log.info("Received GetCreatedProjectsRequest {}", getCreatedProjectsRequest);
 
-        List<Project> createdProjects = projectDao.getAllCreatedProjects(getCreatedProjectsRequest.getCreatedById());
+        String createdById = getCreatedProjectsRequest.getCreatedById();
 
         List<ProjectModel> projectModels = new ArrayList<>();
-        for (Project project : createdProjects) {
-            ProjectModel projectModel = ModelConverter.toProjectModel(project);
-            projectModels.add(projectModel);
+        if (projectDao.getAllCreatedProjects(createdById) != null) {
+            for (Project project : projectDao.getAllCreatedProjects(createdById)) {
+                ProjectModel projectModel = new ModelConverter().toProjectModel(project);
+                projectModels.add(projectModel);
+            }
         }
 
         return GetCreatedProjectsResult.builder()
                 .withCreatedProjects(projectModels)
                 .build();
+
+
+//        List<Project> createdProjects = projectDao.getAllCreatedProjects(getCreatedProjectsRequest.getCreatedById());
+
+//        List<ProjectModel> projectModels = new ArrayList<>();
+//        for (Project project : createdProjects) {
+//            ProjectModel projectModel = ModelConverter.toProjectModel(project);
+//            projectModels.add(projectModel);
+//        }
+
     }
 
 }

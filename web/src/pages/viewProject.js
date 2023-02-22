@@ -34,10 +34,9 @@ class ViewProject extends BindingClass {
         this.dataStore.set('tasks', projectTasks);
 
         document.getElementById('createdProjectsList').innerText = "(loading your projects...)";
-        const createdProjects = await this.client.getCreatedProjects(projectId);
-        console.log("Project Task List:", projectTasks);
-        this.dataStore.set('projects', createdProjects);
-
+        const createdProjectsList = await this.client.getCreatedProjects();
+        this.dataStore.set('projects', createdProjectsList);
+        this.addCreatedProjectsToPage();
     }
 
     /**
@@ -63,34 +62,35 @@ class ViewProject extends BindingClass {
 
         document.getElementById('projectName').innerText = project.projectName;
         document.getElementById('projectDescription').innerText = project.projectDescription;
-        document.getElementById('projectStatus').innerText = project.projectDescription;
+        document.getElementById('projectStatus').innerText = project.projectStatus;
         document.getElementById('projectOwner').innerText = project.createdById;
 
     }
+
 
     /**
      * When the project is updated in the datastore, update the project metadata on the page.
      */
     addCreatedProjectsToPage() {
-        const createdProjects = this.dataStore.get('createdProjects');
+        const projects = this.dataStore.get('projects');
 
-        if (createdProjects == null) {
+        console.log()
+        if (projects == null) {
             return;
         }
 
-        let createdProjectHtml = '';
-        let createdProject;
-        for (createdProject of createdProjects) {
-            createdProjectHtml += `
-                <li class="createdProject">
-                    <span class="createdName">${createdProject.projectName}</span>
-                    <span class="createdDescription">${createdProject.taskDescription}</span>
-                    <span class="createdStatus">${createdProject.taskDueDate}</span>
-                </li>
-            `;
-        }
+            let projectHtml = '';
+            let project;
+            for (project of projects) {
+                projectHtml += `
 
-        document.getElementById('projectTasksList').innerHTML = taskHtml;
+                    <div class="project">
+                        <h2>${project.projectName}</h2>
+                        <p>${project.projectDescription}</p>
+                    </div>
+                `;
+                 document.getElementById('createdProjectsList').innerHTML = projectHtml;
+            }
 
     }
 
@@ -119,6 +119,8 @@ class ViewProject extends BindingClass {
 
         document.getElementById('projectTasksList').innerHTML = taskHtml;
     }
+
+
 
     /**
      * Method to run when the add task project submit button is pressed. Call the ProjectSyncUpService to add a task to the

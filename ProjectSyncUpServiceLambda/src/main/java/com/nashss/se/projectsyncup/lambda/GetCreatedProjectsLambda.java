@@ -13,9 +13,47 @@ import com.nashss.se.projectsyncup.activity.results.GetProjectResult;
  * This class extends the `LambdaActivityRunner` and implements the `RequestHandler` interface.
  *
  */
-public class GetCreatedProjectsLambda
-        extends LambdaActivityRunner<GetCreatedProjectsRequest, GetCreatedProjectsResult>
-        implements RequestHandler<LambdaRequest<GetCreatedProjectsRequest>, LambdaResponse> {
+//public class GetCreatedProjectsLambda
+//        extends LambdaActivityRunner<GetCreatedProjectsRequest, GetCreatedProjectsResult>
+//        implements RequestHandler<LambdaRequest<GetCreatedProjectsRequest>, LambdaResponse> {
+//
+//    /**
+//     * Handles a request to retrieve a project by using the provided `GetCreatedProjectsRequest` instance.
+//     * This method delegates the request handling to the `LambdaActivityRunner` superclass.
+//     *
+//     * @param input the `LambdaRequest` object that holds the `GetProjectRequest` instance
+//     * @param context the AWS Lambda context object
+//     * @return the result of the request as a `LambdaResponse` object
+//     */
+//    @Override
+//    public LambdaResponse handleRequest(LambdaRequest<GetCreatedProjectsRequest> input, Context context) {
+//        return super.runActivity(
+//                () -> input.fromPath(path ->
+//                        GetCreatedProjectsRequest.builder()
+//                                .withCreatedById(path.get("createdById"))
+//                                .build()),
+//                (request, serviceComponent) ->
+//                        serviceComponent.provideGetCreatedProjectsActivity().handleRequest(request)
+//                );
+//    }
+//
+//    @Override
+//    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetCreatedProjectsRequest> input,
+//                                        Context context) {
+//        return super.runActivity(
+//                () -> input.fromUserClaims(claims ->
+//                        GetCreatedProjectsRequest.builder()
+//                                .withCreatedById(claims.get("email"))
+//                                .build()),
+//                (request, serviceComponent)
+//                        -> serviceComponent.provideGetCreatedProjectsActivity().handleRequest(request)
+//        );
+//    }
+//}
+
+public class GetCreatedProjectsLambda extends LambdaActivityRunner<GetCreatedProjectsRequest,
+        GetCreatedProjectsResult> implements RequestHandler<AuthenticatedLambdaRequest<GetCreatedProjectsRequest>,
+        LambdaResponse> {
 
     /**
      * Handles a request to retrieve a project by using the provided `GetCreatedProjectsRequest` instance.
@@ -26,14 +64,15 @@ public class GetCreatedProjectsLambda
      * @return the result of the request as a `LambdaResponse` object
      */
     @Override
-    public LambdaResponse handleRequest(LambdaRequest<GetCreatedProjectsRequest> input, Context context) {
+    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetCreatedProjectsRequest> input,
+                                        Context context) {
         return super.runActivity(
-                () -> input.fromPath(path ->
+                () -> input.fromUserClaims(claims ->
                         GetCreatedProjectsRequest.builder()
-                                .withCreatedById(path.get("createdById"))
+                                .withCreatedById(claims.get("name"))
                                 .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideGetCreatedProjectsActivity().handleRequest(request)
-                );
+                (request, serviceComponent)
+                        -> serviceComponent.provideGetCreatedProjectsActivity().handleRequest(request)
+        );
     }
 }

@@ -83,19 +83,39 @@ public class ProjectDao {
      * @return The current project List
      */
 
+//    public List<Project> getAllCreatedProjects(String createdById) {
+//        Map<String, AttributeValue> valueMap = new HashMap<>();
+//        valueMap.put(":createdById", new AttributeValue().withS(createdById));
+//
+//        DynamoDBQueryExpression<Project> queryExpression = new DynamoDBQueryExpression<Project>()
+//                .withIndexName("createdByIdIndex")
+//                .withKeyConditionExpression("createdById = :createdById")
+//                .withExpressionAttributeValues(valueMap)
+//                .withConsistentRead(false); // set consistency mode to EventuallyConsistent
+//
+//        List<Project> projects = dynamoDbMapper.query(Project.class, queryExpression);
+//
+//        return projects;
+//    }
+
+    /**
+     * Retrieves all projects for a member from the database.
+     *
+     * @param createdById The ID of the member who created the projects.
+     * @return A list of all projects created by the member.
+     * @throws ProjectNotFoundException If the members ID is `null` or if no projects are found.
+     */
     public List<Project> getAllCreatedProjects(String createdById) {
-        Map<String, AttributeValue> valueMap = new HashMap<>();
-        valueMap.put(":createdById", new AttributeValue().withS(createdById));
+        if (createdById == null) {
+            throw new ProjectNotFoundException("No projects found!!");
+        }
 
-        DynamoDBQueryExpression<Project> queryExpression = new DynamoDBQueryExpression<Project>()
-                .withIndexName("createdByIdIndex")
-                .withKeyConditionExpression("createdById = :createdById")
-                .withExpressionAttributeValues(valueMap)
-                .withConsistentRead(false); // set consistency mode to EventuallyConsistent
-
-        List<Project> projects = dynamoDbMapper.query(Project.class, queryExpression);
-
-        return projects;
+        Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
+        expressionAttributeValues.put(":val1", new AttributeValue().withS(createdById));
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("createdById = :val1")
+                .withExpressionAttributeValues(expressionAttributeValues);
+        return dynamoDbMapper.scan(Project.class, scanExpression);
     }
 
 }

@@ -296,7 +296,7 @@ Resources:
         ProjectSyncUpService:
           Type: Api
           Properties:
-            Path: /projects/createdBy/{createdById}
+            Path: /projects
             Method: get
             Auth:
               Authorizer: 'NONE'
