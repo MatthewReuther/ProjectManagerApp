@@ -2,6 +2,9 @@ package com.nashss.se.projectsyncup.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
@@ -14,6 +17,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,28 +78,44 @@ public class ProjectDao {
     }
 
     /**
-     * Retrieves the entire Guest List at the party.
+     * Retrieves the entire List of Projects created bu member.
      *
-     * @return The current Guest List
+     * @return The current project List
      */
-    public List<Task> getTaskList() {
-        List<Task> projectTaskList = new ArrayList<>();
-        final ObjectMapper mapper = new ObjectMapper();
 
-        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
+//    public List<Project> getAllCreatedProjects(String createdById) {
+//        Map<String, AttributeValue> valueMap = new HashMap<>();
+//        valueMap.put(":createdById", new AttributeValue().withS(createdById));
+//
+//        DynamoDBQueryExpression<Project> queryExpression = new DynamoDBQueryExpression<Project>()
+//                .withIndexName("createdByIdIndex")
+//                .withKeyConditionExpression("createdById = :createdById")
+//                .withExpressionAttributeValues(valueMap)
+//                .withConsistentRead(false); // set consistency mode to EventuallyConsistent
+//
+//        List<Project> projects = dynamoDbMapper.query(Project.class, queryExpression);
+//
+//        return projects;
+//    }
 
-        ScanRequest scanRequest = new ScanRequest()
-                .withTableName("tasks");
-
-        ScanResult result = client.scan(scanRequest);
-        List<Map<String, AttributeValue>> taskList = result.getItems();
-
-        for (Map<String, AttributeValue> entry : taskList) {
-            final Task task = mapper.convertValue(taskList, Task.class);
-            projectTaskList.add(task);
+    /**
+     * Retrieves all projects for a member from the database.
+     *
+     * @param createdById The ID of the member who created the projects.
+     * @return A list of all projects created by the member.
+     * @throws ProjectNotFoundException If the members ID is `null` or if no projects are found.
+     */
+    public List<Project> getAllCreatedProjects(String createdById) {
+        if (createdById == null) {
+            throw new ProjectNotFoundException("No projects found!!");
         }
 
-        return projectTaskList;
+        Map<String, AttributeValue> expressionAttributeValues = new HashMap<String, AttributeValue>();
+        expressionAttributeValues.put(":val1", new AttributeValue().withS(createdById));
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
+                .withFilterExpression("createdById = :val1")
+                .withExpressionAttributeValues(expressionAttributeValues);
+        return dynamoDbMapper.scan(Project.class, scanExpression);
     }
 
 }

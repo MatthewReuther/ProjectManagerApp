@@ -15,7 +15,8 @@ export default class ProjectSyncUpClient extends BindingClass {
     constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'getProject', 'getProjectTasks', 'createProject', 'updateProject', 'deleteTaskFromProject'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'getProject', 'getCreatedProjects',
+                                'getProjectTasks','createProject', 'updateProject', 'deleteTaskFromProject'];
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -77,12 +78,37 @@ export default class ProjectSyncUpClient extends BindingClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The project's metadata.
      */
-    async getProject(projectId, errorCallback) {
+        async getProject(projectId, errorCallback) {
+            try {
+                const response = await this.axiosClient.get(`projects/${projectId}`);
+                return response.data.project;
+            } catch (error) {
+                this.handleError(error, errorCallback)
+            }
+        }
+
+
+    /**
+     * Gets the created projects for the given member.
+     * @param id Unique identifier for a project
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The project's metadata.
+     */
+    async getCreatedProjects(errorCallback) {
         try {
-            const response = await this.axiosClient.get(`projects/${projectId}`);
-            return response.data.project;
+            console.log("About to get token(get tasks for creator");
+            const token = await this.getTokenOrThrow("Only authenticated users can get a tm");
+            const response = await this.axiosClient.get(`projects`, {
+
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            console.log(token);
+            console.log("data:", response.data)
+            return response.data.createdProjects;
         } catch (error) {
-            this.handleError(error, errorCallback)
+            this.handleError(error, errorCallback);
         }
     }
 
@@ -101,6 +127,8 @@ export default class ProjectSyncUpClient extends BindingClass {
             this.handleError(error, errorCallback)
         }
     }
+
+
 
     /**
      * Create a new project owned by the current member.

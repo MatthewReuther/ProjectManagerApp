@@ -7,27 +7,138 @@
           "projectName": { "S": "Client Redesign" },
           "projectDescription": { "S": "Project to redesign our clients website" },
           "projectStatus": { "S": "Not Started" },
-          "createdById": { "S": "3124" },
-          "projectTasks": { "SS": [ "Fix Header", "Update Content", "Make Responsive"]},
-          "projectMembers": { "SS": [ "Bill Hader", "Mark Young", "Betty Netty"]}
+          "createdById": { "S": "Matthew" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "projectId": { "S": "1111" },
+          "projectName": { "S": "Marketing Campaign" },
+          "projectDescription": { "S": "Plan and execute a marketing campaign for a new product launch" },
+          "projectStatus": { "S": "In Progress" },
+          "createdById": { "S": "Matthew" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "projectId": { "S": "3333" },
+          "projectName": { "S": "Website Redesign" },
+          "projectDescription": { "S": "Redesign the company website with a new look and improved user experience" },
+          "projectStatus": { "S": "Completed" },
+          "createdById": { "S": "Matthew" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "projectId": { "S": "5555" },
+          "projectName": { "S": "Product Development" },
+          "projectDescription": { "S": "Develop a new product for the company to sell in the market" },
+          "projectStatus": { "S": "Not Started" },
+          "createdById": { "S": "Joe" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "projectId": { "S": "7777" },
+          "projectName": { "S": "Business Strategy" },
+          "projectDescription": { "S": "Formulate a new business strategy for the company to improve profitability" },
+          "projectStatus": { "S": "In Progress" },
+          "createdById": { "S": "Bill" }
         }
       }
     }
   ],
 
-  "tasks": [
+
+  "projectTasks": [
     {
       "PutRequest": {
         "Item": {
           "taskId": { "S": "LTSpK" },
           "taskName": { "S": "Fix Header" },
-          "taskDescription": { "S": "update what needs to be done" },
-          "taskDueDate": { "S": "Monday" },
+          "taskDescription": { "S": "Update the header on the company website to match the new design" },
+          "taskDueDate": { "S": "2023-03-01" },
           "taskAssignedUser": { "S": "Mark" },
+          "taskStatus": { "S": "In Progress" },
           "projectId": { "S": "SRSpK" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "taskId": { "S": "AAB123" },
+          "taskName": { "S": "Market Research" },
+          "taskDescription": { "S": "Conduct market research to understand the market and competition" },
+          "taskDueDate": { "S": "2023-03-01" },
+          "taskAssignedUser": { "S": "John" },
+          "taskStatus": { "S": "Not Started" },
+          "projectId": { "S": "1111" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "taskId": { "S": "AAB124" },
+          "taskName": { "S": "Develop Marketing Plan" },
+          "taskDescription": { "S": "Develop a marketing plan for the new product launch" },
+          "taskDueDate": { "S": "2023-03-08" },
+          "taskAssignedUser": { "S": "Lisa" },
+          "taskStatus": { "S": "Not Started" },
+          "projectId": { "S": "1111" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "taskId": { "S": "AAB146" },
+          "taskName": { "S": "Design Website Mockups" },
+          "taskDescription": { "S": "Create mockups of the new website design" },
+          "taskDueDate": { "S": "2023-03-15" },
+          "taskAssignedUser": { "S": "Mark" },
+          "taskStatus": { "S": "Not Started" },
+          "projectId": { "S": "3333" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "taskId": { "S": "AAB126" },
+          "taskName": { "S": "Create Prototype" },
+          "taskDescription": { "S": "Create a working prototype of the new product" },
+          "taskDueDate": { "S": "2023-03-22" },
+          "taskAssignedUser": { "S": "Joe" },
+          "taskStatus": { "S": "Not Started" },
+          "projectId": { "S": "5555" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "taskId": { "S": "AAB125" },
+          "taskName": { "S": "Design Website Mockups" },
+          "taskDescription": { "S": "Create mockups of the new website design" },
+          "taskDueDate": { "S": "2023-03-15" },
+          "taskAssignedUser": { "S": "Mark" },
+          "projectId": { "S": "3333" }
         }
       }
     }
   ]
 }
+
+
+
 

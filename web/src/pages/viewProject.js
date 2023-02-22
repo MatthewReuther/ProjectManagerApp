@@ -9,7 +9,7 @@ import DataStore from '../util/DataStore';
 class ViewProject extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addTasksToPage', 'addTask', 'updateProject', 'deleteTask'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addCreatedProjectsToPage', 'addTasksToPage', 'addTask', 'updateProject', 'deleteTask'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectToPage);
         this.dataStore.addChangeListener(this.addTasksToPage);
@@ -32,6 +32,11 @@ class ViewProject extends BindingClass {
         const projectTasks = await this.client.getProjectTasks(projectId);
         console.log("Project Task List:", projectTasks);
         this.dataStore.set('tasks', projectTasks);
+
+        document.getElementById('createdProjectsList').innerText = "(loading your projects...)";
+        const createdProjectsList = await this.client.getCreatedProjects();
+        this.dataStore.set('projects', createdProjectsList);
+        this.addCreatedProjectsToPage();
     }
 
     /**
@@ -57,8 +62,35 @@ class ViewProject extends BindingClass {
 
         document.getElementById('projectName').innerText = project.projectName;
         document.getElementById('projectDescription').innerText = project.projectDescription;
-        document.getElementById('projectStatus').innerText = project.projectDescription;
+        document.getElementById('projectStatus').innerText = project.projectStatus;
         document.getElementById('projectOwner').innerText = project.createdById;
+
+    }
+
+
+    /**
+     * When the project is updated in the datastore, update the project metadata on the page.
+     */
+    addCreatedProjectsToPage() {
+        const projects = this.dataStore.get('projects');
+
+        console.log()
+        if (projects == null) {
+            return;
+        }
+
+            let projectHtml = '';
+            let project;
+            for (project of projects) {
+                projectHtml += `
+
+                    <div class="project">
+                        <h2>${project.projectName}</h2>
+                        <p>${project.projectDescription}</p>
+                    </div>
+                `;
+                 document.getElementById('createdProjectsList').innerHTML = projectHtml;
+            }
 
     }
 
@@ -87,6 +119,8 @@ class ViewProject extends BindingClass {
 
         document.getElementById('projectTasksList').innerHTML = taskHtml;
     }
+
+
 
     /**
      * Method to run when the add task project submit button is pressed. Call the ProjectSyncUpService to add a task to the

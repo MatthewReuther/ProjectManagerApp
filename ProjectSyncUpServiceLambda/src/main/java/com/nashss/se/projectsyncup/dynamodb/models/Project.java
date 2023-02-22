@@ -1,10 +1,7 @@
 package com.nashss.se.projectsyncup.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 import com.nashss.se.projectsyncup.converters.ProjectTasksListConverter;
 
 
@@ -108,7 +105,7 @@ public class Project {
      *
      * @return the userId of who crated project
      */
-    @DynamoDBAttribute(attributeName = "createdById")
+    @DynamoDBIndexHashKey(attributeName = "createdById", globalSecondaryIndexName = "createdByIdIndex")
     public String getCreatedById() {
         return createdById;
     }

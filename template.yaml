@@ -279,6 +279,28 @@ Resources:
             Auth:
               Authorizer: 'NONE'
 
+  GetCreatedProjectsLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: ProjectSyncUpServiceLambda
+      Handler: com.nashss.se.projectsyncup.lambda.GetCreatedProjectsLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        ProjectSyncUpService:
+          Type: Api
+          Properties:
+            Path: /projects
+            Method: get
+            Auth:
+              Authorizer: 'NONE'
+
   GetProjectTasksLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -348,11 +370,20 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
-        - AttributeName: "projectId"
-          AttributeType: "S"
+        - AttributeName: 'projectId'
+          AttributeType: 'S'
+        - AttributeName: 'createdById'
+          AttributeType: 'S'
       KeySchema:
-        - AttributeName: "projectId"
-          KeyType: "HASH"
+        - AttributeName: 'projectId'
+          KeyType: 'HASH'
+      GlobalSecondaryIndexes:
+        - IndexName: 'createdByIdIndex'
+          KeySchema:
+            - AttributeName: 'createdById'
+              KeyType: 'HASH'
+          Projection:
+            ProjectionType: 'ALL'
       BillingMode: "PAY_PER_REQUEST"
       TableName: "projects"
 

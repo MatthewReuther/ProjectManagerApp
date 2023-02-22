@@ -3,6 +3,7 @@ package com.nashss.se.projectsyncup.dependency;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.projectsyncup.activity.*;
 
+import com.nashss.se.projectsyncup.activity.requests.GetCreatedProjectsRequest;
 import com.nashss.se.projectsyncup.activity.requests.UpdateProjectRequest;
 import dagger.Component;
 
@@ -52,4 +53,9 @@ public interface ServiceComponent {
      */
     DeleteTaskFromProjectActivity provideDeleteTaskFromProjectActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return GetCreatedProjectsActivity
+     */
+    GetCreatedProjectsActivity provideGetCreatedProjectsActivity();
 }
