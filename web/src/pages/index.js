@@ -12,8 +12,11 @@ class Index extends BindingClass {
 
         this.bindClassMethods(['mount'], this);
 
-        // Create a enw datastore with an initial "empty" state.
+        this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
+        console.log("Index constructor");
+        // Create a enw datastore with an initial "empty" state.
+//        this.header = new Header(this.dataStore);
     }
 
     /**
@@ -23,6 +26,7 @@ class Index extends BindingClass {
         // Wire up the form's 'submit' event and the button's 'click' event to the search method.
 
         this.header.addHeaderToPage();
+        this.client = new ProjectSyncUpClient();
 
     }
 

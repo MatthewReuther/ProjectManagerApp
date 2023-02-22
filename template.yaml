@@ -298,8 +298,6 @@ Resources:
           Properties:
             Path: /projects
             Method: get
-            Auth:
-              Authorizer: 'NONE'
 
   GetProjectTasksLambda:
     Type: AWS::Serverless::Function
