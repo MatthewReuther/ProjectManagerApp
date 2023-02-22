@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <script type="text/javascript" src="assets/viewProject.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
+    <head>
+        <script type="text/javascript" src="assets/viewProject.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
 
-<body class="block-body background">
-<header class="header block-header" id="header">
+    <body class="block-body background">
+        <header class="header block-header" id="header">
 
-</header>
+        </header>
 
         <div class="block block-viewProject">
             <h3>Project: <span id="projectName"></span></h3>
@@ -18,6 +18,7 @@
                 <h3>Project Status: <br> <span id="projectStatus"></span></h3>
                 <h3>Created by: <span id="projectOwner"></span></h3>
                 <h3>Project Task List: <div class="tasks" id="projectTasksList"></div></h3>
+
             </div>
         </div>
 
@@ -85,127 +86,19 @@
         </div>
 
 
-<div class="block block-viewProject">
-    <h3>Project: <span id="viewAllProjects"></span></h3>
-    <div class="block-inner block-content">
+        <div class="block block-viewProject">
+            <h3>Project: <span id="viewAllProjects"></span></h3>
+            <div class="block-inner block-content">
 
-        <h3>List of Created Projects: <div class="createdProjectsList" id="createdProjectsList"></div></h3>
+                <h3>List of Created Projects: <div class="createdProjectsList" id="createdProjectsList"></div></h3>
 
-    </div>
-</div>
+            </div>
+        </div>
 
-</body>
+    </body>
 
-<footer>
-    <p>Copyright © 2023</p>
-</footer>
+    <footer>
+        <p>Copyright © 2023</p>
+    </footer>
 
 </html>
-
-
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-
-<!--    <head>-->
-<!--        <script type="text/javascript" src="assets/viewProject.js"></script>-->
-<!--        <link rel="stylesheet" type="text/css" href="css/style.css">-->
-<!--    </head>-->
-
-<!--    <body class="block-body background">-->
-<!--        <header class="header block-header" id="header">-->
-
-<!--        </header>-->
-
-<!--        <div class="block block-viewProject">-->
-<!--            <h3>Project: <span id="projectName"></span></h3>-->
-<!--            <div class="block-inner block-content">-->
-<!--                <h3>Description: <br> <span id="projectDescription"></span></h3>-->
-<!--                <h3>Project Status: <br> <span id="projectStatus"></span></h3>-->
-<!--                <h3>Created by: <span id="projectOwner"></span></h3>-->
-<!--                <h3>Project Task List: <div class="tasks" id="projectTasksList"></div></h3>-->
-
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="block block-addTask">-->
-<!--            <h2>Create New Task</h2>-->
-<!--            <div class="block-content">-->
-<!--                <form class="block-inner" id="add-task-form">-->
-<!--                    <p class="hidden error" id="error-message"> </p>-->
-<!--                    <p class="form-field">-->
-<!--                        <label>Task Title:</label>-->
-<!--                        <input type="text" required class="validated-field" id="taskName" placeholder="Title of Task" autofocus>-->
-<!--                    </p>-->
-<!--                    <p class="form-field">-->
-<!--                        <label>Task Description:</label>-->
-<!--                        <input type="text" id="taskDescription" class="taskDescription" placeholder="Describe the Task" autofocus>-->
-<!--                    </p>-->
-<!--                    <p class="form-field">-->
-<!--                        <label>Task Due Date:</label>-->
-<!--                        <input type="text" id="taskDueDate" class="taskDueDate" placeholder="Set When Task is Due" autofocus>-->
-<!--                    </p>-->
-<!--                    <p class="form-field">-->
-<!--                        <label>Assign Task:</label>-->
-<!--                        <input type="text" id="taskAssignedTo" class="taskAssignedTo" placeholder="Set who the task is assigned to." autofocus>-->
-<!--                    </p>-->
-
-<!--                    <p>-->
-<!--                        <a href="#" class="button" id="addTask">Add Task</a>-->
-<!--                    </p>-->
-
-<!--                </form>-->
-<!--                <h2>Delete Task</h2>-->
-<!--                <p class="form-field">-->
-<!--                    <label>TaskId to Remove</label>-->
-<!--                    <input type="text" id="taskId" class="taskId" placeholder="taskId to be deleted" autofocus>-->
-<!--                </p>-->
-<!--                <p>-->
-<!--                    <a href="#" class="button" id="deleteTask">Delete Task</a>-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="block block-updateProject">-->
-<!--            <h2>Update Project</h2>-->
-<!--            <div class="block-content">-->
-<!--                <form class="block-inner" id="update-project-form">-->
-<!--&lt;!&ndash;                    <p class="hidden error" id="error-message"> </p>&ndash;&gt;-->
-<!--                    <p class="form-field">-->
-<!--                        <label>Project Name:</label>-->
-<!--                        <input type="text" required class="validated-field" id="newProjectName" placeholder="New Name" autofocus>-->
-<!--                    </p>-->
-<!--                    <p class="form-field">-->
-<!--                        <label>Project Description:</label>-->
-<!--                        <input type="text" id="newProjectDescription" class="newProjectDescription" placeholder="New Description" autofocus>-->
-<!--                    </p>-->
-<!--                    <p class="form-field">-->
-<!--                        <label>Project Status:</label>-->
-<!--                        <input type="text" id="newProjectStatus" class="newProjectStatus" placeholder="New Status" autofocus>-->
-<!--                    </p>-->
-<!--                    <p>-->
-<!--                        <a href="#" id="updateProject" class="button">Edit Project</a>-->
-<!--                    </p>-->
-
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-
-
-<!--        <div class="block block-viewProject">-->
-<!--            <h3>Project: <span id="viewAllProjects"></span></h3>-->
-<!--            <div class="block-inner block-content">-->
-
-<!--                <h3>List of Created Projects: <div class="createdProjectsList" id="createdProjectsList"></div></h3>-->
-
-<!--            </div>-->
-<!--        </div>-->
-
-<!--    </body>-->
-
-<!--    <footer>-->
-<!--        <p>Copyright © 2023</p>-->
-<!--    </footer>-->
-
-<!--</html>-->
-
-
