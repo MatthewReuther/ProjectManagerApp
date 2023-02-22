@@ -88,46 +88,29 @@ export default class ProjectSyncUpClient extends BindingClass {
         }
 
 
-        /**
-         * Gets the created projects for the given member.
-         * @param id Unique identifier for a project
-         * @param errorCallback (Optional) A function to execute if the call fails.
-         * @returns The project's metadata.
-         */
-//        async getCreatedProjects(createdById, errorCallback) {
-//            try {
-//                console.log("About to get token(get tasks for creator");
-//
-//
-//                const response = await this.axiosClient.get(`projects/allCreated`, {
-//                    headers: {
-//                        Authorization: `Bearer ${token}`
-//                    }
-//                });
-//                console.log("data:", response.data)
-//                return response.data.createdProjects;
-//            } catch (error) {
-//                this.handleError(error, errorCallback)
-//            }
-//        }
+    /**
+     * Gets the created projects for the given member.
+     * @param id Unique identifier for a project
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The project's metadata.
+     */
+    async getCreatedProjects(errorCallback) {
+        try {
+            console.log("About to get token(get tasks for creator");
+            const token = await this.getTokenOrThrow("Only authenticated users can get a tm");
+            const response = await this.axiosClient.get(`projects`, {
 
-            async getCreatedProjects(errorCallback) {
-                try {
-                    console.log("About to get token(get tasks for creator");
-                    const token = await this.getTokenOrThrow("Only authenticated users can get a tm");
-                    const response = await this.axiosClient.get(`projects`, {
-
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    });
-                    console.log(token);
-                    console.log("data:", response.data)
-                    return response.data.createdProjects;
-                } catch (error) {
-                    this.handleError(error, errorCallback);
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
-            }
+            });
+            console.log(token);
+            console.log("data:", response.data)
+            return response.data.createdProjects;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
 
 
     /**
