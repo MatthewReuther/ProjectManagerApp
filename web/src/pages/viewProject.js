@@ -9,7 +9,7 @@ import DataStore from '../util/DataStore';
 class ViewProject extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addTasksToPage', 'addTask', 'updateProject', 'deleteTask'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addCreatedProjectsToPage', 'addTasksToPage', 'addTask', 'updateProject', 'deleteTask'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectToPage);
         this.dataStore.addChangeListener(this.addTasksToPage);
@@ -32,6 +32,12 @@ class ViewProject extends BindingClass {
         const projectTasks = await this.client.getProjectTasks(projectId);
         console.log("Project Task List:", projectTasks);
         this.dataStore.set('tasks', projectTasks);
+
+        document.getElementById('createdProjectsList').innerText = "(loading your projects...)";
+        const createdProjects = await this.client.getCreatedProjects(projectId);
+        console.log("Project Task List:", projectTasks);
+        this.dataStore.set('projects', createdProjects);
+
     }
 
     /**
@@ -59,6 +65,32 @@ class ViewProject extends BindingClass {
         document.getElementById('projectDescription').innerText = project.projectDescription;
         document.getElementById('projectStatus').innerText = project.projectDescription;
         document.getElementById('projectOwner').innerText = project.createdById;
+
+    }
+
+    /**
+     * When the project is updated in the datastore, update the project metadata on the page.
+     */
+    addCreatedProjectsToPage() {
+        const createdProjects = this.dataStore.get('createdProjects');
+
+        if (createdProjects == null) {
+            return;
+        }
+
+        let createdProjectHtml = '';
+        let createdProject;
+        for (createdProject of createdProjects) {
+            createdProjectHtml += `
+                <li class="createdProject">
+                    <span class="createdName">${createdProject.projectName}</span>
+                    <span class="createdDescription">${createdProject.taskDescription}</span>
+                    <span class="createdStatus">${createdProject.taskDueDate}</span>
+                </li>
+            `;
+        }
+
+        document.getElementById('projectTasksList').innerHTML = taskHtml;
 
     }
 

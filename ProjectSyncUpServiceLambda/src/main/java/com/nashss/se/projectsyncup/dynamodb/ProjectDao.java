@@ -82,7 +82,7 @@ public class ProjectDao {
      *
      * @return The current project List
      */
-    
+
     public List<Project> getAllCreatedProjects(String createdById) {
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":createdById", new AttributeValue().withS(createdById));
