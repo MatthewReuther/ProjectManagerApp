@@ -296,7 +296,7 @@ Resources:
         ProjectSyncUpService:
           Type: Api
           Properties:
-            Path: /projects/createdBy/{projectId}
+            Path: /projects/createdBy/{createdById}
             Method: get
             Auth:
               Authorizer: 'NONE'
@@ -370,11 +370,20 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
-        - AttributeName: "projectId"
-          AttributeType: "S"
+        - AttributeName: 'projectId'
+          AttributeType: 'S'
+        - AttributeName: 'createdById'
+          AttributeType: 'S'
       KeySchema:
-        - AttributeName: "projectId"
-          KeyType: "HASH"
+        - AttributeName: 'projectId'
+          KeyType: 'HASH'
+      GlobalSecondaryIndexes:
+        - IndexName: 'createdByIdIndex'
+          KeySchema:
+            - AttributeName: 'createdById'
+              KeyType: 'HASH'
+          Projection:
+            ProjectionType: 'ALL'
       BillingMode: "PAY_PER_REQUEST"
       TableName: "projects"
 
