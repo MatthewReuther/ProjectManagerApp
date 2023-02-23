@@ -46,30 +46,31 @@ class ViewProject extends BindingClass {
     /**
      * When the project is updated in the datastore, update the project metadata on the page.
      */
-    addCreatedProjectsToPage() {
-        const projects = this.dataStore.get('projects');
+    addCreatedProjectsToPage(maxProjects = 3) {
+      const projects = this.dataStore.get('projects');
 
-        console.log()
-        if (projects == null) {
-            return;
+      if (projects == null) {
+        return;
+      }
+
+      let projectHtml = '';
+      let projectCount = 0;
+      for (const project of projects) {
+        if (projectCount >= maxProjects) {
+          break;
         }
+        projectHtml += `
+          <div class="project">
+            <h2>${project.projectName}</h2>
+            <p>${project.projectDescription}</p>
+            <a href="/project.html?projectId=${project.projectId}">View Project</a>
+          </div>
+        `;
+        projectCount++;
+      }
 
-            let projectHtml = '';
-            let project;
-            for (project of projects) {
-                projectHtml += `
-
-                    <div class="project">
-                        <h2>${project.projectName}</h2>
-                        <p>${project.projectDescription}</p>
-                        <a href="/project.html?projectId=${project.projectId}">View Project</a>
-                    </div>
-                `;
-                 document.getElementById('createdProjectsList').innerHTML = projectHtml;
-            }
-
+      document.getElementById('createdProjectsList').innerHTML = projectHtml;
     }
-
 }
 
 /**
