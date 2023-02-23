@@ -30,7 +30,8 @@ main {
   text-align: center;
 }
 
-.task {
+.task,
+.project{
     border-top: 1px solid grey;
     padding: 20px 0px;
 }

@@ -39,7 +39,7 @@ class ViewProject extends BindingClass {
      */
     mount() {
         document.getElementById('addTask').addEventListener('click', this.addTask);
-        document.getElementById('deleteTask').addEventListener('click', this.deleteTask);
+//        document.getElementById('deleteTask').addEventListener('click', this.deleteTask);
         document.getElementById('updateProject').addEventListener('click', this.updateProject);
 
         this.header.addHeaderToPage();
@@ -66,54 +66,117 @@ class ViewProject extends BindingClass {
     /**
      * When the tasks are updated in the datastore, update the list of tasks on the page.
      */
-    addTasksToPage() {
-        const tasks = this.dataStore.get('tasks')
+//    addTasksToPage() {
+//        const tasks = this.dataStore.get('tasks')
+//
+//        if (tasks == null) {
+//            return;
+//        }
+//
+//        let taskHtml = '';
+//        let task;
+//        for (task of tasks) {
+//            taskHtml += `
+//            <div class="task">
+//                <div class="row">
+//                    <div class="col-md-5">
+//                        <div class="title">
+//                            <h5>Task Title</h5>
+//                            <p>${task.taskName}<p>
+//                        </div>
+//                    </div>
+//
+//                    <div class="col-md-5">
+//                     <div class="assignedTo">
+//                        <h5>Assigned:</h5>
+//                        <p>${task.taskAssignedUser}<p>
+//                     </div>
+//                    </div>
+//                    <div class="col-md-2">
+//                        <div class="dueDate">
+//                            <h5>Due</h5>
+//                            <p>${task.taskDueDate}<p>
+//                        </div>
+//                    </div>
+//                </div>
+//
+//
+//                <div class="row">
+//                    <div class="col-md-12">
+//                        <div class="description">
+//                            <h5>Description</h5>
+//                            <p>${task.taskDescription}<p>
+//                        </div>
+//                    </div>
+//                </div>
+//            </div>
+//            `;
+//        }
+//
+//        document.getElementById('projectTasksList').innerHTML = taskHtml;
+//    }
 
+    addTasksToPage() {
+        const tasks = this.dataStore.get('tasks');
         if (tasks == null) {
             return;
         }
 
         let taskHtml = '';
-        let task;
-        for (task of tasks) {
+        for (const task of tasks) {
+            const deleteButton = `<button class="btn btn-primary deleteTaskButton" data-task-id="${task.taskId}">Delete Task</button>`;
             taskHtml += `
-            <div class="task">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="title">
-                            <h5>Task Title</h5>
-                            <p>${task.taskName}<p>
+                <div class="task">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="title">
+                                <h5>Task Title</h5>
+                                <p>${task.taskName}<p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="assignedTo">
+                                <h5>Assigned:</h5>
+                                <p>${task.taskAssignedUser}<p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="dueDate">
+                                <h5>Due</h5>
+                                <p>${task.taskDueDate}<p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-5">
-                     <div class="assignedTo">
-                        <h5>Assigned:</h5>
-                        <p>${task.taskAssignedUser}<p>
-                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="description">
+                                <h5>Description</h5>
+                                <p>${task.taskDescription}<p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="dueDate">
-                            <h5>Due</h5>
-                            <p>${task.taskDueDate}<p>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="deleteTaskButton btn btn-primary" data-task-id="${task.taskId}">Delete Task</button>
                         </div>
                     </div>
                 </div>
-
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="description">
-                            <h5>Description</h5>
-                            <p>${task.taskDescription}<p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             `;
         }
 
         document.getElementById('projectTasksList').innerHTML = taskHtml;
+
+        const deleteButtons = document.querySelectorAll('.deleteTaskButton');
+        for (const deleteButton of deleteButtons) {
+            deleteButton.addEventListener('click', () => {
+                const taskId = deleteButton.dataset.taskId;
+                this.deleteTask(taskId);
+            });
+        }
     }
 
 //    addTasksToPage() {
@@ -257,10 +320,6 @@ class ViewProject extends BindingClass {
             return;
         }
 
-        document.getElementById('deleteTask').innerText = 'Deleting...';
-        const taskId = document.getElementById('taskId').value;
-        const projectId = project.projectId;
-
         const projectTasks = await this.client.deleteTaskFromProject(taskId, projectId, (error) => {
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
@@ -271,7 +330,6 @@ class ViewProject extends BindingClass {
         document.getElementById("add-task-form").reset();
         this.clientLoaded();
     }
-
 
 }
 
