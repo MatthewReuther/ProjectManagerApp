@@ -59,6 +59,9 @@ class ViewProject extends BindingClass {
         document.getElementById('projectDescription').innerText = project.projectDescription;
         document.getElementById('projectStatus').innerText = project.projectStatus;
 
+        document.getElementById('newProjectName').value = project.projectName;
+        document.getElementById('newProjectDescription').value = project.projectDescription;
+        document.getElementById('newProjectStatus').value = project.projectStatus;
     }
 
 
@@ -156,8 +159,8 @@ class ViewProject extends BindingClass {
 
         // Update the page with the new project data
         document.getElementById('newProjectName').value = updatedProject.projectName;
-        document.getElementById('newProjectDescription').innerText = updatedProject.projectDescription;
-        document.getElementById('newProjectStatus').innerText = updatedProject.projectStatus;
+        document.getElementById('newProjectDescription').value = updatedProject.projectDescription;
+        document.getElementById('newProjectStatus').value = updatedProject.projectStatus;
 
         document.getElementById('updateProject').innerText = 'Update Project';
         document.getElementById("update-project-form").reset();
@@ -182,22 +185,22 @@ class ViewProject extends BindingClass {
                     <div class="row">
                         <div class="col-md-5">
                             <div class="title">
-                                <h5>Task Title</h5>
+                                <h5>Task Title:</h5>
                                 <p>${task.taskName}<p>
                             </div>
                         </div>
 
                         <div class="col-md-5">
-                            <div class="assignedTo">
-                                <h5>Assigned:</h5>
-                                <p>${task.taskAssignedUser}<p>
+                            <div class="dueDate">
+                                <h5>Date Due:</h5>
+                                <p>${task.taskDueDate}<p>
                             </div>
                         </div>
 
                         <div class="col-md-2">
-                            <div class="dueDate">
-                                <h5>Due</h5>
-                                <p>${task.taskDueDate}<p>
+                            <div class="assignedTo">
+                                <h5>Assigned:</h5>
+                                <p>${task.taskAssignedUser}<p>
                             </div>
                         </div>
                     </div>
@@ -205,7 +208,7 @@ class ViewProject extends BindingClass {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="description">
-                                <h5>Description</h5>
+                                <h5>Description:</h5>
                                 <p>${task.taskDescription}<p>
                             </div>
                         </div>

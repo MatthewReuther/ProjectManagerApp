@@ -56,15 +56,24 @@ class ViewProject extends BindingClass {
       let projectHtml = '';
       let projectCount = 0;
       for (const project of projects) {
+
+         if (project.projectStatus == null || project.projectStatus.length === 0) {
+              // Display a message if there are no projects to show
+
+              project.projectStatus = "Not Started"
+          }
+
         if (projectCount >= maxProjects) {
           break;
         }
+
         projectHtml += `
-          <div class="project">
-            <h2>${project.projectName}</h2>
-            <p>${project.projectDescription}</p>
-            <a href="/project.html?projectId=${project.projectId}">View Project</a>
-          </div>
+                <div class="project row">
+                    <div class="col-md-10">
+                        <h3><a href="/project.html?projectId=${project.projectId}">${project.projectName}</a></h3>
+                        <p>${project.projectDescription}</p>
+                    </div>
+                </div>
         `;
         projectCount++;
       }
