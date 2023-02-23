@@ -104,7 +104,6 @@ class ViewProjects extends BindingClass {
         }
         document.getElementById('createdProjectsList').innerHTML = projectHtml;
 
-
     }
 
 }

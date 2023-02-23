@@ -30,6 +30,11 @@ main {
   text-align: center;
 }
 
+.task {
+    border-top: 1px solid grey;
+    padding: 20px 0px;
+}
+
 footer {
   background-color: #333;
   color: #fff;

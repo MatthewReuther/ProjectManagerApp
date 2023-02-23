@@ -6,7 +6,7 @@ import DataStore from '../util/DataStore';
 /**
  * Logic needed for the view project page of the website.
  */
-class ViewProject extends BindingClass {
+class EditProject extends BindingClass {
     constructor() {
         super();
         this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addTasksToPage', 'addTask', 'updateProject', 'deleteTask'], this);
@@ -39,14 +39,12 @@ class ViewProject extends BindingClass {
      */
     mount() {
         document.getElementById('addTask').addEventListener('click', this.addTask);
-        document.getElementById('deleteTask').addEventListener('click', this.deleteTask);
-        document.getElementById('updateProject').addEventListener('click', this.updateProject);
-
+//        document.getElementById('deleteTask').addEventListener('click', this.deleteTask);
+//        document.getElementById('updateProject').addEventListener('click', this.updateProject);
         this.header.addHeaderToPage();
         this.client = new ProjectSyncUpClient();
         this.clientLoaded();
     }
-
 
     /**
      * When the project is updated in the datastore, update the project metadata on the page.
@@ -59,7 +57,8 @@ class ViewProject extends BindingClass {
 
         document.getElementById('projectName').innerText = project.projectName;
         document.getElementById('projectDescription').innerText = project.projectDescription;
-        document.getElementById('projectStatus').innerText = project.projectStatus;
+        document.getElementById('projectStatus').innerText = project.projectDescription;
+        document.getElementById('projectOwner').innerText = project.createdById;
 
     }
 
@@ -77,80 +76,58 @@ class ViewProject extends BindingClass {
         let task;
         for (task of tasks) {
             taskHtml += `
-            <div class="task">
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="title">
-                            <h5>Task Title</h5>
-                            <p>${task.taskName}<p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-5">
-                     <div class="assignedTo">
-                        <h5>Assigned:</h5>
-                        <p>${task.taskAssignedUser}<p>
-                     </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="dueDate">
-                            <h5>Due</h5>
-                            <p>${task.taskDueDate}<p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="description">
-                            <h5>Description</h5>
-                            <p>${task.taskDescription}<p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <li class="task">
+                    <span class="title">${task.taskName}</span>
+                    <span class="description">${task.taskDescription}</span>
+                    <span class="dueDate">${task.taskDueDate}</span>
+                    <span class="assignedTo">${task.taskAssignedUser}</span>
+                </li>
             `;
         }
 
         document.getElementById('projectTasksList').innerHTML = taskHtml;
     }
 
-//    addTasksToPage() {
-//      const tasks = this.dataStore.get('tasks');
-//
-//      if (tasks == null) {
-//          return;
-//      }
-//
-//      let taskHtml = '';
-//      let task;
-//      for (task of tasks) {
-//            const deleteButton = `<button class="deleteTaskButton" data-task-id="${task.taskId}" onclick="deleteTask(event)">Delete Task</button>`; // added onclick event handler to call deleteTask function with event object
-//          taskHtml += `
-//              <li class="task">
-//                  <span class="title">${task.taskName}</span>
-//                  <span class="description">${task.taskDescription}</span>
-//                  <span class="dueDate">${task.taskDueDate}</span>
-//                  <span class="assignedTo">${task.taskAssignedUser}</span>
-//                  <span class="assignedTo">${deleteButton}</span>
-//              </li>
-//          `;
-//      }
-//
-//      document.getElementById('projectTasksList').innerHTML = taskHtml;
-//
-//      // Add event listener to all the "Delete Task" buttons
-//      const deleteButtons = document.querySelectorAll('.deleteTaskButton');
-//      for (const deleteButton of deleteButtons) {
-//        deleteButton.addEventListener('click', this.deleteTask.bind(this));
-//      }
-//    }
+    /**
+     * Method to run when the add task project submit button is pressed. Call the ProjectSyncUpService to add a task to the
+     * project.
+     */
 
-        /**
-         * Method to run when the add task project submit button is pressed. Call the ProjectSyncUpService to add a task to the
-         * project.
-         */
+    async addTask() {
+        const errorMessageDisplay = document.getElementById('error-message');
+        errorMessageDisplay.innerText = ``;
+        errorMessageDisplay.classList.add('hidden');
+
+        const project = this.dataStore.get('project');
+        if (project == null) {
+            return;
+        }
+
+        document.getElementById('addTask').innerText = 'Adding...';
+
+        const taskName = document.getElementById('taskName').value;
+        const taskDescription = document.getElementById('taskDescription').value;
+        const taskDueDate = document.getElementById('taskDueDate').value;
+        const taskAssignedUser = document.getElementById('taskAssignedTo').value;
+        const projectId = project.projectId;
+
+        const projectTasks = await this.client.addTaskToProject(taskName, taskDescription, taskDueDate, taskAssignedUser, projectId, (error) => {
+            errorMessageDisplay.innerText = `Error: ${error.message}`;
+            errorMessageDisplay.classList.remove('hidden');
+        });
+
+        this.dataStore.set('tasks', projectTasks);
+
+        document.getElementById('addTask').innerText = 'Add Task';
+        document.getElementById("add-task-form").reset();
+        this.clientLoaded();
+    }
+
+
+    /**
+     * Method to run when the add task project submit button is pressed. Call the ProjectSyncUpService to add a task to the
+     * project.
+     */
 
     async updateProject(evt) {
         evt.preventDefault();
@@ -207,44 +184,10 @@ class ViewProject extends BindingClass {
         this.clientLoaded();
     }
 
-    /**
-     * Method to run when the add task project submit button is pressed. Call the ProjectSyncUpService to add a task to the
-     * project.
-     */
-
-    async addTask() {
-        const errorMessageDisplay = document.getElementById('error-message');
-        errorMessageDisplay.innerText = ``;
-        errorMessageDisplay.classList.add('hidden');
-
-        const project = this.dataStore.get('project');
-        if (project == null) {
-            return;
-        }
-
-        document.getElementById('addTask').innerText = 'Adding...';
-
-        const taskName = document.getElementById('taskName').value;
-        const taskDescription = document.getElementById('taskDescription').value;
-        const taskDueDate = document.getElementById('taskDueDate').value;
-        const taskAssignedUser = document.getElementById('taskAssignedTo').value;
-        const projectId = project.projectId;
-
-        const projectTasks = await this.client.addTaskToProject(taskName, taskDescription, taskDueDate, taskAssignedUser, projectId, (error) => {
-            errorMessageDisplay.innerText = `Error: ${error.message}`;
-            errorMessageDisplay.classList.remove('hidden');
-        });
-
-        this.dataStore.set('tasks', projectTasks);
-
-        document.getElementById('addTask').innerText = 'Add Task';
-        document.getElementById("add-task-form").reset();
-        this.clientLoaded();
-    }
 
 
     /**
-     * Method to run when the remove song playlist submit button is pressed. Call the PartyPlaylist to remove a song to the
+     * Method to run when the delete song playlist submit button is pressed. Call the PartyPlaylist to remove a song to the
      * playlist.
      */
     async deleteTask() {
@@ -272,15 +215,14 @@ class ViewProject extends BindingClass {
         this.clientLoaded();
     }
 
-
 }
 
 /**
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const viewProject = new ViewProject();
-    viewProject.mount();
+    const editProject = new EditProject();
+    editProject.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
