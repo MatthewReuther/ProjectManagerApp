@@ -43,7 +43,7 @@ class Index extends BindingClass {
 
         // Show or hide the dashboard button based on the user's login status.
         if (isLoggedIn) {
-            dashboardButton.style.display = 'block';
+
             window.location.href = 'dashboard.html'; // Replace 'dashboard.html' with the URL of your destination page
         } else {
             dashboardButton.style.display = 'none';
