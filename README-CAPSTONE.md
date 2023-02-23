@@ -40,7 +40,7 @@ In this scenario you will deploy both the backend and the frontend to AWS again 
       ```shell
       aws s3 cp \
         build \
-        s3://__BUCKET_FROM_ABOVE__/static/ \
+        s3://nss-s3-c01-capstone-matthew.reuther/static/ \
         --recursive
       ```
 4. Checkout your application.

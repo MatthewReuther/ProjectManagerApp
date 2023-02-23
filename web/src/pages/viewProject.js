@@ -9,7 +9,7 @@ import DataStore from '../util/DataStore';
 class ViewProject extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addCreatedProjectsToPage', 'addTasksToPage', 'addTask', 'updateProject', 'deleteTask'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectToPage', 'addTasksToPage', 'addTask', 'updateProject', 'deleteTask'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectToPage);
         this.dataStore.addChangeListener(this.addTasksToPage);
@@ -33,10 +33,6 @@ class ViewProject extends BindingClass {
         console.log("Project Task List:", projectTasks);
         this.dataStore.set('tasks', projectTasks);
 
-        document.getElementById('createdProjectsList').innerText = "(loading your projects...)";
-        const createdProjectsList = await this.client.getCreatedProjects();
-        this.dataStore.set('projects', createdProjectsList);
-        this.addCreatedProjectsToPage();
     }
 
     /**
@@ -44,7 +40,6 @@ class ViewProject extends BindingClass {
      */
     mount() {
         document.getElementById('addTask').addEventListener('click', this.addTask);
-        document.getElementById('deleteTask').addEventListener('click', this.deleteTask);
         document.getElementById('updateProject').addEventListener('click', this.updateProject);
         this.header.addHeaderToPage();
         this.client = new ProjectSyncUpClient();
@@ -63,61 +58,10 @@ class ViewProject extends BindingClass {
         document.getElementById('projectName').innerText = project.projectName;
         document.getElementById('projectDescription').innerText = project.projectDescription;
         document.getElementById('projectStatus').innerText = project.projectStatus;
-        document.getElementById('projectOwner').innerText = project.createdById;
 
-    }
-
-
-    /**
-     * When the project is updated in the datastore, update the project metadata on the page.
-     */
-    addCreatedProjectsToPage() {
-        const projects = this.dataStore.get('projects');
-
-        console.log()
-        if (projects == null) {
-            return;
-        }
-
-            let projectHtml = '';
-            let project;
-            for (project of projects) {
-                projectHtml += `
-
-                    <div class="project">
-                        <h2>${project.projectName}</h2>
-                        <p>${project.projectDescription}</p>
-                    </div>
-                `;
-                 document.getElementById('createdProjectsList').innerHTML = projectHtml;
-            }
-
-    }
-
-    /**
-     * When the tasks are updated in the datastore, update the list of tasks on the page.
-     */
-    addTasksToPage() {
-        const tasks = this.dataStore.get('tasks')
-
-        if (tasks == null) {
-            return;
-        }
-
-        let taskHtml = '';
-        let task;
-        for (task of tasks) {
-            taskHtml += `
-                <li class="task">
-                    <span class="title">${task.taskName}</span>
-                    <span class="description">${task.taskDescription}</span>
-                    <span class="dueDate">${task.taskDueDate}</span>
-                    <span class="assignedTo">${task.taskAssignedUser}</span>
-                </li>
-            `;
-        }
-
-        document.getElementById('projectTasksList').innerHTML = taskHtml;
+        document.getElementById('newProjectName').value = project.projectName;
+        document.getElementById('newProjectDescription').value = project.projectDescription;
+        document.getElementById('newProjectStatus').value = project.projectStatus;
     }
 
 
@@ -213,18 +157,90 @@ class ViewProject extends BindingClass {
         // Update project object in data store with the new project data.
         this.dataStore.set('project', updatedProject);
 
+        // Update the page with the new project data
+        document.getElementById('newProjectName').value = updatedProject.projectName;
+        document.getElementById('newProjectDescription').value = updatedProject.projectDescription;
+        document.getElementById('newProjectStatus').value = updatedProject.projectStatus;
+
         document.getElementById('updateProject').innerText = 'Update Project';
         document.getElementById("update-project-form").reset();
         this.clientLoaded();
     }
 
+    /**
+     * When the tasks are updated in the datastore, update the list of tasks on the page.
+     */
+    addTasksToPage() {
+        const tasks = this.dataStore.get('tasks')
+
+        if (tasks == null) {
+            return;
+        }
+
+        let taskHtml = '';
+        let task;
+        for (task of tasks) {
+            taskHtml += `
+                <div class="task">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="title">
+                                <h5>Task Title:</h5>
+                                <p>${task.taskName}<p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="dueDate">
+                                <h5>Date Due:</h5>
+                                <p>${task.taskDueDate}<p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="assignedTo">
+                                <h5>Assigned:</h5>
+                                <p>${task.taskAssignedUser}<p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="description">
+                                <h5>Description:</h5>
+                                <p>${task.taskDescription}<p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="delete-task btn btn-primary" id="delete-task-${task.taskId}">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.getElementById('projectTasksList').innerHTML = taskHtml;
+
+        // Add dynamic event listener to each delete button
+        const deleteButtons = document.querySelectorAll('.delete-task');
+        deleteButtons.forEach((button) => {
+            const taskId = button.id.split('-')[2];
+            button.addEventListener('click', () => {
+                this.deleteTask(taskId);
+            });
+        });
+    }
 
 
     /**
      * Method to run when the remove song playlist submit button is pressed. Call the PartyPlaylist to remove a song to the
      * playlist.
      */
-    async deleteTask() {
+    async deleteTask(taskId) {
         const errorMessageDisplay = document.getElementById('error-message');
         errorMessageDisplay.innerText = ``;
         errorMessageDisplay.classList.add('hidden');
@@ -234,19 +250,16 @@ class ViewProject extends BindingClass {
             return;
         }
 
-        document.getElementById('deleteTask').innerText = 'Deleting...';
-        const taskId = document.getElementById('taskId').value;
-        const projectId = project.projectId;
+        const confirmDelete = confirm("Are you sure you want to delete this task?");
+        if (confirmDelete) {
+            const projectTasks = await this.client.deleteTaskFromProject(taskId, project.projectId, (error) => {
+                errorMessageDisplay.innerText = `Error: ${error.message}`;
+                errorMessageDisplay.classList.remove('hidden');
+            });
 
-        const projectTasks = await this.client.deleteTaskFromProject(taskId, projectId, (error) => {
-            errorMessageDisplay.innerText = `Error: ${error.message}`;
-            errorMessageDisplay.classList.remove('hidden');
-        });
-        this.dataStore.set('tasks', projectTasks);
-
-        document.getElementById('deleteTask').innerText = 'Delete Task';
-        document.getElementById("add-task-form").reset();
-        this.clientLoaded();
+            this.dataStore.set('tasks', projectTasks);
+            this.clientLoaded();
+        }
     }
 
 }
