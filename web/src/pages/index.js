@@ -1,4 +1,5 @@
 import ProjectSyncUpClient from '../api/projectSyncUpClient';
+import Authenticator from '../api/authenticator';
 import Header from '../components/header';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
@@ -23,12 +24,32 @@ class Index extends BindingClass {
      * Add the header to the page and load the ProjectSyncUpClient.
      */
     mount() {
-        // Wire up the form's 'submit' event and the button's 'click' event to the search method.
-
+        // Add the header to the page and load the ProjectSyncUpClient.
         this.header.addHeaderToPage();
         this.client = new ProjectSyncUpClient();
 
+        // Get a reference to the dashboard button.
+
+        // Check if the user is logged in.
+        this.loginChecker();
     }
+
+    async loginChecker() {
+        const dashboardButton = document.getElementById('dashboard-button');
+
+        // Check if the user is logged in.
+        const authenticator = new Authenticator();
+        const isLoggedIn = await authenticator.isUserLoggedIn();
+
+        // Show or hide the dashboard button based on the user's login status.
+        if (isLoggedIn) {
+            dashboardButton.style.display = 'block';
+        } else {
+            dashboardButton.style.display = 'none';
+        }
+    }
+
+
 
 }
 

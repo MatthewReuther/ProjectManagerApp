@@ -62,6 +62,7 @@ class ViewProject extends BindingClass {
                     <div class="project">
                         <h2>${project.projectName}</h2>
                         <p>${project.projectDescription}</p>
+                        <a href="/project.html?projectId=${project.projectId}">View Project</a>
                     </div>
                 `;
                  document.getElementById('createdProjectsList').innerHTML = projectHtml;

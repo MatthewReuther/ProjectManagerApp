@@ -40,7 +40,6 @@ class ViewProject extends BindingClass {
      */
     mount() {
         document.getElementById('addTask').addEventListener('click', this.addTask);
-//        document.getElementById('deleteTask').addEventListener('click', this.deleteTask);
         document.getElementById('updateProject').addEventListener('click', this.updateProject);
         this.header.addHeaderToPage();
         this.client = new ProjectSyncUpClient();
@@ -154,6 +153,11 @@ class ViewProject extends BindingClass {
 
         // Update project object in data store with the new project data.
         this.dataStore.set('project', updatedProject);
+
+        // Update the page with the new project data
+//        document.getElementById('newProjectName').innerText = updatedProject.projectName;
+//        document.getElementById('newProjectDescription').innerText = updatedProject.projectDescription;
+//        document.getElementById('newProjectStatus').innerText = updatedProject.projectStatus;
 
         document.getElementById('updateProject').innerText = 'Update Project';
         document.getElementById("update-project-form").reset();
