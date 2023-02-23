@@ -9,7 +9,7 @@ export default class Header extends BindingClass {
         super();
 
         const methodsToBind = [
-            'addHeaderToPage', 'createSiteTitle', 'createUserInfoForHeader',
+            'addHeaderToPage', 'createUserInfoForHeader',
             'createLoginButton', 'createLoginButton', 'createLogoutButton'
         ];
         this.bindClassMethods(methodsToBind, this);
@@ -23,30 +23,29 @@ export default class Header extends BindingClass {
     async addHeaderToPage() {
         const currentUser = await this.client.getIdentity();
 
-        const siteTitle = this.createSiteTitle();
         const userInfo = this.createUserInfoForHeader(currentUser);
 
-        const header = document.getElementById('header');
-        header.appendChild(siteTitle);
-        header.appendChild(userInfo);
+        const login = document.getElementById('userLogin');
+//        header.appendChild(siteTitle);
+        login.appendChild(userInfo);
     }
 
-    createSiteTitle() {
-        const homeButton = document.createElement('a');
-        homeButton.classList.add('header_home');
-        homeButton.href = 'index.html';
-        homeButton.innerText = 'Homepage';
-
-        const siteTitle = document.createElement('div');
-        siteTitle.classList.add('site-title');
-        siteTitle.appendChild(homeButton);
-
-        return siteTitle;
-    }
+//    createSiteTitle() {
+//        const homeButton = document.createElement('a');
+//        homeButton.classList.add('header_home');
+//        homeButton.href = 'index.html';
+//        homeButton.innerText = 'Homepage';
+//
+//        const siteTitle = document.createElement('div');
+//        siteTitle.classList.add('site-title');
+//        siteTitle.appendChild(homeButton);
+//
+//        return siteTitle;
+//    }
 
     createUserInfoForHeader(currentUser) {
-        const userInfo = document.createElement('div');
-        userInfo.classList.add('user');
+        const userInfo = document.createElement('a');
+        userInfo.classList.add('user', 'nav-link');
 
         const childContent = currentUser
             ? this.createLogoutButton(currentUser)
