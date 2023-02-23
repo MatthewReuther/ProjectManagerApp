@@ -93,14 +93,19 @@ class ViewProjects extends BindingClass {
 
         let projectHtml = '';
         let project;
+        let counter = 0;
         for (project of projects) {
+            if (counter >= 5) {
+                break;
+            }
             projectHtml += `
                 <div class="project">
                     <h2>${project.projectName}</h2>
                     <p>${project.projectDescription}</p>
-                    <a href="/project.html?projectId=${project.projectId}">${project.projectId}</a>
+                    <a href="/project.html?projectId=${project.projectId}">View Project</a>
                 </div>
             `;
+            counter++;
         }
         document.getElementById('createdProjectsList').innerHTML = projectHtml;
 
