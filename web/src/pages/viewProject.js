@@ -55,9 +55,9 @@ class ViewProject extends BindingClass {
             return;
         }
 
-        document.getElementById('projectName').innerText = project.projectName;
-        document.getElementById('projectDescription').innerText = project.projectDescription;
-        document.getElementById('projectStatus').innerText = project.projectStatus;
+        document.getElementById('projectName').value = project.projectName;
+        document.getElementById('projectDescription').value = project.projectDescription;
+        document.getElementById('projectStatus').value = project.projectStatus;
 
     }
 
@@ -116,9 +116,9 @@ class ViewProject extends BindingClass {
             return;
         }
 
-        const projectNameInput = document.getElementById('newProjectName');
-        const projectDescriptionInput = document.getElementById('newProjectDescription');
-        const projectStatusInput = document.getElementById('newProjectStatus');
+        const projectNameInput = document.getElementById('projectName');
+        const projectDescriptionInput = document.getElementById('projectDescription');
+        const projectStatusInput = document.getElementById('projectStatus');
 
         const projectId = project.projectId;
 
@@ -155,12 +155,12 @@ class ViewProject extends BindingClass {
         this.dataStore.set('project', updatedProject);
 
         // Update the page with the new project data
-        document.getElementById('newProjectName').value = updatedProject.projectName;
-        document.getElementById('newProjectDescription').value = updatedProject.projectDescription;
-        document.getElementById('newProjectStatus').value = updatedProject.projectStatus;
+        document.getElementById('projectName').value = updatedProject.projectName;
+        document.getElementById('projectDescription').value = updatedProject.projectDescription;
+        document.getElementById('projectStatus').value = updatedProject.projectStatus;
 
         document.getElementById('updateProject').innerText = 'Update Project';
-        document.getElementById("update-project-form").reset();
+//        document.getElementById("update-project-form").reset();
         this.clientLoaded();
     }
 
