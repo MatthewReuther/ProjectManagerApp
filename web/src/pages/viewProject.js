@@ -155,14 +155,15 @@ class ViewProject extends BindingClass {
         this.dataStore.set('project', updatedProject);
 
         // Update the page with the new project data
-//        document.getElementById('newProjectName').innerText = updatedProject.projectName;
-//        document.getElementById('newProjectDescription').innerText = updatedProject.projectDescription;
-//        document.getElementById('newProjectStatus').innerText = updatedProject.projectStatus;
+        document.getElementById('newProjectName').value = updatedProject.projectName;
+        document.getElementById('newProjectDescription').value = updatedProject.projectDescription;
+        document.getElementById('newProjectStatus').value = updatedProject.projectStatus;
 
         document.getElementById('updateProject').innerText = 'Update Project';
         document.getElementById("update-project-form").reset();
         this.clientLoaded();
     }
+
 
     /**
      * When the tasks are updated in the datastore, update the list of tasks on the page.
