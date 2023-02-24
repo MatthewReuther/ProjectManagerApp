@@ -46,7 +46,7 @@ class Index extends BindingClass {
 
             window.location.href = 'dashboard.html'; // Replace 'dashboard.html' with the URL of your destination page
         } else {
-            dashboardButton.style.display = 'none';
+
         }
     }
 
