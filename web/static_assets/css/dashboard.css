@@ -1,0 +1,162 @@
+
+.user.btn-primary .button {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+/* Body */
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #233142;
+    margin: 0;
+}
+
+/* Header */
+.block-header {
+    background-color: #ffffff;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+
+.navbar-nav .nav-link,
+ .navbar-brand {
+    color: #233142 !important;
+}
+
+.nav-item {
+    margin-right: 2rem;
+}
+
+.card-intro {
+
+    padding: 60px 0;
+
+}
+
+.card-intro .card-title {
+    font-size: 50px;
+    margin-bottom: 30px !important;
+}
+
+.card-intro .col-md-8 >  p {
+    font-size: 20px !important;
+
+}
+
+/* Content */
+.card {
+    margin-bottom: 2rem;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+
+
+
+
+.container.main-container {
+     margin-top: 8rem!important;
+
+}
+
+.view-projects-btn {
+    margin-top: 20px;
+}
+
+.btn.btn-primary {
+    background-color: #f95959 !important;
+    border: none !important;
+}
+
+.card-row-shotout {
+    margin-top: 2rem!important;
+}
+
+
+
+ .card-body {
+   padding: 30px 30px 40px 30px;
+}
+
+.card-row-shotout .card-body p {
+    font-size: 1.2rem;
+}
+
+.card-row-shotout .card .card-header {
+    padding-bottom: 20px;
+}
+
+.card-header {
+    text-align: left;
+    font-size: 1.2rem;
+    color: #e3e3e3;
+    font-weight: 500;
+    background-color: #455d7a;
+
+}
+
+.createdProjectsList .project {
+
+    padding: 20px 0px 20px 0px;
+    border-bottom: 1px solid;
+
+}
+
+.createdProjectsList .project:first-child {
+
+    padding: 0px 0px 20px 0px;
+    border-bottom: 1px solid;
+
+}
+
+.createdProjectsList .project:last-child {
+    padding: 20px 0px 20px 0px;
+    border-bottom: none;
+
+}
+
+.createdProjectsList .project a{
+    color: #233142 !important;
+    text-decoration: none;
+
+}
+
+.card-flex {
+    display: flex;
+    flex-direction: column !important;
+}
+
+.card-body {
+
+    color: #333333;
+
+}
+
+.card-title {
+    font-weight: light;
+
+    margin-bottom: 1rem;
+}
+
+.card-body p {
+    font-size: 16px !important;
+    margin-bottom: .5rem;
+    line-height: 1.5;
+}
+
+.card-row {
+  display: flex !important;;
+  flex-wrap: wrap !important;;
+}
+
+.card-flex {
+    display: flex;
+}
+
+.card {
+  display: flex !important;
+  flex-direction: column !important;;
+}
+
+.flex-center .card-body {
+    display: flex;
+    align-items: center;
+}

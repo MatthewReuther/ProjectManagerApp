@@ -28,7 +28,7 @@ class ViewProject extends BindingClass {
         const project = await this.client.getProject(projectId);
         this.dataStore.set('project', project);
 
-        document.getElementById('projectTasksList').innerText = "(loading tasks...)";
+        document.getElementById('projectTasksList').innerText = "Loading Project Tasks...";
         const projectTasks = await this.client.getProjectTasks(projectId);
         console.log("Project Task List:", projectTasks);
         this.dataStore.set('tasks', projectTasks);
@@ -53,6 +53,11 @@ class ViewProject extends BindingClass {
         const project = this.dataStore.get('project');
         if (project == null) {
             return;
+        }
+
+       if (project.projectStatus == null || project.projectStatus.length === 0) {
+            // Display a message if there are no projects to show
+            project.projectStatus = "Not Started"
         }
 
         document.getElementById('projectName').innerText = project.projectName;
@@ -119,6 +124,10 @@ class ViewProject extends BindingClass {
             return;
         }
 
+        const updateButton = document.getElementById('updateProject');
+        const origButtonText = updateButton.innerText;
+        updateButton.innerText = 'Loading...';
+
         const projectNameInput = document.getElementById('newProjectName');
         const projectDescriptionInput = document.getElementById('newProjectDescription');
         const projectStatusInput = document.getElementById('newProjectStatus');
@@ -147,6 +156,7 @@ class ViewProject extends BindingClass {
         }
 
         const updatedProject = await this.client.updateProject(projectId, projectName, projectDescription, projectStatus, (error) => {
+            updateButton.innerText = origButtonText;
             errorMessageDisplay.innerText = `Error: ${error.message}`;
             errorMessageDisplay.classList.remove('hidden');
         });
@@ -241,6 +251,7 @@ class ViewProject extends BindingClass {
      * playlist.
      */
     async deleteTask(taskId) {
+
         const errorMessageDisplay = document.getElementById('error-message');
         errorMessageDisplay.innerText = ``;
         errorMessageDisplay.classList.add('hidden');
@@ -250,9 +261,14 @@ class ViewProject extends BindingClass {
             return;
         }
 
+        const deleteButton = document.getElementById('delete-task-' + taskId);
+        const origButtonText = deleteButton.innerText;
+        deleteButton.innerText = 'Loading...';
+
         const confirmDelete = confirm("Are you sure you want to delete this task?");
         if (confirmDelete) {
             const projectTasks = await this.client.deleteTaskFromProject(taskId, project.projectId, (error) => {
+                deleteButton.innerText = origButtonText;
                 errorMessageDisplay.innerText = `Error: ${error.message}`;
                 errorMessageDisplay.classList.remove('hidden');
             });

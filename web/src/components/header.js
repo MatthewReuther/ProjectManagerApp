@@ -45,7 +45,7 @@ export default class Header extends BindingClass {
 
     createUserInfoForHeader(currentUser) {
         const userInfo = document.createElement('a');
-        userInfo.classList.add('user', 'nav-link');
+        userInfo.classList.add('user', 'btn', 'btn-primary');
 
         const childContent = currentUser
             ? this.createLogoutButton(currentUser)
@@ -55,6 +55,7 @@ export default class Header extends BindingClass {
 
         return userInfo;
     }
+
 
     createLoginButton() {
         return this.createButton('Login', this.client.login);
