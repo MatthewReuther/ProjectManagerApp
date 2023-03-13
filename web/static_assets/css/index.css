@@ -1,7 +1,13 @@
 
-.user.btn-primary .button {
-    color: #ffffff !important;
+.user.btn-primary {
+    color: #fff !important;
     text-decoration: none !important;
+    background-color: #f95959 !important;
+    border-color: #f95959 !important;
+}
+
+.user.btn-primary a {
+    color: #fff !important;
 }
 
 .task,
