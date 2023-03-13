@@ -138,7 +138,7 @@ To stop either the local backend (the `sam local...` command) or local frontend 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-[ProjectSyncUp Demo]()
+[ProjectSyncUp Demo](https://drive.google.com/file/d/1itgVCMwvLUIxIf7khXwxNR4jaTPvPcuJ/view?usp=share_link)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
